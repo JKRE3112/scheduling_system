@@ -1,0 +1,27 @@
+function acctypeCheck($conn, $type) {
+	$typeChecking = typeChecking ($conn, $type);
+	if(empty($username) || empty($pwd)|| empty($type)){	
+	$result = true;
+	}
+	else {
+		$result = false;
+	}
+	return $result;
+}
+
+
+function typeCheck($conn, $type) {
+	if ($typeCheck == 'Head') {
+		header("location: ../head.php");
+		exit();	
+	}
+	else if ($typeCheck == 'Faculty') {
+		header("location: ../faculty.php");
+		exit();
+	}
+}
+
+if (acctypeCheck($type) == false) {
+		header("location: ../login.php?wrong=accounttype");
+		exit();
+	}

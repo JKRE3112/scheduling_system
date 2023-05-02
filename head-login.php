@@ -27,7 +27,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
             <li class="nav-item">
-              <a class="nav-link" href="main.php" style="color:#18211D">HOME</a>  
+              <a class="nav-link" href="main.php" >HOME</a>  
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.php">ABOUT</a>
@@ -36,7 +36,7 @@
               <a class="nav-link" href="superuser-login.php">SUPERUSER</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="head-login.php">LOGIN</a>
+              <a class="nav-link active" href="head-login.php" style="color:#18211D">LOGIN</a>
             </li>
         </div>
       </div>

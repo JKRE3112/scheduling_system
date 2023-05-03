@@ -35,7 +35,7 @@ $result1 = mysqli_query($connect, $query);
 <head>
 <style>
 body {
-	background-color: wheat;
+	background-color: whitesmoke;
 }
 </style>
 </head>
@@ -134,7 +134,7 @@ while($row2 = mysqli_fetch_array($result2))
         
 		<!-- Method Two -->
         <div class="form-group">
-			<label class="col-md-4 control-label" for="subject">Subject</label> 
+			<label class="col-md-4 control-label" for="subject">Subjects</label> 
 			<div class="col-md-12">
 		<select  id="subject" name="subject"  class="form-control">
             <?php echo $options;?>

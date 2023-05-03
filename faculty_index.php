@@ -33,7 +33,7 @@ while($row2 = mysqli_fetch_array($result2))
 <head>
 <style>
 body {
-	background-color: wheat;
+	background-color: white;
 }
 </style>
 </head>

@@ -27,13 +27,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
             <li class="nav-item">
-              <a class="nav-link" href="main.php" style="color:#18211D">HOME</a>  
+              <a class="nav-link" href="main.php" >HOME</a>  
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.php">ABOUT</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="superuser-login.php">SUPERUSER</a>
+              <a class="nav-link active" href="superuser-login.php" style="color:#18211D">SUPERUSER</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="head-login.php">LOGIN</a>
@@ -68,9 +68,9 @@
           <section class="login-form">
 			<div class="signup-form-form text-center">
 			<div class="desc">
-			<p> ENTER THE SECRET PASSWORD TO CONTINUE:</p></div>
+			<p> ENTER THE SUPERUSER PASSWORD TO CONTINUE:</p></div>
 			<form action="includes/super-login-inc.php" method="post">
-				<input type="password" name="pwd" placeholder="Enter the secret password..." class="form-control"> <br><br>
+				<input type="password" name="pwd" placeholder="Enter the password..." class="form-control"> <br><br>
 				<button type="submit" name="submit" class="btn btn-outline-danger">ENTER</button>
 			</form>
 		</div>

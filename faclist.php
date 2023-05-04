@@ -1,6 +1,4 @@
-<?php
-   include_once("header.php");
-?>
+
 <html>
 <head>
 <style>
@@ -23,7 +21,6 @@ td {
 }
 
 
-</body>
 </style>
 </head>
 <body><br>

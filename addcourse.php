@@ -78,7 +78,7 @@ body {
   <div class="row">
     <div class="col-lg-6">
 		<div class="jumbotron">
-		Here you will Assign Courses that are available in university
+		Here you will assign Courses that are available in this department.
 		<form class="form-horizontal" method= "post" action = "add.cor.php">
 			<fieldset>
 

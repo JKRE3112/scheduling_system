@@ -26,7 +26,7 @@ if (isset($_POST['insert'])) {
 	$existing_Result = mysqli_query($con, $existing_Query);
 	if(0 < mysqli_num_rows ($existing_Result)){
 		echo '<script type="text/javascript">
-                      alert("your entry is already in the tale/list. please choose another schedule.");
+                      alert("Your entry is already in the table/list. Proceed on next step.");
                          window.location="home.php";
                            </script>';
 	} else {

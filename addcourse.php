@@ -7,13 +7,15 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
     <!-- Bootstrap CSS -->
+    <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
-  <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="styles.css">    
+  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo&family=Lato&display=swap" rel="stylesheet">
@@ -104,10 +106,10 @@ body {
 				</div>
 				
 				<!-- Button -->
-			<div class="form-group"  align="right" >
+			<div class="form-group"  align="left" >
 			  <label class="col-md-4 control-label" for="submit"></label>
 			  <div class="col-md-5">
-				<button id="submit" name="submit" class="btn btn-success">Add Course</button>
+				<button id="submit" name="submit" class="btn btn-warning">Add Course</button>
 			  </div>
 			</div>
 

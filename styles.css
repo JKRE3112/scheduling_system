@@ -6,10 +6,6 @@
     src: url("fonts/LEMONMILK-Light.otf");
     font-family:lemon milk light;
   }
-  @font-face {
-    src: url("fonts/CaviarDreams.ttf");
-    font-family:caviar dreams;
-  }
 *{
     margin: 0;
     padding: 0;

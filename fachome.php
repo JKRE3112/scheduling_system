@@ -70,22 +70,6 @@ $result1 = mysqli_query($connect, $query);
             <li class="nav-item">
               <a class="nav-link" href="main.php">LOGOUT</a>
             </li>
-
-            <div class="dropdown">
-	          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-		            Other Options
-	          </button>
-	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-         			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
-          			<a class="dropdown-item" href="addfaculty.php">Add Faculty</a>
-          			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-         		 	<a class="dropdown-item" href="addroom.php">Room</a>
-          			<a class="dropdown-item" href="addtime.php">Time</a>
-          			<a class="dropdown-item" href="list.php">List</a>
-          			<a class="dropdown-item" href="tablelist.php">Tables</a>
-          		<a class="dropdown-item" href="Testview.php">Viewing</a>
-          </ul>
-        </div>
                 
       </li>
     </ul>

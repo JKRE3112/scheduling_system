@@ -28,17 +28,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
-            <li class="nav-item">
-              <a class="nav-link" href="main.php">HOME</a>  
+          <li class="nav-item">
+              <a class="nav-link" href="main.php" >HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="about.php" style="color:#18211D" >ABOUT</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="superuser-login.php">SUPERUSER</a>
+              <a class="nav-link" href="superuser-login.php" >SUPERUSER</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="head-login.php">LOGIN</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="about.php"  style="color:#18211D">ABOUT</a>
             </li>
         </div>
       </div>

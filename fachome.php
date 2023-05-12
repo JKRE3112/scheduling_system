@@ -55,20 +55,23 @@ $result1 = mysqli_query($connect, $query);
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="main.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="faculty.php"><h2>CS Scheduling</h2></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
             <li class="nav-item">
-              <a class="nav-link active" href="main.php" style="color:#18211D">HOME</a>  
+              <a class="nav-link active" href="faculty.php" style="color:#18211D">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="home.php">ADD SCHEDULE</a>
+              <a class="nav-link" href="fachome.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="main.php">LOGOUT</a>
+              <a class="nav-link" href="includes/Faculty.display.php">SCHEDULE LOGS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="includes/logout.php">LOGOUT</a>
             </li>
                 
       </li>
@@ -92,7 +95,7 @@ body {
     <div class="col-lg-11">
 		<div class="jumbotron ">
 		
-		<form class="form-horizontal" method= "post" action = "add.home.php">
+		<form class="form-horizontal" method= "post" action = "add.fachome.php">
 			<fieldset>
 
 			<!-- Form Name -->
@@ -561,7 +564,7 @@ while($row2 = mysqli_fetch_array($result2))
 				<div class="form-group align-right" >
 				  <label class="col-md-4 control-label" for="submit"></label>
 				  <div class="col-md-12">
-					<button id="submit" name="insert" class="btn btn-primary"> Set </button>
+					<button id="submit" name="insert" class="btn btn-secondary"> Set </button>
 				  </div>
 				</div>
         

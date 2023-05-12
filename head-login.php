@@ -30,13 +30,13 @@
               <a class="nav-link" href="main.php" >HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.php">ABOUT</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="superuser-login.php">SUPERUSER</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="head-login.php" style="color:#18211D">LOGIN</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.php">ABOUT</a>
             </li>
         </div>
       </div>
@@ -92,19 +92,9 @@
                       <h5>To proceed in scheduling.</h5>
                     </div>&nbsp;
 
-                      <!-- <p>
-                      <a href="index.html">
-                      <buttons class="btn px-5 py-2" style="background-color: #AE0F36; color: #D4D5C4; font-family: 'Outfit', sans-serif;">Home</buttons>
-                      </a>
-    
-                      <a href="contact.html">
-                      <buttons class="btn px-5 py-2" style="background-color: #C08F57; color: #d4d5c4; font-family: 'Outfit', sans-serif;">Contact Me</buttons>
-                    </a>
-                    </p> -->
-                   
- 
-                      <!--Facebook-->
-                      <button type="button" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></button>
+                      <a href="main.php" class="btn btn-outline-danger btn-custom">Go Back <span class="bi bi-arrow-left"></span></a>
+
+  
                     </div>
     
 					</div>

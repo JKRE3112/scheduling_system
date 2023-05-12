@@ -109,10 +109,12 @@
                    
  
                       <!--Facebook-->
-                      <button type="button" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></button>
-                    </div>
-    
-					</div>
+                      
+                    
+                    <a href="main.php" class="btn btn-outline-danger">Go Back <span class="bi bi-arrow-left"></span></a>
+  
+
+    			</div>
      
    
       

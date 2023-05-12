@@ -15,11 +15,11 @@ tr {
 }
 td {
     padding-top: 5px;
-  padding-left: 20px; 
-  padding-bottom: 5px;  
-  height: 20px;
+    padding-left: 20px; 
+    padding-bottom: 5px;  
+    height: 20px;
+    text-align: center; /* add this style to center the content */
 }
-
 
 </style>
 </head>

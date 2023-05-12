@@ -42,6 +42,9 @@ if (!isLoggedIn()) {
               <a class="nav-link" href="fachome.php">ADD SCHEDULE</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="includes/Faculty.display.php">SCHEDULE LOGS</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
             </li>
           

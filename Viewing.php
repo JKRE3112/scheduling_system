@@ -52,5 +52,4 @@ body {
   $path = $_SERVER['DOCUMENT_ROOT'];
    $path .= "footer.php";
    include_once("footer.php");
-   include_once("navbar.php");
 ?>

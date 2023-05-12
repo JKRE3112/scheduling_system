@@ -31,17 +31,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
-            <li class="nav-item">
-              <a class="nav-link" href="main.php" >HOME</a>  
+          <li class="nav-item">
+              <a class="nav-link" href="main.php">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.php">ABOUT</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="superuser-login.php" style="color:#18211D">SUPERUSER</a>
+              <a class="nav-link active" href="superuser-login.php"  style="color:#18211D">SUPERUSER</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="head-login.php">LOGIN</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.php">ABOUT</a>
             </li>
         </div>
       </div>
@@ -64,7 +64,9 @@
                      
                    
  
-                      <button type="button" class="btn btn-outline-danger btn-custom">Go Back <span class="bi bi-arrow-left"></span></button>
+                    <a href="main.php" class="btn btn-outline-danger btn-custom">Go Back <span class="bi bi-arrow-left"></span></a>
+
+
                     </div>
 
                     

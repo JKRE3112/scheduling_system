@@ -24,20 +24,26 @@
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="main.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="head.php"><h2>CS Scheduling</h2></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
             <li class="nav-item">
-              <a class="nav-link active" href="main.php" style="color:#18211D">HOME</a>  
+              <a class="nav-link" href="head.php">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="home.php">ADD SCHEDULE</a>
+              <a class="nav-link" href="home.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="main.php">LOGOUT</a>
+              <a class="nav-link active" href="Testview.php"  style="color:#18211D">VIEWING</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="list.php">LIST</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="includes/logout.php">LOGOUT</a>
             </li>
 
             <div class="dropdown">
@@ -48,11 +54,8 @@
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addfaculty.php">Add Faculty</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-         		 	<a class="dropdown-item" href="addroom.php">Room</a>
-          			<a class="dropdown-item" href="addtime.php">Time</a>
-          			<a class="dropdown-item" href="list.php">List</a>
-          			<a class="dropdown-item" href="tablelist.php">Tables</a>
-          		<a class="dropdown-item" href="Testview.php">Viewing</a>
+         		 	<a class="dropdown-item" href="addroom.php">Add Room</a>
+          			<a class="dropdown-item" href="addtime.php">Add Time</a>
           </ul>
         </div>
                 
@@ -63,7 +66,6 @@
         </div>
       </div>
     </nav>
-
 <style>
    
 body {

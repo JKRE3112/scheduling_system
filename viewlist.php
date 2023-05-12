@@ -26,22 +26,23 @@
                             <tr>
                                 <th>Faculty</th>
                                 <th>Designation</th>
-                                <th>Action</th>
                                 <th>Plot</th>
+                                <th>Action</th>
                             </tr>";
                         while($row = mysqli_fetch_array($result))
                         {
                         echo "<tr>";
                         echo "<td>" . $row['faculty_name'] . "</td>";
                         echo "<td>" . $row['designation'] . "</td>";
-                        echo "<td><form class='form-horizontal' method='post' action='viewlist.php'>
-                        <input name='id' type='hidden' value='".$row['faculty_id']."';>
-                        <input type='submit' class='btn btn-danger' name='delete' value='Delete'>
-                        </form></td>";
                         echo "<td><form class='form-horizontal' method='plot' action='Viewing.php'>
                         <input name='id' type='hidden' value='".$row['faculty_id']."';>
-                        <input type='submit' class='btn btn-success' name='plot' value='Plot'>
+                        <input type='submit' class='btn btn-dark' name='plot' value='Plot'>
                         </form></td>";
+                        echo "<td><form class='form-horizontal' method='post' action='viewlist.php'>
+                        <input name='id' type='hidden' value='".$row['faculty_id']."';>
+                        <input type='submit' class='btn btn-secondary' name='delete' value='Delete'>
+                        </form></td>";
+                        
                         echo "</tr>";
                         }
                         
@@ -93,8 +94,6 @@ if(isset($_POST['id']))
 
 <div align="center">
 <br>
-<a href="addfaculty.php"><input type='submit' class='btn btn-success' name='delete' value='New'></a>
-<a href="Index.php"><input type='submit' class='btn btn-primary' name='delete' value='Log-out'></a>
 </div>
 </div>
 	</body>

@@ -55,8 +55,6 @@ td {
                         echo "<td>" . $row['course_code'] . "</td>";
                         echo "<td>" . $row['course_name'] . "</td>";
                         echo "<td><form class='form-horizontal' method='post' action='corlist.php'>
-                        // remove type value and set it to ''
-                        <input name='course_id' type='' value='".$row['course_id']."';>
                         <input type='submit' class='btn btn-danger' name='delete' value='Delete'>
                         </form></td>";
                         echo "</tr>";

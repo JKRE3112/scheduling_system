@@ -3,7 +3,7 @@
 $serverName = "localhost";
 $dBUsername = "root";
 $dBPassword = "";
-$dBName = "records";
+$dBName = "insertion";
 
 $conn = mysqli_connect($serverName, $dBUsername, $dBPassword, $dBName);
 if (!$conn) {

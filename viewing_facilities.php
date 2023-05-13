@@ -37,7 +37,7 @@
               <a class="nav-link" href="home.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="Testview.php"  style="color:#18211D">VIEWING</a>
+              <a class="nav-link active" href="viewing_facilities.php"  style="color:#18211D">VIEWING</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="list.php">LIST</a>

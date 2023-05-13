@@ -64,7 +64,7 @@
 
 </head>
 <body><br>
-<div align="center">
+<div align ="center">
 			<fieldset>
             <legend>Schedule</legend>
 <body>
@@ -94,7 +94,7 @@
                         while($row = mysqli_fetch_array($result))
                         {
                         echo "<tr>";
-                        echo "<td>" . $row['faculty'] . "</td>";
+                       
 						echo "<td>" . $row['course'] . "</td>";
                         echo "<td>" . $row['subject'] . "</td>";
 						echo "<td>" . $row['room'] . "</td>";

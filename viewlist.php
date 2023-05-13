@@ -16,6 +16,7 @@
                $username   = "root"; 
                $password   = "";
                $database   = "insertion"; 
+               
 			   
                // select database
 			   $conn = mysqli_connect($host,$username,$password,$database) or die(mysqli_error()); 
@@ -26,7 +27,7 @@
                             <tr>
                                 <th>Faculty</th>
                                 <th>Designation</th>
-                                <th>Plot</th>
+                                <th>Options</th>
                                 <th>Action</th>
                             </tr>";
                         while($row = mysqli_fetch_array($result))
@@ -36,7 +37,7 @@
                         echo "<td>" . $row['designation'] . "</td>";
                         echo "<td><form class='form-horizontal' method='plot' action='Viewing.php'>
                         <input name='id' type='hidden' value='".$row['faculty_id']."';>
-                        <input type='submit' class='btn btn-dark' name='plot' value='Plot'>
+                        <input type='submit' class='btn btn-dark' name='plot' value='plot'>
                         </form></td>";
                         echo "<td><form class='form-horizontal' method='post' action='viewlist.php'>
                         <input name='id' type='hidden' value='".$row['faculty_id']."';>

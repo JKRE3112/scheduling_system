@@ -72,10 +72,10 @@
 <br><div class="container">
 	
   <div align="center" class="row">
-    <div align="center" class="col-lg-6">
+    <div align="center" class="col-lg-10">
 		<div class="jumbotron" align="center">
-		Please select a button for your purpose of visit.<br>
-								Thank you!
+		<p class="fs-2"> Please select a button for your purpose of visit.<br>
+								Thank you!</p>
 		<form class="form-horizontal" method= "post" action = "View.table.php">
 			<fieldset>
 			<div class="form-group"  align="center" >

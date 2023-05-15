@@ -87,6 +87,9 @@ while ($row2 = mysqli_fetch_array($result2)) {
 </head>
 <body>
     <!-- Method One -->
+    <div class="container mt-3">
+    <div class="row">
+    <div class="col-lg-11">
     <div class="form-group">
         <label class="col-md-4 control-label" for="start_time">Start time</label>
         <div class="col-md-12">
@@ -123,5 +126,8 @@ while ($row2 = mysqli_fetch_array($result2)) {
             <button id="submit" name="insert" class="btn btn-secondary" href="third_page.php">Schedule</button>
         </div>
     </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

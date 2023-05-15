@@ -77,6 +77,9 @@ while ($row2 = mysqli_fetch_array($result2)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<div class="container mt-3">
+    <div class="row">
+    <div class="col-lg-11">
     <!-- Method One -->
     <div class="form-group">
         <label class="col-md-4 control-label" for="year_level">Year Level</label>
@@ -139,6 +142,9 @@ while ($row2 = mysqli_fetch_array($result2)) {
             <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
         </div>
     </div>
+</div>
+</div>
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {

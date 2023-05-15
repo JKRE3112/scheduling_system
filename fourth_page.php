@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">   
     <title>Main</title>
   </head>
-  <body">
+  <body style="background-image: url(images/head2.svg);">
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
@@ -33,7 +33,7 @@
               <a class="nav-link active" href="faculty.php" style="color:#18211D">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="fachome.php">SCHEDULE</a>
+              <a class="nav-link" href="first_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/Faculty.display.php">SCHEDULE LOGS</a>

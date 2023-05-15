@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">   
     <title>Main</title>
   </head>
-  <body">
+  <body style="background-image: url(images/head2.svg);">
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
@@ -33,7 +33,7 @@
               <a class="nav-link active" href="faculty.php" style="color:#18211D">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="fachome.php">SCHEDULE</a>
+              <a class="nav-link" href="first_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/Faculty.display.php">SCHEDULE LOGS</a>
@@ -49,6 +49,7 @@
         </div>
       </div>
     </nav>
+
     <?php
 $hostname = "localhost";
 $username = "root";
@@ -76,16 +77,8 @@ $overloadOptions = "";
 while ($row2 = mysqli_fetch_array($result2)) {
     $overloadOptions .= "<option value='" . $row2[0] . "'>" . $row2[1] . "</option>";
 }
-
-$query = "SELECT * FROM `subject`";
-$result1 = mysqli_query($connect, $query);
-
-$suboptions = "";
-
-while ($row = mysqli_fetch_array($result1)) {
-    $suboptions .= "<option value='" . $row['subject_description'] . "'>" . $row['subject_description'] . "</option>";
-}
 ?>
+
 
 <html>
 <head>
@@ -93,232 +86,42 @@ while ($row = mysqli_fetch_array($result1)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		
-		
-        <!--Method One-->
-        <div class="form-group">
-			<label class="col-md-4 control-label" for="start_time">Start time</label> 
-			<div class="col-md-12">
-		<select  id="start_time" name="start_time" class="form-control">
-		  <?php echo $options;?>
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-			
-
-            <?php endwhile;?>
-
-        </select>
-        
-		</div>		
+    <!-- Method One -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="start_time">Start time</label>
+        <div class="col-md-12">
+            <select id="start_time" name="start_time" class="form-control">
+                <?php echo $startOptions; ?>
+            </select>
+        </div>
     </div>
-    </body>
-</head>
-</html>
 
-<?php
-
-// php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `timer`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `timer`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[2]</option>";
-}
-
-?>
-
-
-
-
-
-        <meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		<!-- Method Two -->
-        <div class="form-group">
-			<label class="col-md-6 control-label" for="end_time">End time</label> 
-			<div class="col-md-12">
-		<select  id="end_time" name="end_time" class="form-control">
-            <?php echo $options;?>
-        </select>
-		</div>
-		</div>
-		
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-
-            <?php endwhile;?>
-
-        </select>
-
-        <?php
-
-        // php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `overload`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `overload`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[1]</option>";
-}
-
- 
-?>
-
-
-
-<html>
-<head>
-</head>
-<body>
-<meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		<!-- Method Two -->
-        <div class="form-group">
-			<label class="col-md-4 control-label" for="overload">Overload</label> 
-			<div class="col-md-12">
-		<select  id="overload" name="overload"  class="form-control">
-            <?php echo $options;?>
-        </select>
-		</div>
-		</div>
-		
-        <!--Method One-->
-        
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-			
-
-            <?php endwhile;?>
-
-        </select>
-
-        <?php
-
-// php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `rooms`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `subject`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[2]</option>";
-}
-
-?>
-
-
-<html>
-<head>
-</head>
-<body>
-
-<!-- Button -->
-<div class="form-group align-right" >
-				  <label class="col-md-4 control-label" for="submit"></label>
-				  <div class="col-md-6">
-					<button id="submit" name="insert" class="btn btn-secondary" href= "third_page.php"> Schedule </button>
-				  </div>
-				</div>
-        
-        
-</fieldset>
-			</form>
-		</div>		
+    <!-- Method Two -->
+    <div class="form-group">
+        <label class="col-md-6 control-label" for="end_time">End time</label>
+        <div class="col-md-12">
+            <select id="end_time" name="end_time" class="form-control">
+                <?php echo $endOptions; ?>
+            </select>
+        </div>
     </div>
-    </body>
-</head>
+
+    <!-- Method Three -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="overload">Overload</label>
+        <div class="col-md-12">
+            <select id="overload" name="overload" class="form-control">
+                <?php echo $overloadOptions; ?>
+            </select>
+        </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group align-right">
+        <label class="col-md-4 control-label" for="submit"></label>
+        <div class="col-md-6">
+            <button id="submit" name="insert" class="btn btn-secondary" href="third_page.php">Schedule</button>
+        </div>
+    </div>
+</body>
 </html>
-
-

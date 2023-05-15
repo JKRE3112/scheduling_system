@@ -101,200 +101,46 @@ while ($row = mysqli_fetch_array($result1)) {
             </select>
         </div>
     </div>
-    </body>
-</head>
-</html>
 
-<?php
-
-// php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `timer`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `timer`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[2]</option>";
-}
-
-?>
-
-
-
-
-
-        <meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		<!-- Method Two -->
-        <div class="form-group">
-			<label class="col-md-6 control-label" for="end_time">End time</label> 
-			<div class="col-md-12">
-		<select  id="end_time" name="end_time" class="form-control">
-            <?php echo $options;?>
-        </select>
-		</div>
-		</div>
-		
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-
-            <?php endwhile;?>
-
-        </select>
-
-        <?php
-
-        // php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `overload`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `overload`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[1]</option>";
-}
-
- 
-?>
-
-
-
-<html>
-<head>
-</head>
-<body>
-<meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		<!-- Method Two -->
-        <div class="form-group">
-			<label class="col-md-4 control-label" for="overload">Overload</label> 
-			<div class="col-md-12">
-		<select  id="overload" name="overload"  class="form-control">
-            <?php echo $options;?>
-        </select>
-		</div>
-		</div>
-		
-        <!--Method One-->
-        
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-			
-
-            <?php endwhile;?>
-
-        </select>
-
-        <?php
-
-// php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `rooms`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `subject`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[2]</option>";
-}
-
-?>
-
-
-<html>
-<head>
-</head>
-<body>
-
-<!-- Button -->
-<div class="form-group align-right" >
-				  <label class="col-md-4 control-label" for="submit"></label>
-				  <div class="col-md-12">
-					<button id="submit" name="insert" class="btn btn-secondary"> ibato sa head  </button>
-				  </div>
-				</div>
-        
-        
-</fieldset>
-			</form>
-		</div>		
+    <div class="form-group">
+        <label class="col-md-6 control-label" for="end_time">End time</label>
+        <div class="col-md-12">
+            <select id="end_time" name="end_time" class="form-control">
+                <?php echo $endOptions; ?>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="overload">Overload</label>
+        <div class="col-md-12">
+            <select id="overload" name="overload" class="form-control">
+                <?php echo $overloadOptions; ?>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="subject"><h3>Preferred Subjects</h3></label>
+        <div class="col-md-12" id="subjectFieldsContainer">
+            <!-- Existing subject field -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="subject1">Subject 1</label>
+                <div class="col-md-12">
+                    <select id="subject1" name="subject1" class="form-control">
+                        <?php echo $suboptions; ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group align-right">
+        <label class="col-md-4 control-label" for="submit"></label>
+        <div class="col-md-12">
+            <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
+            <button id="submit" name="insert" class="btn btn-secondary">ibato sa head</button>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

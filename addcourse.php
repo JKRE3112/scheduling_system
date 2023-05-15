@@ -118,8 +118,3 @@ body {
 		</div>		
     </div>
 
-<?php
-  $path = $_SERVER['DOCUMENT_ROOT'];
-   $path .= "footer.php";
-   include_once("footer.php");
-?>

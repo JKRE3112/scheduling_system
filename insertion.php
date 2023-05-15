@@ -416,7 +416,8 @@ while($row2 = mysqli_fetch_array($result2))
 
 
 
-
+<html>
+<head>
         <meta charset="UTF-8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -463,10 +464,4 @@ while($row2 = mysqli_fetch_array($result2))
 	</div>
     </body>
 	
-
-<?php
-$path = $_SERVER['DOCUMENT_ROOT'];
-   $path .= "footer.php";
-   include_once("footer.php");
-
-?>
+    </html>

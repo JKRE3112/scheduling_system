@@ -79,6 +79,24 @@ while ($row2 = mysqli_fetch_array($result2)) {
 }
 ?>
 
+<?php
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$databaseName = "insertion";
+
+$connect = mysqli_connect($hostname, $username, $password, $databaseName);
+
+$query = "SELECT * FROM `units`";
+$result2 = mysqli_query($connect, $query);
+
+$unitsOptions = "";
+
+while ($row2 = mysqli_fetch_array($result2)) {
+    $unitsOptions .= "<option value='" . $row2[0] . "'>" . $row2[1] . "</option>";
+}
+?>
+
 
 <html>
 <head>
@@ -86,9 +104,21 @@ while ($row2 = mysqli_fetch_array($result2)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <!-- Method One -->
-    <div class="container mt-3">
+
+<!-- Units -->
+<div class="container mt-3">
     <div class="row">
+<div class="form-group">
+        <label class="col-md-4 control-label" for="end_time">Units</label>
+        <div class="col-md-12">
+            <select id="units" name="units" class="form-control">
+                <?php echo $unitsOptions; ?>
+            </select>
+        </div>
+    </div>
+
+    <!-- Method One -->
+
     <div class="col-lg-11">
     <div class="form-group">
         <label class="col-md-4 control-label" for="start_time">Start time</label>

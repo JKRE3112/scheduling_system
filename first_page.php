@@ -63,8 +63,8 @@
                      
                    
  
-                    <a href="second_page.php" class="btn btn-outline-danger btn-custom">Regular (18 units) <span class="bi bi-arrow-right"></span></a>
-                    <a href="third_page.php" class="btn btn-outline-danger btn-custom">Part-time (30 units) <span class="bi bi-arrow-right"></span></a>
+                    <a href="second_page.php" class="btn btn-outline-danger btn-custom">Regular <span class="bi bi-arrow-right"></span></a>
+                    <a href="third_page.php" class="btn btn-outline-danger btn-custom">Part-time <span class="bi bi-arrow-right"></span></a>
                     <a href="fourth_page.php" class="btn btn-outline-danger btn-custom">Head <span class="bi bi-arrow-right"></span></a>
 
 

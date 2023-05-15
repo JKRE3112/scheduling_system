@@ -50,7 +50,7 @@ if (!isLoggedIn()) {
             </li>
 
             <div class="dropdown">
-	          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+	          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="Font-Family: 'Arvo', Serif;">
 		            Other Options
 	          </button>
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

@@ -100,7 +100,32 @@
 					
 				  </div>
 				</div>
-				
+
+        <!--Units-->        
+        <div class="form-group">
+    <label class="col-md-4 control-label" for="subdescription">Units</label>  
+    <div class="col-md-5">
+        <select id="subunit" name="subunit" class="form-control input-md" required="">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+</div>
+
+  <!--Lec or Lab-->
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="subdescription">Units</label>  
+    <div class="col-md-5">
+        <select id="subtype" name="subtype" class="form-control input-md" required="">
+            <option value="1">Lecture</option>
+            <option value="2">Laboratory</option>
+        </select>
+    </div>
+</div>
 				<!-- Button -->
 				<div class="form-group"  align="left">
 				  <label class="col-md-4 control-label" for="submit"></label>
@@ -116,9 +141,3 @@
 
 
 
-
-<?php
-  $path = $_SERVER['DOCUMENT_ROOT'];
-   $path .= "footer.php";
-   include_once("footer.php");
-?>

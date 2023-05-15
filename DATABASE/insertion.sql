@@ -297,8 +297,8 @@ INSERT INTO `subject` (`subject_code`, `subject_description`, `subject_units`, `
 -- Table structure for table `timer`
 --
 
-CREATE TABLE `timer` (
-  `id` int(12) NOT NULL,
+CREATE TABLE IF NOT EXISTS `timer` (
+`id` int(11) NOT NULL,
   `start_time` varchar(250) NOT NULL,
   `end_time` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -308,65 +308,17 @@ CREATE TABLE `timer` (
 --
 
 INSERT INTO `timer` (`id`, `start_time`, `end_time`) VALUES
-(1, '6:30 am', '9:00 am'),
-(2, '7:30 am', '10:30 am'),
-(3, '9:20 am', '1:40 pm'),
-(4, '10:00 am', '12:00 pm'),
-(5, '8:00 am', '2:00 pm'),
-(6, '1:00 pm', '5:30 pm'),
-(7, '10:30 am', '3:00 pm'),
-(8, '2:00 pm', '5:00 pm'),
-(9, '3:00 pm', '6:00 pm'),
-(10, '5:30 pm', '7:30 pm'),
-(11, '6:00 pm', '7:00 pm'),
-(12, '7:00 pm', '7:00 am');
-
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `units`
---
-
-CREATE TABLE `units` (
-  `id` int(2) NOT NULL,
-  `units` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `units`
---
-
-INSERT INTO `units` (`id`, `units`) VALUES
-(1, 18),
-(2, 30),
-(4, 3),
-(5, 6),
-(6, 9);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `usersId` int(20) NOT NULL,
-  `usersType` varchar(128) NOT NULL,
-  `usersFName` varchar(128) NOT NULL,
-  `usersLName` varchar(128) NOT NULL,
-  `usersEmail` varchar(128) NOT NULL,
-  `usersUid` varchar(128) NOT NULL,
-  `usersPwd` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`usersId`, `usersType`, `usersFName`, `usersLName`, `usersEmail`, `usersUid`, `usersPwd`) VALUES
-(1, 'Faculty', 'demo', 'demo', 'demo@gmail.com', 'demo', '$2y$10$K2LRt.0UbF9aD2cMgGm3zu4vtrM2gmCzfscAlM2HU7Rh8XvsqhC7u');
+(3, '5:30 pm', '7:30 pm'),
+(4, '1:00 pm', '5:30 pm'),
+(6, '10:00 am', '12:00 pm'),
+(7, '6:00 pm', '7:00 pm'),
+(8, '7:30 am', '10:30 am'),
+(9, '9:20 am', '1:40 pm'),
+(10, '6:30 am', '9:00 am'),
+(11, '8:00 am', '2:00 pm'),
+(12, '10:30 am', '3:00 pm'),
+(13, '2:00 pm', '5:00 pm'),
+(14, '3:00 pm', '6:00 pm');
 
 -- --------------------------------------------------------
 

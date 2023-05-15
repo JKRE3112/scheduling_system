@@ -39,7 +39,7 @@ if (!isLoggedIn()) {
               <a class="nav-link active" href="faculty.php" style="color:#18211D">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="fachome.php">SCHEDULE</a>
+              <a class="nav-link" href="first_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/Faculty.display.php">SCHEDULE LOGS</a>

@@ -13,8 +13,10 @@
 
  $Subject_Code = $_POST['subcode'];
  $Subject_Description = $_POST['subdescription'];
+ $Subject_Units = $_POST['subunit'];
+ $Subject_Type = $_POST['subtype'];
  
- $sql = "INSERT INTO subject (Subject_Code, Subject_Description) VALUES ('$Subject_Code', '$Subject_Description')";
+ $sql = "INSERT INTO subject (Subject_Code, Subject_Description, Subject_Units, Subject_Type ) VALUES ('$Subject_Code', '$Subject_Description', '$Subject_Units', '$Subject_Type')";
 
  if (!mysqli_query ($con, $sql))
  {

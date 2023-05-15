@@ -93,6 +93,9 @@ while ($row = mysqli_fetch_array($result1)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<div class="container mt-3">
+    <div class="row">
+    <div class="col-lg-11">
     <div class="form-group"><h3>Schedule</h3>
         <label class="col-md-4 control-label" for="start_time">Start time</label>
         <div class="col-md-12">

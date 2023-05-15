@@ -454,45 +454,100 @@ while($row2 = mysqli_fetch_array($result2))
 
  
 ?>
-
-
-
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Example</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Populating start time dropdown
+      var startTimeSelect = $('#start_time');
+      var options = '';
+
+      // Replace the following block of code with your own SQL query to fetch start times
+      for (var i = 7; i <= 20; i++) {
+        var time = i < 10 ? '0' + i + ':00' : i + ':00';
+        options += '<option value="' + time + '">' + formatTime(time) + '</option>';
+      }
+      startTimeSelect.append(options);
+
+      // Populating end time dropdown based on selected start time
+      var endTimeSelect = $('#end_time');
+      endTimeSelect.prop('disabled', true);
+
+      startTimeSelect.change(function() {
+        var startTimeValue = startTimeSelect.val();
+        var startTimeHour = parseInt(startTimeValue.split(':')[0]);
+
+        if (startTimeHour >= 7 && startTimeHour < 20) {
+          endTimeSelect.find('option').remove();
+
+          for (var i = startTimeHour + 1; i <= 20; i++) {
+            var hour = i < 10 ? '0' + i : i;
+            var option = $('<option>', {
+              value: hour + ':00',
+              text: formatTime(hour + ':00')
+            });
+
+            endTimeSelect.append(option);
+          }
+
+          endTimeSelect.prop('disabled', false);
+        } else {
+          endTimeSelect.find('option').remove();
+          endTimeSelect.append($('<option>', {
+            value: '',
+            text: 'Select End Time'
+          }));
+          endTimeSelect.prop('disabled', true);
+        }
+      });
+    });
+
+    // Function to format time in 12-hour clock system
+    function formatTime(time) {
+      var hour = parseInt(time.split(':')[0]);
+      var minute = time.split(':')[1];
+      var period = hour >= 12 ? 'PM' : 'AM';
+
+      if (hour > 12) {
+        hour = hour - 12;
+      } else if (hour === 0) {
+        hour = 12;
+      }
+
+      return hour + ':' + minute + ' ' + period;
+    }
+  </script>
+
 </head>
 <body>
-<meta charset="UTF-8">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		
-		
-        <!--Method One-->
-        <div class="form-group">
-			<label class="col-md-4 control-label" for="start_time">Start time</label> 
-			<div class="col-md-12">
-		<select  id="start_time" name="start_time" class="form-control">
-		  <?php echo $options;?>
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-			
-
-            <?php endwhile;?>
-
-        </select>
-        
-		</div>		
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="start_time">Start time</label> 
+    <div class="col-md-12">
+      <select id="start_time" name="start_time" class="form-control">
+        <option value="">Select Start Time</option>
+      </select>
     </div>
-    </body>
-</head>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="end_time">End time</label> 
+    <div class="col-md-12">
+      <select id="end_time" name="end_time" class="form-control" disabled>
+        <option value="">Select End Time</option>
+      </select>
+    </div>
+  </div>
+
+</body>
 </html>
+        
         
 
 <?php
@@ -528,38 +583,111 @@ while($row2 = mysqli_fetch_array($result2))
 }
 
 ?>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Example</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+  // Populating start time dropdown
+  var startTimeSelect = $('#start_time');
+  var options = '';
+
+  // Send an AJAX request to retrieve the start times from the database
+  $.ajax({
+    url: 'get_times.php',
+    type: 'GET',
+    dataType: 'json',
+    success: function(data) {
+      // Populate the dropdown with the retrieved start times
+      $.each(data, function(index, value) {
+        options += '<option value="' + value + '">' + formatTime(value) + '</option>';
+      });
+      startTimeSelect.append(options);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log('Error retrieving start times: ' + textStatus + ', ' + errorThrown);
+    }
+  });
+
+  // Populating end time dropdown based on selected start time
+  var endTimeSelect = $('#end_time');
+  endTimeSelect.prop('disabled', true);
+
+  startTimeSelect.change(function() {
+    var startTimeValue = startTimeSelect.val();
+    var startTimeHour = parseInt(startTimeValue.split(':')[0]);
+
+    if (startTimeHour >= 7 && startTimeHour < 20) {
+      endTimeSelect.find('option').remove();
+
+      for (var i = startTimeHour + 1; i <= 20; i++) {
+        var hour = i < 10 ? '0' + i : i;
+        var option = $('<option>', {
+          value: hour + ':00',
+          text: formatTime(hour + ':00')
+        });
+
+        endTimeSelect.append(option);
+      }
+
+      endTimeSelect.prop('disabled', false);
+    } else {
+      endTimeSelect.find('option').remove();
+      endTimeSelect.append($('<option>', {
+        value: '',
+        text: 'Select End Time'
+      }));
+      endTimeSelect.prop('disabled', true);
+    }
+  });
+});
 
 
+    // Function to format time in 12-hour clock system
+    function formatTime(time) {
+      var hour = parseInt(time.split(':')[0]);
+      var minute = time.split(':')[1];
+      var period = hour >= 12 ? 'PM' : 'AM';
+
+      if (hour > 12) {
+        hour = hour - 12;
+      } else if (hour === 0) {
+        hour = 12;
+      }
+
+      return hour + ':' + minute + ' ' + period;
+    }
+  </script>
+
+</head>
+<body>
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="start_time">Start time</label> 
+    <div class="col-md-12">
+      <select id="start_time" name="start_time" class="form-control">
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="end_time">End time</label> 
+    <div class="col-md-12">
+      <select id="end_time" name="end_time" class="form-control" disabled>
+        <option value="">Select End Time</option>
+      </select>
+    </div>
+  </div>
+
+</body>
+</html>
 
 
-
-        <meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		<!-- Method Two -->
-        <div class="form-group">
-			<label class="col-md-6 control-label" for="end_time">End time</label> 
-			<div class="col-md-12">
-		<select  id="end_time" name="end_time" class="form-control">
-            <?php echo $options;?>
-        </select>
-		</div>
-		</div>
-		
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-
-            <?php endwhile;?>
-
-        </select>
 		<!-- Button -->
 				<div class="form-group align-right" >
 				  <label class="col-md-4 control-label" for="submit"></label>

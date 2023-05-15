@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arvo&family=Lato&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/528fcd2c3c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">   
-    <title>Main</title>
+    <title> Head is now scheduling</title>
   </head>
 <body>
  <!-- Navigation Bar-->
@@ -54,14 +54,14 @@ $databaseName = "insertion";
 $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 
 // mysqli select query
-$query = "SELECT * FROM `timer`";
+$query = "SELECT * FROM `year_level`";
 
 // for method 1
 
 $result1 = mysqli_query($connect, $query);
 
 // for method 2
-$query = "SELECT * FROM `timer`";
+$query = "SELECT * FROM `year_level`";
 $result2 = mysqli_query($connect, $query);
 
 
@@ -93,9 +93,9 @@ while($row2 = mysqli_fetch_array($result2))
 		
         <!--Method One-->
         <div class="form-group">
-			<label class="col-md-4 control-label" for="start_time">Start time</label> 
+			<label class="col-md-4 control-label" for="year_level">Year Level</label> 
 			<div class="col-md-12">
-		<select  id="start_time" name="start_time" class="form-control">
+		<select  id="year_level" name="year_level" class="form-control">
 		  <?php echo $options;?>
        
 
@@ -128,14 +128,14 @@ $databaseName = "insertion";
 $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 
 // mysqli select query
-$query = "SELECT * FROM `timer`";
+$query = "SELECT * FROM `course`";
 
 // for method 1
 
 $result1 = mysqli_query($connect, $query);
 
 // for method 2
-$query = "SELECT * FROM `timer`";
+$query = "SELECT * FROM `course`";
 $result2 = mysqli_query($connect, $query);
 
 
@@ -162,9 +162,9 @@ while($row2 = mysqli_fetch_array($result2))
         
 		<!-- Method Two -->
         <div class="form-group">
-			<label class="col-md-6 control-label" for="end_time">End time</label> 
+			<label class="col-md-6 control-label" for="course_name">Course</label> 
 			<div class="col-md-12">
-		<select  id="end_time" name="end_time" class="form-control">
+		<select  id="course_name" name="course_name" class="form-control">
             <?php echo $options;?>
         </select>
 		</div>
@@ -181,130 +181,3 @@ while($row2 = mysqli_fetch_array($result2))
         </select>
 
         <?php
-
-        // php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `overload`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `overload`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[1]</option>";
-}
-
- 
-?>
-
-
-
-<html>
-<head>
-</head>
-<body>
-<meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		<!-- Method Two -->
-        <div class="form-group">
-			<label class="col-md-4 control-label" for="overload">Overload</label> 
-			<div class="col-md-12">
-		<select  id="overload" name="overload"  class="form-control">
-            <?php echo $options;?>
-        </select>
-		</div>
-		</div>
-		
-        <!--Method One-->
-        
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-			
-
-            <?php endwhile;?>
-
-        </select>
-
-        <?php
-
-// php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `rooms`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `subject`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[2]</option>";
-}
-
-?>
-
-
-<html>
-<head>
-</head>
-<body>
-
-<!-- Button -->
-<div class="form-group align-right" >
-				  <label class="col-md-4 control-label" for="submit"></label>
-				  <div class="col-md-6">
-					<button id="submit" name="insert" class="btn btn-secondary" href= "third_page.php"> Schedule </button>
-				  </div>
-				</div>
-        
-        
-</fieldset>
-			</form>
-		</div>		
-    </div>
-    </body>
-</head>
-</html>

@@ -42,142 +42,110 @@
 
     <?php
 
-// php select option value from database
-
 $hostname = "localhost";
 $username = "root";
 $password = "";
 $databaseName = "insertion";
 
-// connect to mysqli database
-
 $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 
-// mysqli select query
-$query = "SELECT * FROM `year_level`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
 $query = "SELECT * FROM `year_level`";
 $result2 = mysqli_query($connect, $query);
 
-
 $options = "";
 
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[1]</option>";
+while ($row2 = mysqli_fetch_array($result2)) {
+    $options .= "<option>" . $row2[1] . "</option>";
 }
-
- 
 ?>
-
 
 
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		
-		
-        <!--Method One-->
-        <div class="form-group">
-			<label class="col-md-4 control-label" for="year_level">Year Level</label> 
-			<div class="col-md-12">
-		<select  id="year_level" name="year_level" class="form-control">
-		  <?php echo $options;?>
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-			
-
-            <?php endwhile;?>
-
-        </select>
-        
-		</div>		
+    <!-- Method One -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="year_level">Year Level</label>
+        <div class="col-md-12">
+            <select id="year_level" name="year_level" class="form-control">
+                <?php echo $options; ?>
+            </select>
+        </div>
     </div>
-    </body>
-</head>
+
+    <?php
+    $query = "SELECT * FROM `course`";
+    $result2 = mysqli_query($connect, $query);
+
+    $options = "";
+
+    while ($row2 = mysqli_fetch_array($result2)) {
+        $options .= "<option>" . $row2[2] . "</option>";
+    }
+    ?>
+
+    <!-- Method Two -->
+    <div class="form-group">
+        <label class="col-md-6 control-label" for="course_name">Course</label>
+        <div class="col-md-12">
+            <select id="course_name" name="course_name" class="form-control">
+                <?php echo $options; ?>
+            </select>
+        </div>
+    </div>
+
+    <?php
+    $query = "SELECT * FROM `subject`";
+    $result1 = mysqli_query($connect, $query);
+
+    $suboptions = "";
+
+    while ($row = mysqli_fetch_array($result1)) {
+        $suboptions .= "<option value='" . $row['subject_description'] . "'>" . $row['subject_description'] . "</option>";
+    }
+    ?>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="subject"><h3>Preferred Subjects</h3></label>
+        <div class="col-md-12" id="subjectFieldsContainer">
+            <!-- Existing subject field -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="subject1">Subject 1</label>
+                <div class="col-md-12">
+                    <select id="subject1" name="subject1" class="form-control">
+                        <?php echo $suboptions; ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group align-right">
+        <label class="col-md-4 control-label" for="submit"></label>
+        <div class="col-md-12">
+            <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var counter = 2; // Start from 2 to account for the existing subject field
+
+            $("#addSubjectBtn").click(function() {
+                var newSubjectField = '<div class="form-group">' +
+                    '<label class="col-md-4 control-label" for="subject' + counter + '">Subject ' + counter + '</label>' +
+'<div class="col-md-12">' +
+'<select id="subject' + counter + '" name="subject' + counter + '" class="form-control">' +
+$("#subject1").html() + // Use the HTML content of the first subject field
+'</select>' +
+'</div>' +
+'</div>';
+$("#subjectFieldsContainer").append(newSubjectField);
+            counter++;
+        });
+    });
+</script>
+</body>
 </html>
-
-<?php
-
-// php select option value from database
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-// connect to mysqli database
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-// mysqli select query
-$query = "SELECT * FROM `course`";
-
-// for method 1
-
-$result1 = mysqli_query($connect, $query);
-
-// for method 2
-$query = "SELECT * FROM `course`";
-$result2 = mysqli_query($connect, $query);
-
-
-$options = "";
-
-while($row2 = mysqli_fetch_array($result2))
-{
-    $options = $options."<option>$row2[2]</option>";
-}
-
-?>
-
-
-
-
-
-        <meta charset="UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    </head>
-
-    <body>
-        
-		<!-- Method Two -->
-        <div class="form-group">
-			<label class="col-md-6 control-label" for="course_name">Course</label> 
-			<div class="col-md-12">
-		<select  id="course_name" name="course_name" class="form-control">
-            <?php echo $options;?>
-        </select>
-		</div>
-		</div>
-		
-       
-
-            <?php while($row2 = mysqli_fetch_array($result2)):;?>
-
-            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
-
-            <?php endwhile;?>
-
-        </select>
-
-        <?php

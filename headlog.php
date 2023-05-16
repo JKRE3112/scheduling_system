@@ -34,13 +34,13 @@ if (!isLoggedIn()) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
             <li class="nav-item">
-              <a class="nav-link active" href="head.php" style="color:#18211D">HOME</a>  
+              <a class="nav-link" href="head.php">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="head_second_page.php">SCHEDULE</a>
+              <a class="nav-link" href="first_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="headlog.php">SUBJECT LOGS</a>
+              <a class="nav-link active" href="headlog.php">SCHEDULE LOGS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Testview.php">VIEWING</a>
@@ -74,44 +74,58 @@ if (!isLoggedIn()) {
     </nav>
 
     <!--Home-->
-      <div class="container my-3 py-1 ">
+    <div class="container my-3 py-1" style="display: flex; justify-content: center; align-items: center;">
         <div class="row">
-         
-
-                    
-          <div class="col-lg-6 md-6 sm-6 d-flex flex-column justify-content-center">
-            &nbsp;
-          <div class="tup">
-                  <img src="images/logo2.png" class="float-right mx-auto d-block w-75 h-100"   alt="..." >
-                  </div>
-        </div>
-      
-	  <div class="col-lg-6 md-6 sm-6 d-flex flex-column justify-content-center">
-                  <div class="greet mt-3">
-                    <h3 class="display-6 fw-bold" style="color:#eeeaed;">HELLO!</h3><br>
-					<h2 class="display-4 fw-bold" style="color:#18211D">WELCOME</h2>
-                    <h1 class="display-4 fw-bold" style="color:#18211D">HEAD!</h1>
-                  </div>
+            <div class="col-lg-12 d-flex flex-column justify-content-center">
+                <div class="greet mt-3">
+                    <h3 class="display-6 fw-bold text-center" style="color:#18211D;">HEAD LOGS</h3>
                     <div class="desc fw-bolder" style="color:#5b202a;"> <br>
-                      <h5>Add and Plot your schedule and </h5>
-                      <h5>Insert preferences.</h5>
-                    </div>&nbsp;
-
-                      <!-- <p>
-                      <a href="index.html">
-                      <buttons class="btn px-5 py-2" style="background-color: #AE0F36; color: #D4D5C4; font-family: 'Outfit', sans-serif;">Home</buttons>
-                      </a>
-    
-                      <a href="contact.html">
-                      <buttons class="btn px-5 py-2" style="background-color: #C08F57; color: #d4d5c4; font-family: 'Outfit', sans-serif;">Contact Me</buttons>
-                    </a>
-                    </p> -->
-                   
- 
-                      <!--Facebook-->
-                      <button type="button" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></button>
+                        <h5 class="text-center">History of your recent added subjects </h5>
                     </div>
+                </div>
+            </div>
+  <?php
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "insertion";
+
+// Create a new database connection
+$connection = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check if the connection was successful
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Retrieve the useruid from the session
+$usersUid = $_SESSION['usersUid'];
+
+// Query the database to retrieve the subject descriptions
+$query = "SELECT subject_description FROM logs WHERE usersUid = '$usersUid'";
+$result = mysqli_query($connection, $query);
+
+// Check if the query was successful and fetch the data
+if ($result && mysqli_num_rows($result) > 0) {
+    echo '<div class="container mt-3">';
+    echo '<div class="row">';
+    echo '<div class="col-lg-12">';
     
+    while ($row = mysqli_fetch_assoc($result)) {
+        $subjectDescription = $row['subject_description'];
+        echo '<h4 class="text-center">' . $subjectDescription . '</h4>';
+    }
+    
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+} else {
+    // Handle the case when the user is not found or an error occurred
+    echo "Unable to retrieve user information.";
+}
+?>
+
 
      
    

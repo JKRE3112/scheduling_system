@@ -42,7 +42,7 @@ if (!isLoggedIn()) {
               <a class="nav-link" href="first_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="includes/Faculty.display.php">SCHEDULE LOGS</a>
+              <a class="nav-link" href="faclog.php">SUBJECT LOGS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>

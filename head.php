@@ -37,7 +37,10 @@ if (!isLoggedIn()) {
               <a class="nav-link active" href="head.php" style="color:#18211D">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="first_page.php">SCHEDULE</a>
+              <a class="nav-link" href="head_second_page.php">SCHEDULE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="headlog.php">SUBJECT LOGS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Testview.php">VIEWING</a>

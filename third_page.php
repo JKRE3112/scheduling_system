@@ -36,7 +36,7 @@
               <a class="nav-link" href="first_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="includes/Faculty.display.php">SCHEDULE LOGS</a>
+              <a class="nav-link" href="faclog.php">SCHEDULE LOGS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
@@ -50,8 +50,50 @@
       </div>
     </nav>
 
-
     <?php
+session_start();
+
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "insertion";
+
+// Create a new database connection
+$connection = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check if the connection was successful
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Retrieve the useruid from the session
+$usersUid = $_SESSION['usersUid'];
+
+// Query the database to retrieve the first name and last name
+$query = "SELECT usersFName, usersLName FROM users WHERE usersUid = '$usersUid'";
+$result = mysqli_query($connection, $query);
+
+// Check if the query was successful and fetch the data
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $firstName = $row['usersFName'];
+    $lastName = $row['usersLName'];
+
+    // Print the first name and last name
+    echo '<div class="container mt-3">';
+    echo '<div class="row">';
+    echo '<div class="col-lg-11">';
+    echo '<h4>Welcome! ' . $firstName . ' ' . $lastName . '</h4>';
+
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+
+} else {
+    // Handle the case when the user is not found or an error occurred
+    echo "Unable to retrieve user information.";
+}
 
 $hostname = "localhost";
 $username = "root";
@@ -68,6 +110,37 @@ $options = "";
 while ($row2 = mysqli_fetch_array($result2)) {
     $options .= "<option>" . $row2[1] . "</option>";
 }
+
+// Retrieve the useruid from the session
+$usersUid = $_SESSION['usersUid'];
+
+
+// Handle the form submission
+if (isset($_POST['logBtn'])) {
+    // Retrieve the selected subjects
+    $subjects = $_POST['subjects'];
+
+    // Prepare the query to insert the logged subjects into the "logs" table
+    $query = "INSERT INTO logs (usersUid, subject_description) VALUES ";
+
+    foreach ($subjects as $subject_description) {
+        $subject_description = mysqli_real_escape_string($connection, $subject_description);
+        $query .= "('$usersUid', '$subject_description'),";
+    }
+
+    $query = rtrim($query, ','); // Remove the trailing comma
+
+    // Execute the query
+    if (mysqli_query($connection, $query)) {
+        // Query executed successfully, subjects logged
+        // You can perform any additional actions or redirect to another page if needed
+    } else {
+        // Error occurred while logging subjects
+        // You can log the error or perform any error handling actions
+    }
+}
+
+
 ?>
 
 
@@ -80,6 +153,7 @@ while ($row2 = mysqli_fetch_array($result2)) {
 <div class="container mt-3">
     <div class="row">
     <div class="col-lg-11">
+        
     <!-- Method One -->
     <div class="form-group">
         <label class="col-md-4 control-label" for="year_level">Year Level</label>
@@ -102,67 +176,112 @@ while ($row2 = mysqli_fetch_array($result2)) {
     ?>
 
     <!-- Method Two -->
-    <div class="form-group">
-        <label class="col-md-6 control-label" for="course_name">Course</label>
-        <div class="col-md-12">
-            <select id="course_name" name="course_name" class="form-control">
-                <?php echo $options; ?>
-            </select>
-        </div>
+<div class="form-group">
+    <label class="col-md-6 control-label" for="course_name">Course</label>
+    <div class="col-md-12">
+        <select id="course_name" name="course_name" class="form-control">
+            <?php echo $options; ?>
+        </select>
     </div>
+</div>
 
-    <?php
-    $query = "SELECT * FROM `subject`";
-    $result1 = mysqli_query($connect, $query);
+<?php
+$query = "SELECT * FROM `subject`";
+$result1 = mysqli_query($connect, $query);
 
-    $suboptions = "";
+$suboptions = "";
 
-    while ($row = mysqli_fetch_array($result1)) {
-        $suboptions .= "<option value='" . $row['subject_description'] . "'>" . $row['subject_description'] . "</option>";
-    }
-    ?>
+while ($row = mysqli_fetch_array($result1)) {
+    $suboptions .= "<option value='" . $row['subject_description'] . "'>" . $row['subject_description'] . "</option>";
+}
+?>
+
+<form method="POST">
+    <!-- Existing code for year level, course, and subject fields -->
 
     <div class="form-group">
-        <label class="col-md-4 control-label" for="subject"><h3>Preferred Subjects</h3></label>
-        <div class="col-md-12" id="subjectFieldsContainer">
-            <!-- Existing subject field -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="subject1">Subject 1</label>
-                <div class="col-md-12">
-                    <select id="subject1" name="subject1" class="form-control">
-                        <?php echo $suboptions; ?>
-                    </select>
-                </div>
+    <label class="col-md-4 control-label" for="subject"><h3>Preferred Subjects</h3></label>
+    <div class="col-md-12" id="subjectFieldsContainer">
+        <!-- Existing subject field -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="subject1">Subject 1</label>
+            <div class="col-md-12">
+                <select id="subject1" name="subjects[]" class="form-control">
+                    <?php echo $suboptions; ?>
+                </select>
             </div>
         </div>
     </div>
+</div>
     <div class="form-group align-right">
-        <label class="col-md-4 control-label" for="submit"></label>
-        <div class="col-md-12">
-            <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
-        </div>
+    <label class="col-md-4 control-label" for="submit"></label>
+    <div class="col-md-12">
+      <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
+      <button id="logBtn" class="btn btn-outline-secondary" type="submit">Confirm Subjects</button>
     </div>
+  </div>
+</form>
 </div>
-</div>
-</div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var counter = 2; // Start from 2 to account for the existing subject field
 
-            $("#addSubjectBtn").click(function() {
-                var newSubjectField = '<div class="form-group">' +
-                    '<label class="col-md-4 control-label" for="subject' + counter + '">Subject ' + counter + '</label>' +
-'<div class="col-md-12">' +
-'<select id="subject' + counter + '" name="subject' + counter + '" class="form-control">' +
-$("#subject1").html() + // Use the HTML content of the first subject field
-'</select>' +
-'</div>' +
-'</div>';
-$("#subjectFieldsContainer").append(newSubjectField);
-            counter++;
-        });
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+ $(document).ready(function() {
+  var counter = 2; // Start from 2 to account for the existing subject field
+
+  $("#addSubjectBtn").click(function(event) {
+    event.preventDefault();
+    var newSubjectField =
+      '<div class="form-group">' +
+      '<label class="col-md-4 control-label" for="subject' +
+      counter +
+      '">Subject ' +
+      counter +
+      '</label>' +
+      '<div class="col-md-12">' +
+      '<select id="subject' +
+      counter +
+      '" name="subjects[]" class="form-control">' +
+      $("#subject1").html() +
+      "</select>" +
+      "</div>" +
+      "</div>";
+    $("#subjectFieldsContainer").append(newSubjectField);
+    counter++;
+  });
+
+  $("#logBtn").click(function(event) {
+    event.preventDefault();
+
+    // Retrieve the selected subjects
+    var subjects = $("select[name='subjects[]']").map(function() {
+      return $(this).val();
+    }).get();
+
+    if (subjects.length === 0) {
+      alert("Please select at least one subject.");
+      return;
+    }
+
+    // Use AJAX to send the form data to the server without reloading the page
+    $.ajax({
+      url: "", // Use the current URL or specify the server-side script URL
+      type: "POST",
+      data: { subjects: subjects, logBtn: 1 },
+      success: function(response) {
+        console.log(response); // Handle the response from the server
+        alert("Subjects confirmed.");
+      },
+      error: function(xhr, status, error) {
+        console.log(error); // Handle errors
+      }
     });
+
+    $(this).prop("disabled", true); // Disable the button after clicking
+  });
+});
+
+
 </script>
 </body>
 </html>

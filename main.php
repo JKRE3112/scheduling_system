@@ -64,7 +64,7 @@
                      
                    
  
-                    <a href="login.php" class="btn btn-outline-danger btn-custom">Get Started<span class="bi bi-arrow-right"></span></a>
+                    <a href="head-login.php" class="btn btn-outline-danger btn-custom">Get Started<span class="bi bi-arrow-right"></span></a>
 
 
                     </div>

@@ -336,6 +336,36 @@ CREATE TABLE `viewing` (
 --
 -- Indexes for dumped tables
 --
+CREATE TABLE `scheduling` (
+  `UsersUid` varchar(128) NOT NULL,
+  `year_level` varchar(20) NOT NULL,
+  `course` varchar(50) NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `overload` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `scheduling`
+--
+
+INSERT INTO `scheduling` (`UsersUid`, `year_level`, `course`, `start_time`, `end_time`, `overload`) VALUES
+('0', '', '', '00:00:00', '00:00:00', 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `scheduling`
+--
+ALTER TABLE `scheduling`
+  ADD PRIMARY KEY (`UsersUid`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 --
 -- Indexes for table `addtable`

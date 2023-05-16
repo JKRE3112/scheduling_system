@@ -51,6 +51,52 @@
     </nav>
 
     <?php
+session_start();
+
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "insertion";
+
+// Create a new database connection
+$connection = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check if the connection was successful
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Retrieve the useruid from the session
+$usersUid = $_SESSION['usersUid'];
+
+// Query the database to retrieve the first name and last name
+$query = "SELECT usersFName, usersLName FROM users WHERE usersUid = '$usersUid'";
+$result = mysqli_query($connection, $query);
+
+// Check if the query was successful and fetch the data
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $firstName = $row['usersFName'];
+    $lastName = $row['usersLName'];
+
+    // Print the first name and last name
+    echo '<div class="container mt-3">';
+    echo '<div class="row">';
+    echo '<div class="col-lg-11">';
+    echo '<h4>Welcome! ' . $firstName . ' ' . $lastName . '</h4>';
+
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+
+} else {
+    // Handle the case when the user is not found or an error occurred
+    echo "Unable to retrieve user information.";
+}
+
+
+
 $hostname = "localhost";
 $username = "root";
 $password = "";
@@ -153,7 +199,7 @@ while ($row2 = mysqli_fetch_array($result2)) {
     <div class="form-group align-right">
         <label class="col-md-4 control-label" for="submit"></label>
         <div class="col-md-6">
-            <button id="submit" name="insert" class="btn btn-secondary" href="third_page.php">Schedule</button>
+        <button id="submit" name="insert" class="btn btn-secondary" onclick="window.location.href = 'third_page.php';">Next</button>
         </div>
     </div>
     </div>

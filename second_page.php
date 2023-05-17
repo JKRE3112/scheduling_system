@@ -67,35 +67,51 @@ if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Retrieve the useruid from the session
-$usersUid = $_SESSION['usersUid'];
-
-// Query the database to retrieve the first name and last name
-$query = "SELECT usersFName, usersLName FROM users WHERE usersUid = '$usersUid'";
-$result = mysqli_query($connection, $query);
-
-// Check if the query was successful and fetch the data
-if ($result && mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-    $firstName = $row['usersFName'];
-    $lastName = $row['usersLName'];
-
-    // Print the first name and last name
-    echo '<div class="container mt-3">';
-    echo '<div class="row">';
-    echo '<div class="col-lg-11">';
-    echo '<h4>Welcome! ' . $firstName . ' ' . $lastName . '</h4>';
-
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-
-} else {
-    // Handle the case when the user is not found or an error occurred
-    echo "Unable to retrieve user information.";
-}
+ 
+?>
 
 
+
+<html>
+<head>
+</head>
+<body>
+<meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+
+    <body>
+        
+		
+		
+        <!--Method One-->
+        <div class="form-group">
+			<label class="col-md-4 control-label" for="start_time">Start time</label> 
+			<div class="col-md-12">
+		<select  id="start_time" name="start_time" class="form-control">
+		  <?php echo $options;?>
+       
+
+            <?php while($row2 = mysqli_fetch_array($result2)):;?>
+
+            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
+			
+
+            <?php endwhile;?>
+
+        </select>
+        
+		</div>		
+    </div>
+    </body>
+</head>
+</html>
+
+<?php
+
+// php select option value from database
 
 $hostname = "localhost";
 $username = "root";
@@ -115,6 +131,61 @@ while ($row2 = mysqli_fetch_array($result2)) {
     $endOptions .= "<option value='" . $row2[0] . "'>" . $row2[2] . "</option>";
 }
 
+?>
+
+
+
+
+
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+
+    <body>
+        
+		<!-- Method Two -->
+        <div class="form-group">
+			<label class="col-md-6 control-label" for="end_time">End time</label> 
+			<div class="col-md-12">
+		<select  id="end_time" name="end_time" class="form-control">
+            <?php echo $options;?>
+        </select>
+		</div>
+		</div>
+		
+       
+
+            <?php while($row2 = mysqli_fetch_array($result2)):;?>
+
+            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
+
+            <?php endwhile;?>
+
+        </select>
+
+        <?php
+
+        // php select option value from database
+
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$databaseName = "insertion";
+
+// connect to mysqli database
+
+$connect = mysqli_connect($hostname, $username, $password, $databaseName);
+
+// mysqli select query
+$query = "SELECT * FROM `overload`";
+
+// for method 1
+
+$result1 = mysqli_query($connect, $query);
+
+// for method 2
 $query = "SELECT * FROM `overload`";
 $result2 = mysqli_query($connect, $query);
 
@@ -125,7 +196,47 @@ while ($row2 = mysqli_fetch_array($result2)) {
 }
 ?>
 
-<?php
+
+
+<html>
+<head>
+</head>
+<body>
+<meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+
+    <body>
+        
+		<!-- Method Two -->
+        <div class="form-group">
+			<label class="col-md-4 control-label" for="overload">Overload</label> 
+			<div class="col-md-12">
+		<select  id="overload" name="overload"  class="form-control">
+            <?php echo $options;?>
+        </select>
+		</div>
+		</div>
+		
+        <!--Method One-->
+        
+       
+
+            <?php while($row2 = mysqli_fetch_array($result2)):;?>
+
+            <option value="<?php echo $row2[0];?>"><?php echo $row2[1];?></option>
+			
+
+            <?php endwhile;?>
+
+        </select>
+
+        <?php
+
+// php select option value from database
+
 $hostname = "localhost";
 $username = "root";
 $password = "";
@@ -212,26 +323,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-     <!-- Method One -->
-     <div class="col-lg-11">
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="start_time">Start time</label>
-                    <div class="col-md-12">
-                        <select id="start_time" name="start_time" class="form-control">
-                            <?php echo $startOptions; ?>
-                        </select>
-                    </div>
-                </div>
+    <!-- Method One -->
 
-                <!-- Method Two -->
-                <div class="form-group">
-                    <label class="col-md-6 control-label" for="end_time">End time</label>
-                    <div class="col-md-12">
-                        <select id="end_time" name="end_time" class="form-control">
-                            <?php echo $endOptions; ?>
-                        </select>
-                    </div>
-                </div>
+    <div class="col-lg-11">
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="start_time">Start time</label>
+        <div class="col-md-12">
+            <select id="start_time" name="start_time" class="form-control">
+                <?php echo $startOptions; ?>
+            </select>
+        </div>
+    </div>
+
+    <!-- Method Two -->
+    <div class="form-group">
+        <label class="col-md-6 control-label" for="end_time">End time</label>
+        <div class="col-md-12">
+            <select id="end_time" name="end_time" class="form-control">
+                <?php echo $endOptions; ?>
+            </select>
+        </div>
+    </div>
 
     <!-- Method Three -->
     <div class="form-group">
@@ -251,7 +363,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     </div>
-  </div>
-</div>
-</body>
+    </body>
+</head>
 </html>

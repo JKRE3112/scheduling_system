@@ -43,10 +43,7 @@ if (!isLoggedIn()) {
               <a class="nav-link" href="headlog.php">SUBJECT LOGS</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="Testview.php">VIEWING</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="list.php">LIST</a>
+              <a class="nav-link" href="view.php">VIEWING</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
@@ -60,7 +57,7 @@ if (!isLoggedIn()) {
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addfaculty.php">Add Faculty</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-         		 	<a class="dropdown-item" href="addroom.php">Add Room</a>
+                <a class="dropdown-item" href="addsection.php">Add Section</a>
           			<a class="dropdown-item" href="addtime.php">Add Time</a>
           </ul>
         </div>

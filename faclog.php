@@ -43,10 +43,10 @@ if (!isLoggedIn()) {
                         <a class="nav-link" href="faculty.php">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="fachome.php">ADD SCHEDULE</a>
+                        <a class="nav-link" href="second_page.php">SCHEDULE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="Faculty.display.php">SUBJECT LOGS</a>
+                        <a class="nav-link active" href="faclog.php">SUBJECT LOGS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="includes/logout.php">LOGOUT</a>

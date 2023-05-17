@@ -141,6 +141,55 @@ $unitsOptions = "";
 while ($row2 = mysqli_fetch_array($result2)) {
     $unitsOptions .= "<option value='" . $row2[0] . "'>" . $row2[1] . "</option>";
 }
+
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$databaseName = "insertion";
+
+$connect = mysqli_connect($hostname, $username, $password);
+
+// Check connection
+if (!$connect) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Create the "insertion" database if it doesn't exist
+$createDbQuery = "CREATE DATABASE IF NOT EXISTS $databaseName";
+mysqli_query($connect, $createDbQuery);
+
+// Switch to the "insertion" database
+mysqli_select_db($connect, $databaseName);
+
+// Create the "data" table if it doesn't exist
+$createTableQuery = "CREATE TABLE IF NOT EXISTS data (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    units VARCHAR(255) NOT NULL,
+    start_time VARCHAR(255) NOT NULL,
+    end_time VARCHAR(255) NOT NULL,
+    overload VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+)";
+mysqli_query($connect, $createTableQuery);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $units = $_POST["units"];
+    $start_time = $_POST["start_time"];
+    $end_time = $_POST["end_time"];
+    $overload = $_POST["overload"];
+
+    // Perform the necessary database operations here, such as inserting the values into the data table
+    $insertQuery = "INSERT INTO data (units, start_time, end_time, overload) VALUES ('$units', '$start_time', '$end_time', '$overload')";
+    $result = mysqli_query($connect, $insertQuery);
+
+    if ($result) {
+        // Success message
+        echo "Data saved successfully!";
+    } else {
+        // Error message
+        echo "Error: " . mysqli_error($connect);
+    }
+}
 ?>
 
 
@@ -163,27 +212,26 @@ while ($row2 = mysqli_fetch_array($result2)) {
         </div>
     </div>
 
-    <!-- Method One -->
+     <!-- Method One -->
+     <div class="col-lg-11">
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="start_time">Start time</label>
+                    <div class="col-md-12">
+                        <select id="start_time" name="start_time" class="form-control">
+                            <?php echo $startOptions; ?>
+                        </select>
+                    </div>
+                </div>
 
-    <div class="col-lg-11">
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="start_time">Start time</label>
-        <div class="col-md-12">
-            <select id="start_time" name="start_time" class="form-control">
-                <?php echo $startOptions; ?>
-            </select>
-        </div>
-    </div>
-
-    <!-- Method Two -->
-    <div class="form-group">
-        <label class="col-md-6 control-label" for="end_time">End time</label>
-        <div class="col-md-12">
-            <select id="end_time" name="end_time" class="form-control">
-                <?php echo $endOptions; ?>
-            </select>
-        </div>
-    </div>
+                <!-- Method Two -->
+                <div class="form-group">
+                    <label class="col-md-6 control-label" for="end_time">End time</label>
+                    <div class="col-md-12">
+                        <select id="end_time" name="end_time" class="form-control">
+                            <?php echo $endOptions; ?>
+                        </select>
+                    </div>
+                </div>
 
     <!-- Method Three -->
     <div class="form-group">

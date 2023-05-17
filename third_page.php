@@ -30,10 +30,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
             <li class="nav-item">
-              <a class="nav-link active" href="faculty.php" style="color:#18211D">HOME</a>  
+              <a class="nav-link" href="faculty.php">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="first_page.php">SCHEDULE</a>
+              <a class="nav-link active" href="first_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="faclog.php">SCHEDULE LOGS</a>
@@ -52,6 +52,9 @@
 
     <?php
 session_start();
+include('includes/functions-inc.php');
+if (!isLoggedIn()) {
+	header('location: login-first.php');}
 
 // Database connection parameters
 $servername = "localhost";

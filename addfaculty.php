@@ -52,11 +52,9 @@
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addfaculty.php">Add Faculty</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-         		 	<a class="dropdown-item" href="addroom.php">Room</a>
-          			<a class="dropdown-item" href="addtime.php">Time</a>
-          			<a class="dropdown-item" href="list.php">List</a>
-          			<a class="dropdown-item" href="tablelist.php">Tables</a>
-          		<a class="dropdown-item" href="Testview.php">Viewing</a>
+         		 	<a class="dropdown-item" href="addroom.php">Add Room</a>
+                <a class="dropdown-item" href="addsection.php">Add Section</a>
+          			<a class="dropdown-item" href="addtime.php">Add Time</a>
           </ul>
         </div>
                 
@@ -121,9 +119,9 @@ body {
 
 
 
-
-<?php
-  $path = $_SERVER['DOCUMENT_ROOT'];
-   $path .= "footer.php";
-   include_once("footer.php");
-?>
+    <footer id="footer" class="py-2 my-2 container-fluid text-center">
+        <hr>
+          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
+          <small>ALL RIGHTS RESERVED 2023</small>
+      </footer>
+    </div>

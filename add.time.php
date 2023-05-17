@@ -24,7 +24,7 @@
  {
 	 echo '<script type="text/javascript">
                       alert("New Time Added!");
-                         location="home.php";
+                         location="addtime.php";
                            </script>';
  }
  

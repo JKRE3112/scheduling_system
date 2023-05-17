@@ -26,7 +26,7 @@
  {
 	 echo '<script type="text/javascript">
                       alert("New Subject Added!");
-                         location="home.php";
+                         location="addsub.php";
                            </script>';
  }
  

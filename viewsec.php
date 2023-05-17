@@ -5,6 +5,7 @@ if (!isLoggedIn()) {
 	header('location: login-first.php');
 }
 ?>
+
 <html>
 <head>
 <!doctype html>
@@ -48,7 +49,6 @@ if (!isLoggedIn()) {
             <li class="nav-item">
               <a class="nav-link active" href="view.php">VIEWING</a>
             </li>
-           
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
             </li>
@@ -72,49 +72,87 @@ if (!isLoggedIn()) {
         </div>
       </div>
     </nav>
-	<div class="container mb-1 mt-3">
-        <div class="row row justify-content-center">
-          <div class="col-12">
-            <h1 class="fw-bold mt-2" style="color:#18211D; font-size:48px; Font-Family: 'Arvo', Serif;">VIEWING</h1>
-            <hr>
-            <h2 class="mb-4" style="color:#AE0F36; Font-Family: 'Outfit', sans-Serif; font-size: 30px;">VIEW EVERY FACULTY, ROOM AND SECTIONS HERE:</h2>
-          </div>
 
-          
-		  <div class="col-lg-6 mb-4"> 
-            <div class="card" id="scard" style="width: auto; background-color: #FFFFFF;">
-			
-              <div class="card-body">
-                <h5 class="card-title" style="color:#C08F57 ;
-                font-family: 'Arvo', Serif;">FACULTY</h5>
-                <p class="card-text"  style="color: #736E76;font-family:'Outfit', sans-serif;">List of the Faculty and Head Schedules.</p>
-                <a href="viewfac.php" class="btn btn-primary" style="background-color: #AE0F36; border: none; font-family: 'Outfit', sans-serif;">View Faculty</a>
-              </div>
-            </div>
-          </div>
-      
-       
+<div class="container mt-3">
+  <h2>Sections Table</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Year Level</th>
+        <th>Course</th>
+        <th>Section Name</th>
+        <th>Task</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
 
-          <div class="col-lg-6 mb-4"> 
-            <div class="card" id="scard" style="width: auto; background-color: #FFFFFF;">
-          
-              <div class="card-body">
-                <h5 class="card-title" style="color:#C08F57 ;
-                font-family: 'Arvo', Serif;">SECTIONS</h5>
-                <p class="card-text"  style="color: #736E76;font-family:'Outfit', sans-serif;">List of Sections and its respective schedules.</p>
-                <a href="viewsec.php" class="btn btn-primary" style="background-color: #AE0F36; border: none; font-family: 'Outfit', sans-serif;">View Sections</a>
-              </div>
-            </div>
-          </div>
-		  <footer id="footer" class="py-3 container-fluid text-center">
-        <div class="row" style="color:aliceblue;">
-          <hr>
-          <small>Copyright &copy; John Arthur R. Carandang<br></small>
-          <small>ALL RIGHTS RESERVED</small>
-        </div>
-        </footer>
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "insertion";
+      // Connect to the database
+      $conn = mysqli_connect("localhost", "root", "", "insertion");
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-   
+      // Fetch data from the users table
+      $sql = "SELECT id, year_level, course_code, section_name FROM section";
+      $result = $conn->query($sql);
+
+      // Display data in table rows
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          echo "<tr>";
+          echo "<td>" . $row["year_level"] . "</td>";
+          echo "<td>" . $row["course_code"] . "</td>";
+          echo "<td>" . $row["section_name"] . "</td>";
+          echo "<td>";
+          echo '<button class="btn btn-secondary me-2">Schedule</button>';
+          echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["id"] . ')">Delete</button>';
+          echo "</td>";
+          echo "</tr>";
+        }
+      } else {
+        echo "<tr><td colspan='4'>No users found</td></tr>";
+      }
+
+      // Close the database connection
+      $conn->close();
+      ?>
+    </tbody>
+  </table>
+</div>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!-- JavaScript function to handle user deletion -->
+<script>
+  function deleteUser(userId) {
+    if (confirm("Are you sure you want to delete this user?")) {
+      // Send an AJAX request to delete the user from the database
+      $.ajax({
+        url: "includes/delete_sec.php",
+        method: "POST",
+        data: { id: userId },
+        success: function (response) {
+          alert("Section deleted successfully");
+          location.reload(); // Reload the page after successful deletion
+        },
+        error: function () {
+          alert("Error deleting user");
+        }
+      });
+    }
+  }
+</script>
+
 </body>
 </html>

@@ -49,7 +49,6 @@ if (!isLoggedIn()) {
             <li class="nav-item">
               <a class="nav-link" href="view.php">VIEWING</a>
             </li>
-          
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
             </li>
@@ -61,7 +60,6 @@ if (!isLoggedIn()) {
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-         		 	<a class="dropdown-item" href="addroom.php">Add Room</a>
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
           			<a class="dropdown-item" href="addtime.php">Add Time</a>
           </ul>
@@ -75,87 +73,121 @@ if (!isLoggedIn()) {
       </div>
     </nav>
 
-</head>
-<body>
- 
- <br><div class="container"> 
-  <div class="row">
-    <div class="col-lg-6">
-		<div class="jumbotron">
-                Add your subject code and description here:
-				<form class="form-horizontal" method= "POST" action="add.sub.php">
-				<fieldset>
-
-				<!-- Form Name -->
-				<legend>Add Subjects</legend>
-
-				<!-- Text input-->
-				<div class="form-group">
-				  <label class="col-md-4 control-label" for="subcode">Subject Code</label>  
-				  <div class="col-md-5">
-				  <input id="subcode" name="subcode" type="text" placeholder="" class="form-control input-md" required="">
-					
-				  </div>
-				</div>
-
-				<!-- Text input-->
-				<div class="form-group">
-				  <label class="col-md-4 control-label" for="subdescription">Subject Description</label>  
-				  <div class="col-md-5">
-				  <input id="subdescription" name="subdescription" type="text" placeholder="" class="form-control input-md" required="">
-					
-				  </div>
-				</div>
-
-        <!--Units-->        
-        <div class="form-group">
-    <label class="col-md-4 control-label" for="subdescription">Units</label>  
-    <div class="col-md-5">
-        <select id="subunit" name="subunit" class="form-control input-md" required="">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
+    <div class="container mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Faculty and Head Table</h2>
+    <div class="input-group" style="width: 300px;">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search Name">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
     </div>
+  </div>
+  </h2>
+  <div class="mb-3">
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Account Type</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Task</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "insertion";
+      // Connect to the database
+      $conn = mysqli_connect("localhost", "root", "", "insertion");
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
+
+      // Fetch data from the users table
+            $sql = "SELECT usersId, usersType, usersFName, usersLName FROM users";
+            $result = $conn->query($sql);
+
+            // Display data in table rows
+            if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row["usersType"] . "</td>";
+                echo "<td>" . $row["usersFName"] . "</td>";
+                echo "<td>" . $row["usersLName"] . "</td>";
+                echo "<td>";
+                echo '<button class="btn btn-secondary me-2">Schedule</button>';
+                echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["usersId"] . ')">Delete</button>';
+                echo "</td>";
+                echo "</tr>";
+            }
+            } else {
+            echo "<tr><td colspan='4'>No users found</td></tr>";
+            }
+
+
+      // Close the database connection
+      $conn->close();
+      ?>
+    </tbody>
+  </table>
 </div>
 
-  <!--Lec or Lab-->
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="subdescription">Type</label>  
-    <div class="col-md-5">
-        <select id="subtype" name="subtype" class="form-control input-md" required="">
-            <option value="Lecture">Lecture</option>
-            <option value="Laboratory">Laboratory</option>
-        </select>
-    </div>
-</div>
-				<!-- Button -->
-				<div class="form-group"  align="left">
-				  <label class="col-md-4 control-label" for="submit"></label>
-				  <div class="col-md-5">
-					<input type="submit" id="submit" name="submit" class="btn btn-warning" value="Add Subject"></input>
-				  </div>
-				</div>
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-				</fieldset>
-				</form>
-		</div>		
-    </div>
-    <script>
+<!-- JavaScript function to handle user deletion -->
+<script>
+  function deleteUser(userId) {
+    if (confirm("Are you sure you want to delete this user?")) {
+      // Send an AJAX request to delete the user from the database
+      $.ajax({
+        url: "includes/delete_user.php",
+        method: "POST",
+        data: { id: userId },
+        success: function (response) {
+          alert("User deleted successfully");
+          location.reload(); // Reload the page after successful deletion
+        },
+        error: function () {
+          alert("Error deleting user");
+        }
+      });
+    }
+  }
+</script>
+
+<script>
   $(document).ready(function() {
-    $('.dropdown-toggle').dropdown();
+    // Handle search input changes
+    $('#searchInput').on('input', function() {
+      var searchValue = $(this).val().toLowerCase();
+      
+      // Send an AJAX request to fetch filtered data from the database
+      $.ajax({
+        url: "includes/search_users.php",
+        method: "POST",
+        data: { search: searchValue },
+        success: function(response) {
+          // Update the table with the filtered data
+          $('tbody').html(response);
+        },
+        error: function() {
+          alert("Error fetching data");
+        }
+      });
+    });
   });
 </script>
-<footer id="footer" class="py-2 my-2 container-fluid text-center">
-        <hr>
-          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
-          <small>ALL RIGHTS RESERVED 2023</small>
-      </footer>
-    </div>
+
+
+
 </body>
-
-
-
+</html>

@@ -29,7 +29,7 @@ if (!isLoggedIn()) {
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="faculty.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="faculty.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,7 +39,7 @@ if (!isLoggedIn()) {
               <a class="nav-link active" href="faculty.php" style="color:#18211D">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="first_page.php">SCHEDULE</a>
+              <a class="nav-link" href="fac_second_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="faclog.php">SUBJECT LOGS</a>
@@ -70,7 +70,7 @@ if (!isLoggedIn()) {
                    
  
                       <!--Facebook-->
-                      <a href="sample.php" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></a>
+                      <a href="fac_second_page.php" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></a>
                     </div>
 
                     

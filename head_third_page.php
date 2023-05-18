@@ -23,7 +23,7 @@
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="main.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="main.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -55,7 +55,7 @@
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
        
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
-          			<a class="dropdown-item" href="addtime.php">Add Time</a>
+          
           </ul>
         </div>
                 
@@ -238,7 +238,9 @@ while ($row = mysqli_fetch_array($result1)) {
     <div class="col-md-12">
       <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
       <button id="logBtn" class="btn btn-outline-secondary" type="submit">Confirm Subjects</button>
+      <a href= "head.php" class="btn btn-outline-dark" button type = "submit" >Finish Scheduling</a></button>
     </div>
+    
   </div>
 </form>
 </div>
@@ -303,5 +305,11 @@ while ($row = mysqli_fetch_array($result1)) {
 
 
 </script>
+<footer id="footer" class="py-2 my-2 container-fluid text-center">
+        <hr>
+          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
+          <small>ALL RIGHTS RESERVED 2023</small>
+      </footer>
+    </div>
 </body>
 </html>

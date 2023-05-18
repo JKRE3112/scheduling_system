@@ -23,7 +23,7 @@
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="faculty.php"><h2>CS Scheduling - HEAD</h2></a>
+        <a class="navbar-brand" href="faculty.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,7 +33,7 @@
               <a class="nav-link" href="faculty.php">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="first_page.php">SCHEDULE</a>
+              <a class="nav-link active" href="fac_second_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="faclog.php">SCHEDULE LOGS</a>
@@ -286,5 +286,11 @@ while ($row = mysqli_fetch_array($result1)) {
 
 
 </script>
+<footer id="footer" class="py-2 my-2 container-fluid text-center">
+        <hr>
+          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
+          <small>ALL RIGHTS RESERVED 2023</small>
+      </footer>
+    </div>
 </body>
 </html>

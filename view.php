@@ -30,7 +30,7 @@ if (!isLoggedIn()) {
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="main.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="main.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -61,7 +61,7 @@ if (!isLoggedIn()) {
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
-          			<a class="dropdown-item" href="addtime.php">Add Time</a>
+          	
           </ul>
         </div>
                 
@@ -77,7 +77,7 @@ if (!isLoggedIn()) {
           <div class="col-12">
             <h1 class="fw-bold mt-2" style="color:#18211D; font-size:48px; Font-Family: 'Arvo', Serif;">VIEWING</h1>
             <hr>
-            <h2 class="mb-4" style="color:#AE0F36; Font-Family: 'Outfit', sans-Serif; font-size: 30px;">VIEW EVERY FACULTY, ROOM AND SECTIONS HERE:</h2>
+            <h2 class="mb-4" style="color:#AE0F36; Font-Family: 'Outfit', sans-Serif; font-size: 30px;">VIEW EVERY FACULTY AND SECTIONS HERE:</h2>
           </div>
 
           
@@ -106,13 +106,12 @@ if (!isLoggedIn()) {
               </div>
             </div>
           </div>
-		  <footer id="footer" class="py-3 container-fluid text-center">
-        <div class="row" style="color:aliceblue;">
-          <hr>
-          <small>Copyright &copy; John Arthur R. Carandang<br></small>
-          <small>ALL RIGHTS RESERVED</small>
-        </div>
-        </footer>
+          <footer id="footer" class="py-2 my-2 container-fluid text-center">
+        <hr>
+          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
+          <small>ALL RIGHTS RESERVED 2023</small>
+      </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
    

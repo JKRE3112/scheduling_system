@@ -23,7 +23,7 @@
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="main.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="main.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -53,25 +53,24 @@
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-         		 
+       
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
-          			<a class="dropdown-item" href="addtime.php">Add Time</a>
+          		
           </ul>
         </div>
                 
       </li>
     </ul>
   </div>
+
+
+  
           
         </div>
       </div>
     </nav>
     <?php
-    include('includes/functions-inc.php');
 session_start();
-if (!isLoggedIn()) {
-	header('location: login-first.php');
-}
 
 // Database connection parameters
 $servername = "localhost";
@@ -114,86 +113,118 @@ if ($result && mysqli_num_rows($result) > 0) {
     // Handle the case when the user is not found or an error occurred
     echo "Unable to retrieve user information.";
 }
-
-
-
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$databaseName = "insertion";
-
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-
-$query = "SELECT * FROM `timer`";
-$result2 = mysqli_query($connect, $query);
-
-$startOptions = "";
-$endOptions = "";
-
-while ($row2 = mysqli_fetch_array($result2)) {
-    $startOptions .= "<option value='" . $row2[0] . "'>" . $row2[1] . "</option>";
-    $endOptions .= "<option value='" . $row2[0] . "'>" . $row2[2] . "</option>";
-}
-
-$query = "SELECT * FROM `overload`";
-$result2 = mysqli_query($connect, $query);
-
-$overloadOptions = "";
-
-while ($row2 = mysqli_fetch_array($result2)) {
-    $overloadOptions .= "<option value='" . $row2[0] . "'>" . $row2[1] . "</option>";
-}
 ?>
 
 
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+    <title>Faculty</title>
+    </head>
 <body>
-    <!-- Method One -->
-    <div class="container mt-3">
-    <div class="row">
-    <div class="col-lg-11">
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="start_time">Start time</label>
-        <div class="col-md-12">
-            <select id="start_time" name="start_time" class="form-control">
-                <?php echo $startOptions; ?>
-            </select>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+
+                <?php 
+                    if(isset($_SESSION['status']))
+                    {
+                        ?>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Hey!</strong> <?php echo $_SESSION['status']; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                             <?php 
+                         unset($_SESSION['status']);
+                    }
+                ?>
+
+                <div class="card mt-6">
+                                     <div class="card-body">
+
+                        <form action="config_head.php" method="POST">
+                        <div class="from-group mb-3">
+                               
+                            <div class="from-group mb-3">
+                                <label for="">Units</label>
+                                <select name="units" class="form-control">
+                                    <option value="">--Select Units--</option>
+                                    <option value="3 units">3 units(Head/Admin only)</option>
+                                    <option value="6 units">6 units(Head/Admin only)</option>
+                                    <option value="9 units">9 units(Head/Admin only)</option>
+                                     </select>
+                            </div>
+                                <div class="from-group mb-3">
+                                <label for="">Start time</label>
+                                <select name="start_time" class="form-control">
+                                    <option value="">--Select Start time--</option>
+                                    <option value="6 AM">6 AM</option>
+                                    <option value="7 AM">7 AM</option>
+                                    <option value="8 AM">8 AM</option>
+                                    <option value="9 AM">9 AM</option>
+                                    <option value="10 AM">10 AM</option>
+                                    <option value="11 AM">11 AM</option>
+                                    <option value="2 PM">2 PM</option>
+                                    <option value="3 PM">3 PM</option>
+                                    <option value="4 PM">4 PM</option>
+                                </select>
+                            </div>
+
+                            <div class="from-group mb-3">
+                                <label for="">End time</label>
+                                <select name="end_time" class="form-control">
+                                    <option value="">--Select End time--</option>
+                                    <option value="12 PM">12 PM</option>
+                                    <option value="1 PM">1 PM</option>
+                                    <option value="2 PM">2 PM</option>
+                                    <option value="3 PM">3 PM</option>
+                                    <option value="4 PM">4 PM</option>
+                                    <option value="5 PM">5 PM</option>
+                                    <option value="6 PM">6 PM</option>
+                                    
+                                </select>
+                            </div>
+
+                            <div class="from-group mb-3">
+                                <label for="">Overload</label>
+                                <select name="overload" class="form-control">
+                                    <option value="">--Select Overload--</option>
+                                    <option value="0">0 units</option>
+                                    <option value="3">3 units</option>
+                                    <option value="6">6 units</option>
+                                    <option value="9">9 units</option>
+                                    <option value="12">12 units</option>
+                                    <option value="18">18 units</option>
+                                    <option value="30">30 units</option>
+                                    
+                                </select>
+                            </div>
+                                
+                                <div class="from-group mb-4">
+                              
+                                <button type="submit" name="save_select" class="btn btn-outline-secondary">Save Schedule</button>
+                                <a href= "head_third_page.php" class="btn btn-secondary" button type = "submit" >Next</a></button>
+                                <button type="submit" name="delete_last" class="btn btn-dark">Delete</button>
+                                
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    <footer id="footer" class="py-2 my-2 container-fluid text-center">
+        <hr>
+          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
+          <small>ALL RIGHTS RESERVED 2023</small>
+      </footer>
     </div>
 
-    <!-- Method Two -->
-    <div class="form-group">
-        <label class="col-md-6 control-label" for="end_time">End time</label>
-        <div class="col-md-12">
-            <select id="end_time" name="end_time" class="form-control">
-                <?php echo $endOptions; ?>
-            </select>
-        </div>
-    </div>
-
-    <!-- Method Three -->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="overload">Overload</label>
-        <div class="col-md-12">
-            <select id="overload" name="overload" class="form-control">
-                <?php echo $overloadOptions; ?>
-            </select>
-        </div>
-    </div>
-
-    <!-- Button -->
-    <div class="form-group align-right">
-        <label class="col-md-4 control-label" for="submit"></label>
-        <div class="col-md-6">
-        <button id="submit" name="insert" class="btn btn-secondary" onclick="window.location.href = 'head_third_page.php';">Next</button>
-        </div>
-    </div>
-    </div>
-  </div>
-</div>
-</body>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  </body>
 </html>

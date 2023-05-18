@@ -15,8 +15,11 @@
  $Subject_Description = $_POST['subdescription'];
  $Subject_Units = $_POST['subunit'];
  $Subject_Type = $_POST['subtype'];
+ $year = $_POST['yearlevel'];
+ $course= $_POST['course'];
+
  
- $sql = "INSERT INTO subject (Subject_Code, Subject_Description, Subject_Units, Subject_Type ) VALUES ('$Subject_Code', '$Subject_Description', '$Subject_Units', '$Subject_Type')";
+ $sql = "INSERT INTO subject (Subject_Code, Subject_Description, Subject_Units, Subject_Type, year, course ) VALUES ('$Subject_Code', '$Subject_Description', '$Subject_Units', '$Subject_Type', '$year', '$course')";
 
  if (!mysqli_query ($con, $sql))
  {

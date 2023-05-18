@@ -238,7 +238,6 @@ while ($row = mysqli_fetch_array($result1)) {
     <div class="col-md-12">
       <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
       <button id="logBtn" class="btn btn-outline-secondary" type="submit">Confirm Subjects</button>
-      <a href= "head.php" class="btn btn-outline-dark" button type = "submit" >Finish Scheduling</a></button>
     </div>
     
   </div>
@@ -305,11 +304,5 @@ while ($row = mysqli_fetch_array($result1)) {
 
 
 </script>
-<footer id="footer" class="py-2 my-2 container-fluid text-center">
-        <hr>
-          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
-          <small>ALL RIGHTS RESERVED 2023</small>
-      </footer>
-    </div>
 </body>
 </html>

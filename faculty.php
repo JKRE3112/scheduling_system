@@ -70,7 +70,7 @@ if (!isLoggedIn()) {
                    
  
                       <!--Facebook-->
-                      <a href="fachome.php" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></a>
+                      <a href="sample.php" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></a>
                     </div>
 
                     

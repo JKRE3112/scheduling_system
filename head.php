@@ -105,8 +105,8 @@ if (!isLoggedIn()) {
                     </p> -->
                    
  
-                      <!--Facebook-->
-                      <button type="button" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></button>
+                     
+                      <a href = "sample_head.php" button type="button" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></button></a>
                     </div>
     
 

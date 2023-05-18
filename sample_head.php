@@ -127,15 +127,17 @@ if ($result && mysqli_num_rows($result) > 0) {
                 <div class="card mt-6">
                                      <div class="card-body">
 
-                        <form action="config.php" method="POST">
+                        <form action="config_head.php" method="POST">
                         <div class="from-group mb-3">
                                
                             <div class="from-group mb-3">
                                 <label for="">Units</label>
                                 <select name="units" class="form-control">
                                     <option value="">--Select Units--</option>
-                                    <option value="18 units">18 units(Regular faculty only)</option>
-                                    </select>
+                                    <option value="3 units">3 units(Head/Admin only)</option>
+                                    <option value="6 units">6 units(Head/Admin only)</option>
+                                    <option value="9 units">9 units(Head/Admin only)</option>
+                                     </select>
                             </div>
                                 <div class="from-group mb-3">
                                 <label for="">Start time</label>
@@ -187,7 +189,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                               
                                 <button type="submit" name="save_select" class="btn btn-primary">Save Selectbox</button>
                                 <button type="submit" name="delete_last" class="btn btn-danger">Delete</button>
-                                <a href= "third_page.php" class="btn btn-success" button type = "submit" >Next</a></button>
+                                <a href= "third_page_head.php" class="btn btn-success" button type = "submit" >Next</a></button>
                         </form>
 
                     </div>

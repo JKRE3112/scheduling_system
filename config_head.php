@@ -14,10 +14,10 @@ if (isset($_POST['save_select'])) {
 
     if ($query_run) {
         $_SESSION['status'] = "Inserted Successfully";
-        header("Location: sample.php");
+        header("Location: sample_head.php");
     } else {
         $_SESSION['status'] = "Not Inserted";
-        header("Location: sample.php");
+        header("Location: sample_head.php");
     }
 }
 
@@ -29,12 +29,12 @@ if(isset($_POST['delete_last']))
     if($deleteResult)
     {
         $_SESSION['status'] = "Last record deleted successfully";
-        header("Location: sample.php");
+        header("Location: sample_head.php");
     }
     else
     {
         $_SESSION['status'] = "Failed to delete last record";
-        header("Location: sample.php");
+        header("Location: sample_head.php");
     }
 }
 ?>

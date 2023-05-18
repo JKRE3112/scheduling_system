@@ -91,8 +91,11 @@ if (!$connection) {
 		
 		
         <!--Method One-->
+        <div class = " mt-5 container">
+        <div class="row">
+    <div class="col-lg-11">
         <div class="form-group">
-			<label class="col-md-4 control-label" for="start_time">Start time</label> 
+       			<label class="col-mx-5 control-label" for="start_time">Start time</label> 
 			<div class="col-md-12">
 		<select  id="start_time" name="start_time" class="form-control">
 		  <?php echo $options;?>
@@ -109,6 +112,7 @@ if (!$connection) {
         
 		</div>		
     </div>
+   
     </body>
 </head>
 </html>
@@ -150,6 +154,7 @@ while ($row2 = mysqli_fetch_array($result2)) {
     <body>
         
 		<!-- Method Two -->
+ 
         <div class="form-group">
 			<label class="col-md-6 control-label" for="end_time">End time</label> 
 			<div class="col-md-12">
@@ -158,6 +163,7 @@ while ($row2 = mysqli_fetch_array($result2)) {
         </select>
 		</div>
 		</div>
+    
 		
        
 
@@ -236,8 +242,34 @@ while ($row2 = mysqli_fetch_array($result2)) {
             <?php endwhile;?>
 
         </select>
-
         <?php
+        $connect = mysqli_connect($hostname, $username, $password, $databaseName);
+
+
+// Retrieve the selected option from the dropdown
+$selectedOption = $_POST['overload'];
+
+// Prepare the SQL query to insert the data into the database
+$sql = "INSERT INTO scheduling (overload) VALUES (2)";
+
+// Prepare the statement
+$stmt = $connection->prepare($sql);
+
+// Bind the parameter to the statement
+$stmt->bind_param("s", $selectedOption);
+
+// Execute the statement
+$stmt->execute();
+
+
+// Close the statement and database connection
+$stmt->close();
+$connection->close();
+?>
+
+
+
+<?php
 
 // php select option value from database
 
@@ -315,57 +347,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<!-- Units -->
-<div class="container mt-3">
-    <div class="row">
-<div class="form-group">
-        <label class="col-md-4 control-label" for="end_time">Units</label>
-        <div class="col-md-12">
-            <select id="units" name="units" class="form-control">
-                <?php echo $unitsOptions; ?>
-            </select>
-        </div>
-    </div>
-
-    <!-- Method One -->
-
-    <div class="col-lg-11">
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="start_time">Start time</label>
-        <div class="col-md-12">
-            <select id="start_time" name="start_time" class="form-control">
-                <?php echo $startOptions; ?>
-            </select>
-        </div>
-    </div>
-
-    <!-- Method Two -->
-    <div class="form-group">
-        <label class="col-md-6 control-label" for="end_time">End time</label>
-        <div class="col-md-12">
-            <select id="end_time" name="end_time" class="form-control">
-                <?php echo $endOptions; ?>
-            </select>
-        </div>
-    </div>
-
-    <!-- Method Three -->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="overload">Overload</label>
-        <div class="col-md-12">
-            <select id="overload" name="overload" class="form-control">
-                <?php echo $overloadOptions; ?>
-            </select>
-        </div>
-    </div>
-
-    <!-- Button -->
-    <div class="form-group align-right">
-        <label class="col-md-4 control-label" for="submit"></label>
-        <div class="col-md-6">
-        <button id="submit" name="insert" class="btn btn-secondary" onclick="window.location.href = 'third_page.php';">Next</button>
-        </div>
-    </div>
+<!-- Button -->
+<div class="form-group align-right" >
+				  <label class="col-md-4 control-label" for="submit"></label>
+				  <div class="col-md-6">
+					<button id="submit" name="insert" class="btn btn-secondary" href= "third_page.php"> Schedule </button>
+				  </div>
+				</div>
+        
+        
+</fieldset>
+			</form>
+		</div>		
     </div>
     </body>
 </head>

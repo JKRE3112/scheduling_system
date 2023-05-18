@@ -31,7 +31,7 @@ if (!isLoggedIn()) {
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="main.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="main.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -61,9 +61,8 @@ if (!isLoggedIn()) {
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-         		 	<a class="dropdown-item" href="addroom.php">Add Room</a>
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
-          			<a class="dropdown-item" href="addtime.php">Add Time</a>
+          			
           </ul>
         </div>
                 
@@ -100,7 +99,7 @@ if (!isLoggedIn()) {
 
 				<!-- Text input-->
 				<div class="form-group">
-				  <label class="col-md-4 control-label" for="subdescription">Subject Description</label>  
+				  <label class="col-md-4 control-label" for="subdescription">Subject Name</label>  
 				  <div class="col-md-5">
 				  <input id="subdescription" name="subdescription" type="text" placeholder="" class="form-control input-md" required="">
 					
@@ -132,6 +131,30 @@ if (!isLoggedIn()) {
         </select>
     </div>
 </div>
+
+<div class="form-group">
+    <label class="col-md-4 control-label" for="subdescription">Year Level</label>
+    <div class="col-md-5">
+        <select id="yearlevel" name="yearlevel" class="form-control input-md" required="">
+            <option value="First Year">First Year</option>
+            <option value="Second Year">Second Year</option>
+            <option value="Third Year">Third Year</option>
+            <option value="Fourth Year">Fourth Year</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-4 control-label" for="subdescription">Course</label>
+    <div class="col-md-5">
+        <select id="course" name="course" class="form-control input-md" required="">
+            <option value="Information Technology">Information Technology</option>
+            <option value="Information System">Information System</option>
+            <option value="Computer Science">Computer Science</option>
+        </select>
+    </div>
+</div>
+
 				<!-- Button -->
 				<div class="form-group"  align="left">
 				  <label class="col-md-4 control-label" for="submit"></label>

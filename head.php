@@ -27,7 +27,7 @@ if (!isLoggedIn()) {
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="head.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="head.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -55,10 +55,10 @@ if (!isLoggedIn()) {
 	          </button>
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
-          			<a class="dropdown-item" href="addfaculty.php">Add Faculty</a>
+          		
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
-          			<a class="dropdown-item" href="addtime.php">Add Time</a>
+         
           </ul>
         </div>
                 
@@ -105,8 +105,8 @@ if (!isLoggedIn()) {
                     </p> -->
                    
  
-                      <!--Facebook-->
-                      <button type="button" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></button>
+                     
+                      <a href = "head_second_page.php" button type="button" class="btn btn-outline-danger btn-custom">Get Started <span class="bi bi-arrow-right"></span></button></a>
                     </div>
     
 

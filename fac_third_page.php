@@ -73,7 +73,6 @@ if (!$connection) {
 // Retrieve the useruid from the session
 $usersUid = $_SESSION['usersUid'];
 
-
 // Query the database to retrieve the first name and last name
 $query = "SELECT usersFName, usersLName FROM users WHERE usersUid = '$usersUid'";
 $result = mysqli_query($connection, $query);
@@ -230,29 +229,8 @@ while ($row = mysqli_fetch_array($result1)) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-$(document).ready(function() {
+ $(document).ready(function() {
   var counter = 2; // Start from 2 to account for the existing subject field
-
-  // Function to update the subject options based on the selected course
-  function updateSubjectOptions(courseName) {
-    $.ajax({
-      url: "get_subjects.php", // Replace with the actual server-side script URL that fetches subjects based on the course
-      type: "POST",
-      data: { courseName: courseName },
-      success: function(response) {
-        $("#subject1").html(response);
-      },
-      error: function(xhr, status, error) {
-        console.log(error); // Handle errors
-      }
-    });
-  }
-
-  // Event handler for course dropdown change
-  $("#course_name").change(function() {
-    var selectedCourse = $(this).val();
-    updateSubjectOptions(selectedCourse);
-  });
 
   $("#addSubjectBtn").click(function(event) {
     event.preventDefault();
@@ -305,7 +283,8 @@ $(document).ready(function() {
     $(this).prop("disabled", true); // Disable the button after clicking
   });
 });
-</script>
 
+
+</script>
 </body>
 </html>

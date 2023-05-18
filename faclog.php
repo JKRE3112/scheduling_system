@@ -32,7 +32,7 @@ if (!isLoggedIn()) {
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="faculty.php">
-                <h2>CS Scheduling</h2>
+            <img src="images/brand2.png" width="200" height="50">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,7 +43,7 @@ if (!isLoggedIn()) {
                         <a class="nav-link" href="faculty.php">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="second_page.php">SCHEDULE</a>
+                        <a class="nav-link" href="fac_second_page.php">SCHEDULE</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="faclog.php">SUBJECT LOGS</a>
@@ -93,20 +93,28 @@ if ($result && mysqli_num_rows($result) > 0) {
     echo '<div class="container mt-3">';
     echo '<div class="row">';
     echo '<div class="col-lg-12">';
+?>
     
-    while ($row = mysqli_fetch_assoc($result)) {
+    <div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <?php
+      while ($row = mysqli_fetch_assoc($result)) {
         $subjectDescription = $row['subject_description'];
-        echo '<h4 class="text-center">' . $subjectDescription . '</h4>';
-    }
-    
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
+        echo '<h4>' . $subjectDescription . '</h4>';
+      }
+      ?>
+    </div>
+  </div>
+</div>
+
+<?php
 } else {
-    // Handle the case when the user is not found or an error occurred
-    echo "Unable to retrieve user information.";
+  // Handle the case when the user is not found or an error occurred
+  echo '<div class="text-center">Unable to retrieve user information.</div>';
 }
 ?>
+
 
 
 

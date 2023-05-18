@@ -23,20 +23,20 @@
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="faculty.php"><h2>CS Scheduling</h2></a>
+        <a class="navbar-brand" href="faculty.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
             <li class="nav-item">
-              <a class="nav-link active" href="faculty.php" style="color:#18211D">HOME</a>  
+              <a class="nav-link" href="faculty.php">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="first_page.php">SCHEDULE</a>
+              <a class="nav-link active" href="fac_second_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="includes/Faculty.display.php">SCHEDULE LOGS</a>
+              <a class="nav-link" href="faclog.php">SCHEDULE LOGS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
@@ -95,7 +95,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 }
 ?>
 
-<?php session_start(); ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -103,9 +103,8 @@ if ($result && mysqli_num_rows($result) > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Head is now scheduling</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <title>Faculty</title>
+    </head>
 <body>
     
     <div class="container">
@@ -125,25 +124,18 @@ if ($result && mysqli_num_rows($result) > 0) {
                     }
                 ?>
 
-                <div class="card mt-5">
+                <div class="card mt-6">
                                      <div class="card-body">
 
                         <form action="config.php" method="POST">
                         <div class="from-group mb-3">
-                                <label for="">Professor placing ranking</label>
-                                <input type="text" name="id" class="form-control" />
-                                </select>
-                            </div>
+                               
                             <div class="from-group mb-3">
                                 <label for="">Units</label>
                                 <select name="units" class="form-control">
                                     <option value="">--Select Units--</option>
-                                    <option value="3 units">3 units(Head/Admin only)</option>
-                                    <option value="6 units">6 units(Head/Admin only)</option>
-                                    <option value="9 units">9 units(Head/Admin only)</option>
                                     <option value="18 units">18 units(Regular faculty only)</option>
-                                    <option value="30 units">30 units(Part timers only)</option>
-                                </select>
+                                    </select>
                             </div>
                                 <div class="from-group mb-3">
                                 <label for="">Start time</label>
@@ -190,11 +182,12 @@ if ($result && mysqli_num_rows($result) > 0) {
                                     
                                 </select>
                             </div>
-
-                                                 <div class="from-group mb-3">
-                                <button type="submit" name="save_select" class="btn btn-primary">Save Selectbox</button>
+                                
+                                <div class="from-group mb-4">
                               
-                            </div>
+                                <button type="submit" name="save_select" class="btn btn-outline-secondary">Save Schedule</button>
+                                <a href= "fac_third_page.php" class="btn btn-secondary" button type = "submit" >Next</a></button>
+                                <button type="submit" name="delete_last" class="btn btn-dark">Delete</button>
                         </form>
 
                     </div>
@@ -205,6 +198,12 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+
+    <footer id="footer" class="py-2 my-2 container-fluid text-center">
+        <hr>
+          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
+          <small>ALL RIGHTS RESERVED 2023</small>
+      </footer>
+    </div>
+  </body>
 </html>

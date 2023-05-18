@@ -95,7 +95,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 }
 ?>
 
-<?php session_start(); ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -103,9 +103,8 @@ if ($result && mysqli_num_rows($result) > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Head is now scheduling</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <title>Faculty</title>
+    </head>
 <body>
     
     <div class="container">
@@ -125,15 +124,12 @@ if ($result && mysqli_num_rows($result) > 0) {
                     }
                 ?>
 
-                <div class="card mt-5">
+                <div class="card mt-6">
                                      <div class="card-body">
 
                         <form action="config.php" method="POST">
                         <div class="from-group mb-3">
-                                <label for="">Professor placing ranking</label>
-                                <input type="text" name="id" class="form-control" />
-                                </select>
-                            </div>
+                               
                             <div class="from-group mb-3">
                                 <label for="">Units</label>
                                 <select name="units" class="form-control">
@@ -190,11 +186,12 @@ if ($result && mysqli_num_rows($result) > 0) {
                                     
                                 </select>
                             </div>
-
-                                                 <div class="from-group mb-3">
-                                <button type="submit" name="save_select" class="btn btn-primary">Save Selectbox</button>
+                                
+                                <div class="from-group mb-4">
                               
-                            </div>
+                                <button type="submit" name="save_select" class="btn btn-primary">Save Selectbox</button>
+                                <button type="submit" name="delete_last" class="btn btn-danger">Delete</button>
+                                <a href= "third_page.php" class="btn btn-success" button type = "submit" >Next</a></button>
                         </form>
 
                     </div>
@@ -205,6 +202,5 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>

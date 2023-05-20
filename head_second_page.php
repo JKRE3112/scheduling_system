@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"></link>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +53,6 @@
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-       
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
           		
           </ul>
@@ -120,6 +119,27 @@ if ($result && mysqli_num_rows($result) > 0) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+        // Function to check if all fields are filled/selected
+        function checkFields() {
+            var units = document.getElementById("units").value;
+            var startTime = document.getElementById("start_time").value;
+            var endTime = document.getElementById("end_time").value;
+            var overload = document.getElementById("overload").value;
+
+            // Enable/disable buttons based on field values
+            var saveButton = document.getElementById("save_schedule_button");
+            var nextButton = document.getElementById("next_button");
+            
+            if (units && startTime && endTime && overload) {
+                saveButton.disabled = false;
+                nextButton.disabled = false;
+            } else {
+                saveButton.disabled = true;
+                nextButton.disabled = true;
+            }
+        }
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -145,23 +165,24 @@ if ($result && mysqli_num_rows($result) > 0) {
                 ?>
 
                 <div class="card mt-6">
-                                     <div class="card-body">
+                                     <div class="card-body" id="headcard">
 
                         <form action="config_head.php" method="POST">
-                        <div class="from-group mb-3">
+                        <div class="form-group mb-3">
                                
-                            <div class="from-group mb-3">
+                            <div class="form-group mb-3">
                                 <label for="">Units</label>
-                                <select name="units" class="form-control">
+                                <select id="units" name="units" class="form-control" onchange="checkFields()">
+                                <!-- Options -->
                                     <option value="">--Select Units--</option>
                                     <option value="3 units">3 units(Head/Admin only)</option>
                                     <option value="6 units">6 units(Head/Admin only)</option>
                                     <option value="9 units">9 units(Head/Admin only)</option>
                                      </select>
                             </div>
-                                <div class="from-group mb-3">
+                                <div class="form-group mb-3">
                                 <label for="">Start time</label>
-                                <select name="start_time" class="form-control">
+                                <select id="start_time" name="start_time" class="form-control" onchange="checkFields()">
                                     <option value="">--Select Start time--</option>
                                     <option value="6 AM">6 AM</option>
                                     <option value="7 AM">7 AM</option>
@@ -175,9 +196,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 </select>
                             </div>
 
-                            <div class="from-group mb-3">
+                            <div class="form-group mb-3">
                                 <label for="">End time</label>
-                                <select name="end_time" class="form-control">
+                                <select id="end_time" name="end_time" class="form-control" onchange="checkFields()">
                                     <option value="">--Select End time--</option>
                                     <option value="12 PM">12 PM</option>
                                     <option value="1 PM">1 PM</option>
@@ -190,9 +211,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 </select>
                             </div>
 
-                            <div class="from-group mb-3">
+                            <div class="form-group mb-3">
                                 <label for="">Overload</label>
-                                <select name="overload" class="form-control">
+                                <select id="overload" name="overload" class="form-control" onchange="checkFields()">
                                     <option value="">--Select Overload--</option>
                                     <option value="0">0 units</option>
                                     <option value="3">3 units</option>
@@ -205,10 +226,10 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 </select>
                             </div>
                                 
-                                <div class="from-group mb-4">
+                                <div class="form-group mb-4">
                               
-                                <button type="submit" name="save_select" class="btn btn-outline-secondary">Save Schedule</button>
-                                <a href= "head_third_page.php" class="btn btn-secondary" button type = "submit" >Next</a></button>
+                                <button id="save_schedule_button" type="submit" name="save_select" class="btn btn-outline-secondary" disabled>Save Schedule</button>
+                                <a id="next_button" href="head_third_page.php" class="btn btn-secondary" button type="submit" disabled>Next</a>
                                 <button type="submit" name="delete_last" class="btn btn-dark">Delete</button>
                                 
                         </form>
@@ -224,7 +245,6 @@ if ($result && mysqli_num_rows($result) > 0) {
           <small>ALL RIGHTS RESERVED 2023</small>
       </footer>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   </body>
 </html>

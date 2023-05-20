@@ -1,4 +1,8 @@
 <?php
+// Retrieve the selected year level and course from the AJAX request
+$yearLevel = $_POST['yearLevel'];
+$course = $_POST['course'];
+
 // Database connection parameters
 $servername = "localhost";
 $username = "root";
@@ -13,30 +17,25 @@ if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Retrieve the selected year level and course from the AJAX request
-$yearLevel = $_POST['yearLevel'];
-$course = $_POST['course'];
-
-// Prepare the query to fetch the subjects based on the year level and course
-$query = "SELECT * FROM subject WHERE year_level = '$yearLevel' AND course = '$course'";
+// Prepare the query to retrieve the subjects based on the selected year level and course
+$query = "SELECT * FROM `subject` WHERE year_level = '$yearLevel' AND course = '$course'";
 $result = mysqli_query($connection, $query);
 
-// Check if the query was successful and fetch the subjects
-if ($result && mysqli_num_rows($result) > 0) {
+// Check if any subjects were found
+if (mysqli_num_rows($result) > 0) {
+    // Generate the HTML options for the select field
     $options = "";
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $subjectDescription = $row['subject_description'];
-        $options .= "<option value='$subjectDescription'>$subjectDescription</option>";
+    while ($row = mysqli_fetch_array($result)) {
+        $options .= "<option value='" . $row['subject_description'] . "'>" . $row['subject_description'] . "</option>";
     }
 
     // Return the HTML options as the response
     echo $options;
 } else {
     // No subjects found for the selected year level and course
-    echo "<option>No subjects found</option>";
+    echo "<option>No subjects available</option>";
 }
 
 // Close the database connection
 mysqli_close($connection);
-
+?>

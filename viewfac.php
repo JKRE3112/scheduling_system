@@ -118,7 +118,7 @@ if (!isLoggedIn()) {
                 echo "<td>" . $row["usersFName"] . "</td>";
                 echo "<td>" . $row["usersLName"] . "</td>";
                 echo "<td>";
-                echo '<button class="btn btn-secondary me-2">Schedule</button>';
+                echo '<a href = "automatic_mona.php"button class="btn btn-secondary me-2">Schedule</a></button>';
                 echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["usersId"] . ')">Delete</button>';
                 echo "</td>";
                 echo "</tr>";

@@ -105,7 +105,7 @@ $databaseName = "insertion";
 
 $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 
-$query = "SELECT * FROM `year_level`";
+$query = "SELECT * FROM year_level";
 $result2 = mysqli_query($connect, $query);
 
 $options = "";
@@ -120,27 +120,41 @@ $usersUid = $_SESSION['usersUid'];
 
 // Handle the form submission
 if (isset($_POST['logBtn'])) {
-    // Retrieve the selected subjects
-    $subjects = $_POST['subjects'];
+  // Retrieve the selected subjects
+  $subjects = $_POST['subjects'];
 
-    // Prepare the query to insert the logged subjects into the "logs" table
-    $query = "INSERT INTO logs (usersUid, subject_description) VALUES ";
+  // Prepare the query to insert the logged subjects into the "logs" table
+  $query = "INSERT INTO logs (usersUid, subject_description, subject_units) VALUES ";
 
-    foreach ($subjects as $subject_description) {
-        $subject_description = mysqli_real_escape_string($connection, $subject_description);
-        $query .= "('$usersUid', '$subject_description'),";
-    }
+  foreach ($subjects as $subject_description) {
+      $subject_description = mysqli_real_escape_string($connection, $subject_description);
 
-    $query = rtrim($query, ','); // Remove the trailing comma
+      // Retrieve the subject_units for the current subject_description
+      $unitsQuery = "SELECT subject_units FROM subject WHERE subject_description = '$subject_description'";
+      $unitsResult = mysqli_query($connection, $unitsQuery);
 
-    // Execute the query
-    if (mysqli_query($connection, $query)) {
-        // Query executed successfully, subjects logged
-        // You can perform any additional actions or redirect to another page if needed
-    } else {
-        // Error occurred while logging subjects
-        // You can log the error or perform any error handling actions
-    }
+      if ($unitsResult && mysqli_num_rows($unitsResult) > 0) {
+          $row = mysqli_fetch_assoc($unitsResult);
+          $subject_units = $row['subject_units'];
+
+          // Include subject_units in the query
+          $query .= "('$usersUid', '$subject_description', '$subject_units'),";
+      } else {
+          // Error occurred while retrieving subject_units
+          // Handle the error or perform any error handling actions
+      }
+  }
+
+  $query = rtrim($query, ','); // Remove the trailing comma
+
+  // Execute the query
+  if (mysqli_query($connection, $query)) {
+      // Query executed successfully, subjects logged
+      // You can perform any additional actions or redirect to another page if needed
+  } else {
+      // Error occurred while logging subjects
+      // You can log the error or perform any error handling actions
+  }
 }
 
 

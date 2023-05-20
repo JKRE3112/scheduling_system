@@ -168,10 +168,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                                     <option value="8 AM">8 AM</option>
                                     <option value="9 AM">9 AM</option>
                                     <option value="10 AM">10 AM</option>
-                                    <option value="11 AM">11 AM</option>
-                                    <option value="2 PM">2 PM</option>
-                                    <option value="3 PM">3 PM</option>
-                                    <option value="4 PM">4 PM</option>
+                                    
                                 </select>
                             </div>
 
@@ -180,12 +177,12 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <select id="end_time" name="end_time" class="form-control" onchange="checkFields()">
                                     <option value="">--Select End time--</option>
                                     <option value="12 PM">12 PM</option>
-                                    <option value="1 PM">1 PM</option>
                                     <option value="2 PM">2 PM</option>
                                     <option value="3 PM">3 PM</option>
                                     <option value="4 PM">4 PM</option>
                                     <option value="5 PM">5 PM</option>
                                     <option value="6 PM">6 PM</option>
+                                    <option value="6 PM">7 PM</option>
                                     
                                 </select>
                             </div>

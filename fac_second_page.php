@@ -148,7 +148,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                 <div class="card mt-6">
                                      <div class="card-body" id="headcard">
 
-                        <form action="config_head.php" method="POST">
+                        <form action="config.php" method="POST">
                         <div class="form-group mb-3">
                                
                             <div class="form-group mb-3">

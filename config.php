@@ -17,7 +17,7 @@ if (isset($_POST['save_select'])) {
         header("Location: fac_second_page.php");
     } else {
         $_SESSION['status'] = "Not Inserted";
-        header("Location: fac_second_page.php.php");
+        header("Location: sample.php");
     }
 }
 
@@ -30,12 +30,12 @@ if(isset($_POST['delete_last']))
     if($deleteResult)
     {
         $_SESSION['status'] = "Last record deleted successfully";
-        header("Location: fac_second_page.php.php");
+        header("Location: sample.php");
     }
     else
     {
         $_SESSION['status'] = "Failed to delete last record";
-        header("Location: fac_second_page.php.php");
+        header("Location: sample.php");
     }
 }
 ?>

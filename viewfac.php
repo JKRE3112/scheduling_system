@@ -107,7 +107,7 @@ if (!isLoggedIn()) {
       }
 
       // Fetch data from the users table
-            $sql = "SELECT usersId, usersType, usersFName, usersLName FROM users";
+            $sql = "SELECT usersUid, usersType, usersFName, usersLName FROM users";
             $result = $conn->query($sql);
 
             // Display data in table rows
@@ -118,8 +118,8 @@ if (!isLoggedIn()) {
                 echo "<td>" . $row["usersFName"] . "</td>";
                 echo "<td>" . $row["usersLName"] . "</td>";
                 echo "<td>";
-                echo '<a href = "automatic_mona.php"button class="btn btn-secondary me-2">Schedule</a></button>';
-                echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["usersId"] . ')">Delete</button>';
+                echo '<a href="automatic_mona.php?usersUid=' . $row["usersUid"] . '" class="btn btn-secondary me-2" target="_blank">Schedule</a>';
+                echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["usersUid"] . ')">Delete</button>';
                 echo "</td>";
                 echo "</tr>";
             }

@@ -23,41 +23,24 @@
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="main.php"><img src="images/brand2.png" width="200" height="50"></a>
+        <a class="navbar-brand" href="faculty.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
-          <li class="nav-item">
-              <a class="nav-link" href="head.php">HOME</a>  
+            <li class="nav-item">
+              <a class="nav-link" href="faculty.php">HOME</a>  
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="head_second_page.php">SCHEDULE</a>
+              <a class="nav-link active" href="fac_second_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="headlog.php">SUBJECT LOGS</a>
+              <a class="nav-link" href="faclog.php">SCHEDULE LOGS</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="view.php">VIEWING</a>
-            </li>
-           
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
             </li>
-
-            <div class="dropdown">
-	          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-		            Other Options
-	          </button>
-	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-         			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
-          			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-       
-                <a class="dropdown-item" href="addsection.php">Add Section</a>
-          
-          </ul>
-        </div>
                 
       </li>
     </ul>
@@ -66,12 +49,12 @@
         </div>
       </div>
     </nav>
+
     <?php
 session_start();
 include('includes/functions-inc.php');
 if (!isLoggedIn()) {
-	header('location: login-first.php');
-}
+	header('location: login-first.php');}
 
 // Database connection parameters
 $servername = "localhost";
@@ -122,7 +105,7 @@ $databaseName = "insertion";
 
 $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 
-$query = "SELECT * FROM year_level";
+$query = "SELECT * FROM `year_level`";
 $result2 = mysqli_query($connect, $query);
 
 $options = "";
@@ -137,41 +120,27 @@ $usersUid = $_SESSION['usersUid'];
 
 // Handle the form submission
 if (isset($_POST['logBtn'])) {
-  // Retrieve the selected subjects
-  $subjects = $_POST['subjects'];
+    // Retrieve the selected subjects
+    $subjects = $_POST['subjects'];
 
-  // Prepare the query to insert the logged subjects into the "logs" table
-  $query = "INSERT INTO logs (usersUid, subject_description, subject_units) VALUES ";
+    // Prepare the query to insert the logged subjects into the "logs" table
+    $query = "INSERT INTO logs (usersUid, subject_description) VALUES ";
 
-  foreach ($subjects as $subject_description) {
-      $subject_description = mysqli_real_escape_string($connection, $subject_description);
+    foreach ($subjects as $subject_description) {
+        $subject_description = mysqli_real_escape_string($connection, $subject_description);
+        $query .= "('$usersUid', '$subject_description'),";
+    }
 
-      // Retrieve the subject_units for the current subject_description
-      $unitsQuery = "SELECT subject_units FROM subject WHERE subject_description = '$subject_description'";
-      $unitsResult = mysqli_query($connection, $unitsQuery);
+    $query = rtrim($query, ','); // Remove the trailing comma
 
-      if ($unitsResult && mysqli_num_rows($unitsResult) > 0) {
-          $row = mysqli_fetch_assoc($unitsResult);
-          $subject_units = $row['subject_units'];
-
-          // Include subject_units in the query
-          $query .= "('$usersUid', '$subject_description', '$subject_units'),";
-      } else {
-          // Error occurred while retrieving subject_units
-          // Handle the error or perform any error handling actions
-      }
-  }
-
-  $query = rtrim($query, ','); // Remove the trailing comma
-
-  // Execute the query
-  if (mysqli_query($connection, $query)) {
-      // Query executed successfully, subjects logged
-      // You can perform any additional actions or redirect to another page if needed
-  } else {
-      // Error occurred while logging subjects
-      // You can log the error or perform any error handling actions
-  }
+    // Execute the query
+    if (mysqli_query($connection, $query)) {
+        // Query executed successfully, subjects logged
+        // You can perform any additional actions or redirect to another page if needed
+    } else {
+        // Error occurred while logging subjects
+        // You can log the error or perform any error handling actions
+    }
 }
 
 
@@ -199,7 +168,7 @@ if (isset($_POST['logBtn'])) {
     </div>
 
     <?php
-    $query = "SELECT * FROM course";
+    $query = "SELECT * FROM `course`";
     $result2 = mysqli_query($connect, $query);
 
     $options = "";
@@ -220,7 +189,7 @@ if (isset($_POST['logBtn'])) {
 </div>
 
 <?php
-$query = "SELECT * FROM subject";
+$query = "SELECT * FROM `subject`";
 $result1 = mysqli_query($connect, $query);
 
 $suboptions = "";
@@ -235,7 +204,7 @@ while ($row = mysqli_fetch_array($result1)) {
 
     <div class="form-group">
     <label class="col-md-4 control-label" for="subject"><h3>Preferred Subjects</h3></label>
-    <div class="col-md-12" id="subjectFieldsContainer">
+    <div id="subjectFieldsContainer"> <!-- Updated the ID to make it dynamic -->
         <!-- Existing subject field -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="subject1">Subject 1</label>
@@ -252,9 +221,7 @@ while ($row = mysqli_fetch_array($result1)) {
     <div class="col-md-12">
       <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
       <button id="logBtn" class="btn btn-outline-secondary" type="submit">Confirm Subjects</button>
-      <a href= "head.php" class="btn btn-outline-dark" button type = "submit" >Finish Scheduling</a></button>
     </div>
-    
   </div>
 </form>
 </div>
@@ -262,60 +229,74 @@ while ($row = mysqli_fetch_array($result1)) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
- $(document).ready(function() {
-  var counter = 2; // Start from 2 to account for the existing subject field
+$(document).ready(function() {
+    var counter = 2; // Start from 2 to account for the existing subject field
 
-  $("#addSubjectBtn").click(function(event) {
-    event.preventDefault();
-    var newSubjectField =
-      '<div class="form-group">' +
-      '<label class="col-md-4 control-label" for="subject' +
-      counter +
-      '">Subject ' +
-      counter +
-      '</label>' +
-      '<div class="col-md-12">' +
-      '<select id="subject' +
-      counter +
-      '" name="subjects[]" class="form-control">' +
-      $("#subject1").html() +
-      "</select>" +
-      "</div>" +
-      "</div>";
-    $("#subjectFieldsContainer").append(newSubjectField);
-    counter++;
-  });
+    // Fetch subjects based on the selected year level and course
+    fetchSubjects($("#subject1"), $("#year_level").val(), $("#course_name").val());
 
-  $("#logBtn").click(function(event) {
-    event.preventDefault();
+    $("#addSubjectBtn").click(function(event) {
+        event.preventDefault();
+        var newSubjectField =
+            '<div class="form-group">' +
+            '<label class="col-md-4 control-label" for="subject' +
+            counter +
+            '">Subject ' +
+            counter +
+            '</label>' +
+            '<div class="col-md-12">' +
+            '<select id="subject' +
+            counter +
+            '" name="subjects[]" class="form-control"></select>' +
+            '</div>' +
+            '</div>';
+        var newContainerID = "subjectFieldsContainer" + counter; // Create a new container ID
+        $("#subjectFieldsContainer").append('<div id="' + newContainerID + '">' + newSubjectField + '</div>');
 
-    // Retrieve the selected subjects
-    var subjects = $("select[name='subjects[]']").map(function() {
-      return $(this).val();
-    }).get();
+        var newSubjectFieldElement = $("#" + newContainerID).find("select");
+        // Event listener for newly added subject field
+        newSubjectFieldElement.change(function() {
+            var selectedYearLevel = $("#year_level").val();
+            var selectedCourse = $("#course_name").val();
+            fetchSubjects($(this), selectedYearLevel, selectedCourse); // Fetch subjects for the changed field
+        });
 
-    if (subjects.length === 0) {
-      alert("Please select at least one subject.");
-      return;
-    }
+        var selectedYearLevel = $("#year_level").val();
+        var selectedCourse = $("#course_name").val();
+        fetchSubjects(newSubjectFieldElement, selectedYearLevel, selectedCourse); // Fetch subjects for the newly added field
 
-    // Use AJAX to send the form data to the server without reloading the page
-    $.ajax({
-      url: "", // Use the current URL or specify the server-side script URL
-      type: "POST",
-      data: { subjects: subjects, logBtn: 1 },
-      success: function(response) {
-        console.log(response); // Handle the response from the server
-        alert("Subjects confirmed.");
-      },
-      error: function(xhr, status, error) {
-        console.log(error); // Handle errors
-      }
+        counter++;
     });
 
-    $(this).prop("disabled", true); // Disable the button after clicking
-  });
+    // Event listener for year level change
+    $("#year_level").change(function() {
+        var selectedYearLevel = $(this).val();
+        var selectedCourse = $("#course_name").val();
+        fetchSubjects($("#subject1"), selectedYearLevel, selectedCourse);
+    });
+
+    // Event listener for course change
+    $("#course_name").change(function() {
+        var selectedYearLevel = $("#year_level").val();
+        var selectedCourse = $(this).val();
+        fetchSubjects($("#subject1"), selectedYearLevel, selectedCourse);
+    });
+
+    function fetchSubjects(subjectField, yearLevel, course) {
+        $.ajax({
+            url: "fetch_subjects.php", // Replace with the path to your server-side script
+            type: "POST",
+            data: { yearLevel: yearLevel, course: course },
+            success: function(response) {
+                subjectField.html(response); // Update the specific subject field
+            },
+            error: function(xhr, status, error) {
+                console.log(error); // Handle errors
+            }
+        });
+    }
 });
+
 
 
 </script>

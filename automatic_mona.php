@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 $demoQuery = "SELECT * FROM demo";
 $demoResult = $conn->query($demoQuery);
 
-// Create an HTML table to display the data
+// Iterate through the demo table rows
 echo "<table>";
 echo "<tr>";
 echo "<th>Id</th>";
@@ -26,7 +26,6 @@ echo "<th>Subject Description</th>";
 echo "<th>Time Slot</th>";
 echo "</tr>";
 
-// Iterate through the demo table rows
 while ($demoRow = $demoResult->fetch_assoc()) {
     $usersUid = $demoRow['usersUid'];
     $startTime = strtotime($demoRow['start_time']);
@@ -41,38 +40,46 @@ while ($demoRow = $demoResult->fetch_assoc()) {
     $interval = ($endTime - $startTime) / $demoRow['units'];
 
     // Retrieve the subjects for the current usersUid from the logs table
-    $subjectsQuery = "SELECT subject_description, subject_units FROM logs WHERE usersUid = '$usersUid'";
-    $subjectsResult = $conn->query($subjectsQuery);
+    $subjectsQuery = "SELECT subject_description, subject_units FROM logs WHERE usersUid = ?";
+    $subjectsStatement = $conn->prepare($subjectsQuery);
+    $subjectsStatement->bind_param("s", $usersUid);
+    $subjectsStatement->execute();
+    $subjectsResult = $subjectsStatement->get_result();
 
     // Check if there are subjects for the current usersUid
     if ($subjectsResult->num_rows > 0) {
         $currentStartTime = $startTime;
+        $currentDay = 1; // Start from Monday
 
-        // Iterate through the subjects and display them in separate rows
+        // Iterate through the subjects and print them in table rows
         while ($subjectsRow = $subjectsResult->fetch_assoc()) {
             $subjectDescription = $subjectsRow['subject_description'];
             $subjectUnits = $subjectsRow['subject_units'];
 
-            // Skip the lunchtime (12 PM - 1 PM)
-            $lunchStartTime = strtotime("12:00 PM");
-            $lunchEndTime = strtotime("01:00 PM");
-
-            // Adjust the start time if it falls within the lunchtime
-            if ($currentStartTime >= $lunchStartTime && $currentStartTime < $lunchEndTime) {
-                $currentStartTime = $lunchEndTime;
+            // Skip the lunchtime (12 PM - 1 PM) and add days if necessary
+            while (($currentStartTime >= strtotime("12:00 PM") && $currentStartTime < strtotime("01:00 PM")) || $currentStartTime >= strtotime("02:00 PM")) {
+                $currentDay++;
+                $currentStartTime = strtotime("07:00 AM"); // Reset the start time to 7 AM for the new day
             }
 
             $currentEndTime = $currentStartTime + ($subjectUnits * 3600);
 
+            // Print the data in table rows
             echo "<tr>";
             echo "<td>" . $demoRow['id'] . "</td>";
             echo "<td>" . $usersUid . "</td>";
-            echo "<td>" . $demoRow['units'] . "</td>";
+            echo "<td>" . $subjectUnits . "</td>";
             echo "<td>" . $subjectDescription . "</td>";
             echo "<td>" . date("h:i A", $currentStartTime) . " - " . date("h:i A", $currentEndTime) . "</td>";
             echo "</tr>";
 
             $currentStartTime = $currentEndTime;
+            $currentDay++; // Move to the next day
+
+            // Reset the day if it exceeds 6 (Saturday) since professors can teach 6 times a week
+            if ($currentDay > 6) {
+                $currentDay = 1; // Start from Monday
+            }
         }
     } else {
         // Display an empty row if no subjects found for the usersUid
@@ -86,8 +93,14 @@ while ($demoRow = $demoResult->fetch_assoc()) {
     }
 }
 
-// Close the table
 echo "</table>";
+
+// Close the prepared statements
+$subjectsStatement->close();
+
+// Close the result sets
+$demoResult->close();
+$subjectsResult->close();
 
 // Close the database connection
 $conn->close();

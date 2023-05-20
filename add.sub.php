@@ -15,11 +15,11 @@
  $Subject_Description = $_POST['subdescription'];
  $Subject_Units = $_POST['subunit'];
  $Subject_Type = $_POST['subtype'];
- $year = $_POST['yearlevel'];
+ $year_level = $_POST['yearlevel'];
  $course= $_POST['course'];
 
  
- $sql = "INSERT INTO subject (Subject_Code, Subject_Description, Subject_Units, Subject_Type, year, course ) VALUES ('$Subject_Code', '$Subject_Description', '$Subject_Units', '$Subject_Type', '$year', '$course')";
+ $sql = "INSERT INTO subject (Subject_Code, Subject_Description, Subject_Units, Subject_Type, year_level, course ) VALUES ('$Subject_Code', '$Subject_Description', '$Subject_Units', '$Subject_Type', '$year_level', '$course')";
 
  if (!mysqli_query ($con, $sql))
  {
@@ -29,7 +29,7 @@
  {
 	 echo '<script type="text/javascript">
                       alert("New Subject Added!");
-                         location="addsub.php";
+                         location="addsubject.php";
                            </script>';
  }
  

@@ -100,6 +100,27 @@ if ($result && mysqli_num_rows($result) > 0) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+        // Function to check if all fields are filled/selected
+        function checkFields() {
+            var units = document.getElementById("units").value;
+            var startTime = document.getElementById("start_time").value;
+            var endTime = document.getElementById("end_time").value;
+            var overload = document.getElementById("overload").value;
+
+            // Enable/disable buttons based on field values
+            var saveButton = document.getElementById("save_schedule_button");
+            var nextButton = document.getElementById("next_button");
+            
+            if (units && startTime && endTime && overload) {
+                saveButton.disabled = false;
+                nextButton.disabled = false;
+            } else {
+                saveButton.disabled = true;
+                nextButton.disabled = true;
+            }
+        }
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -125,21 +146,22 @@ if ($result && mysqli_num_rows($result) > 0) {
                 ?>
 
                 <div class="card mt-6">
-                                     <div class="card-body">
+                                     <div class="card-body" id="headcard">
 
-                        <form action="config.php" method="POST">
-                        <div class="from-group mb-3">
+                        <form action="config_head.php" method="POST">
+                        <div class="form-group mb-3">
                                
-                            <div class="from-group mb-3">
+                            <div class="form-group mb-3">
                                 <label for="">Units</label>
-                                <select name="units" class="form-control">
+                                <select id="units" name="units" class="form-control" onchange="checkFields()">
+                                <!-- Options -->
                                     <option value="">--Select Units--</option>
-                                    <option value="18 units">18 units(Regular faculty only)</option>
-                                    </select>
+                                    <option value="18 units">18 units(Regular Faculty only)</option>
+                                     </select>
                             </div>
-                                <div class="from-group mb-3">
+                                <div class="form-group mb-3">
                                 <label for="">Start time</label>
-                                <select name="start_time" class="form-control">
+                                <select id="start_time" name="start_time" class="form-control" onchange="checkFields()">
                                     <option value="">--Select Start time--</option>
                                     <option value="6 AM">6 AM</option>
                                     <option value="7 AM">7 AM</option>
@@ -153,9 +175,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 </select>
                             </div>
 
-                            <div class="from-group mb-3">
+                            <div class="form-group mb-3">
                                 <label for="">End time</label>
-                                <select name="end_time" class="form-control">
+                                <select id="end_time" name="end_time" class="form-control" onchange="checkFields()">
                                     <option value="">--Select End time--</option>
                                     <option value="12 PM">12 PM</option>
                                     <option value="1 PM">1 PM</option>
@@ -168,9 +190,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 </select>
                             </div>
 
-                            <div class="from-group mb-3">
+                            <div class="form-group mb-3">
                                 <label for="">Overload</label>
-                                <select name="overload" class="form-control">
+                                <select id="overload" name="overload" class="form-control" onchange="checkFields()">
                                     <option value="">--Select Overload--</option>
                                     <option value="0">0 units</option>
                                     <option value="3">3 units</option>
@@ -183,11 +205,12 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 </select>
                             </div>
                                 
-                                <div class="from-group mb-4">
+                                <div class="form-group mb-4">
                               
-                                <button type="submit" name="save_select" class="btn btn-outline-secondary">Save Schedule</button>
-                                <a href= "fac_third_page.php" class="btn btn-secondary" button type = "submit" >Next</a></button>
+                                <button id="save_schedule_button" type="submit" name="save_select" class="btn btn-outline-secondary" disabled>Save Schedule</button>
+                                <a id="next_button" href="head_third_page.php" class="btn btn-secondary" button type="submit" disabled>Next</a>
                                 <button type="submit" name="delete_last" class="btn btn-dark">Delete</button>
+                                
                         </form>
 
                     </div>
@@ -195,15 +218,12 @@ if ($result && mysqli_num_rows($result) > 0) {
             </div>
         </div>
     </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
     <footer id="footer" class="py-2 my-2 container-fluid text-center">
         <hr>
           <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
           <small>ALL RIGHTS RESERVED 2023</small>
       </footer>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   </body>
 </html>

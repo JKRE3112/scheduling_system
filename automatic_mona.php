@@ -201,7 +201,7 @@ $demoResult = $conn->query($demoQuery);
 // Create an HTML table to display the data
 echo "<table class='table table-striped'>";
 echo "<thead class='thead-dark'>";
-echo "<tr>";
+echo "<tr style='background-color: #441116; color: white;'>";
 echo "<th>Subject Units</th>";
 echo "<th>Subject Description</th>";
 echo "<th>Day of Week</th>";
@@ -209,6 +209,7 @@ echo "<th>Time Slot</th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
+
 
 // ...
 
@@ -299,4 +300,12 @@ echo "</table>";
 // Close the database connection
 $conn->close();
 ?>
+
+<footer id="footer" class="py-2 my-2 container-fluid text-center">
+        <hr>
+          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
+          <small>ALL RIGHTS RESERVED 2023</small>
+      </footer>
+    </div>
+
 

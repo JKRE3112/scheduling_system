@@ -107,7 +107,7 @@ if (!isLoggedIn()) {
       }
 
       // Fetch data from the users table
-            $sql = "SELECT usersUid, usersType, usersFName, usersLName FROM users";
+            $sql = "SELECT usersId, usersType, usersFName, usersLName FROM users";
             $result = $conn->query($sql);
 
             // Display data in table rows
@@ -118,8 +118,8 @@ if (!isLoggedIn()) {
                 echo "<td>" . $row["usersFName"] . "</td>";
                 echo "<td>" . $row["usersLName"] . "</td>";
                 echo "<td>";
-                echo '<a href="automatic_mona.php?usersUid=' . $row["usersUid"] . '" class="btn btn-secondary me-2" target="_blank">Schedule</a>';
-                echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["usersUid"] . ')">Delete</button>';
+                echo '<a href = "automatic_mona.php" button class="btn btn-secondary me-2">Schedule</a></button>';
+                echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["usersId"] . ')">Delete</button>';
                 echo "</td>";
                 echo "</tr>";
             }
@@ -146,22 +146,24 @@ if (!isLoggedIn()) {
 <!-- JavaScript function to handle user deletion -->
 <script>
   function deleteUser(userId) {
-    if (confirm("Are you sure you want to delete this user?")) {
-      // Send an AJAX request to delete the user from the database
-      $.ajax({
-        url: "includes/delete_user.php",
-        method: "POST",
-        data: { id: userId },
-        success: function (response) {
-          alert("User deleted successfully");
-          location.reload(); // Reload the page after successful deletion
-        },
-        error: function () {
-          alert("Error deleting user");
-        }
-      });
-    }
+  if (confirm("Are you sure you want to delete this user?")) {
+    // Send an AJAX request to delete the user from the database
+    $.ajax({
+      url: "includes/delete_user.php",
+      method: "POST",
+      data: { id: userId }, // Change 'usersId' to 'id'
+      success: function (response) {
+        alert("User deleted successfully");
+        location.reload(); // Reload the page after successful deletion
+      },
+      error: function () {
+        alert("Error deleting user");
+      }
+    });
   }
+}
+
+
 </script>
 
 <script>

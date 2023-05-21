@@ -5,6 +5,7 @@ if (!isLoggedIn()) {
 	header('location: login-first.php');
 }
 ?>
+
 <html>
 <head>
 <!doctype html>
@@ -26,7 +27,7 @@ if (!isLoggedIn()) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">   
     <title>Main</title>
   </head>
-  <body style="background-image: url(images/head2.svg);">
+  <body style="background-image: url(images/head2.svg);background-repeat: repeat;">
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
@@ -48,7 +49,6 @@ if (!isLoggedIn()) {
             <li class="nav-item">
               <a class="nav-link active" href="view.php">VIEWING</a>
             </li>
-           
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
             </li>
@@ -61,7 +61,7 @@ if (!isLoggedIn()) {
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
-          	
+        
           </ul>
         </div>
                 
@@ -72,59 +72,93 @@ if (!isLoggedIn()) {
         </div>
       </div>
     </nav>
-	<div class="container mb-1 mt-3">
-        <div class="row row justify-content-center">
-          <div class="col-12">
-            <h1 class="fw-bold mt-2" style="color:#18211D; font-size:48px; Font-Family: 'Arvo', Serif;">VIEWING</h1>
-            <hr>
-            <h2 class="mb-4" style="color:#AE0F36; Font-Family: 'Outfit', sans-Serif; font-size: 30px;">VIEW EVERY FACULTY, SUBJECTS, AND SECTIONS HERE:</h2>
-          </div>
 
-          
-		  <div class="col-lg-4 mb-4"> 
-            <div class="card" id="scard" style="width: auto; background-color: #FFFFFF;">
-			
-              <div class="card-body">
-                <h5 class="card-title" style="color:#C08F57 ;
-                font-family: 'Arvo', Serif;">FACULTY</h5>
-                <p class="card-text"  style="color: #736E76;font-family:'Outfit', sans-serif;">List of the Faculty and Head Schedules.</p>
-                <a href="viewfac.php" class="btn btn-primary" style="background-color: #AE0F36; border: none; font-family: 'Outfit', sans-serif;">View Faculty</a>
-              </div>
-            </div>
-          </div>
+<div class="container mt-3">
+  <h2>Sections Table</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Subject Code</th>
+        <th>Subject Name</th>
+        <th>Units</th>
+        <th>Year</th>
+        <th>Type</th>
+        <th>Course</th>
+        <th>Task</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
 
-          <div class="col-lg-4 mb-4"> 
-            <div class="card" id="scard" style="width: auto; background-color: #FFFFFF;">
-			
-              <div class="card-body">
-                <h5 class="card-title" style="color:#C08F57 ;
-                font-family: 'Arvo', Serif;">SUBJECTS</h5>
-                <p class="card-text"  style="color: #736E76;font-family:'Outfit', sans-serif;">List of all the subjects.</p>
-                <a href="viewsub.php" class="btn btn-primary" style="background-color: #AE0F36; border: none; font-family: 'Outfit', sans-serif;">View Subjects</a>
-              </div>
-            </div>
-          </div>
-       
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "insertion";
+      // Connect to the database
+      $conn = mysqli_connect("localhost", "root", "", "insertion");
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
 
-          <div class="col-lg-4 mb-4"> 
-            <div class="card" id="scard" style="width: auto; background-color: #FFFFFF;">
-          
-              <div class="card-body">
-                <h5 class="card-title" style="color:#C08F57 ;
-                font-family: 'Arvo', Serif;">SECTIONS</h5>
-                <p class="card-text"  style="color: #736E76;font-family:'Outfit', sans-serif;">List of Sections and its respective schedules.</p>
-                <a href="viewsec.php" class="btn btn-primary" style="background-color: #AE0F36; border: none; font-family: 'Outfit', sans-serif;">View Sections</a>
-              </div>
-            </div>
-          </div>
-          <footer id="footer" class="py-2 my-2 container-fluid text-center">
-        <hr>
-          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
-          <small>ALL RIGHTS RESERVED 2023</small>
-      </footer>
-    </div>
+      // Fetch data from the users table
+      $sql = "SELECT subject_code, subject_description, subject_units, year_level, subject_type, course FROM subject";
+      $result = $conn->query($sql);
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-   
+      // Display data in table rows
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          echo "<tr>";
+          echo "<td>" . $row["subject_code"] . "</td>";
+          echo "<td>" . $row["subject_description"] . "</td>";
+          echo "<td>" . $row["subject_units"] . "</td>";
+          echo "<td>" . $row["year_level"] . "</td>";
+          echo "<td>" . $row["subject_type"] . "</td>";
+          echo "<td>" . $row["course"] . "</td>";
+          echo "<td>";
+          echo '<button class="btn btn-dark" onclick="deleteSubject(' . $row['subject_code'] . ')">Delete</button>';
+          echo "</td>";
+          echo "</tr>";
+        }
+      } else {
+        echo "<tr><td colspan='4'>No users found</td></tr>";
+      }
+
+      // Close the database connection
+      $conn->close();
+      ?>
+    </tbody>
+  </table>
+</div>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!-- JavaScript function to handle user deletion -->
+<script>
+  function deleteSubject(subjectCode) {
+    if (confirm("Are you sure you want to delete this subject?")) {
+      // Send an AJAX request to delete the subject from the database
+      $.ajax({
+        url: "includes/delete_subject.php",
+        method: "POST",
+        data: { code: subjectCode },
+        success: function (response) {
+          alert("Subject deleted successfully");
+          location.reload(); // Reload the page after successful deletion
+        },
+        error: function () {
+          alert("Error deleting subject");
+        }
+      });
+    }
+  }
+</script>
+
+
 </body>
 </html>

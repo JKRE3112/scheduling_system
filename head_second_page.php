@@ -112,6 +112,21 @@ if ($result && mysqli_num_rows($result) > 0) {
     // Handle the case when the user is not found or an error occurred
     echo "Unable to retrieve user information.";
 }
+
+// Query the database to check if the row exists
+$query = "SELECT usersUid FROM demo WHERE usersUid = '$usersUid'";
+$result = mysqli_query($connection, $query);
+
+// Check if the query was successful and if the row exists
+if ($result && mysqli_num_rows($result) > 0) {
+  // Row exists, so set a flag to indicate it
+  $dataExists = true;
+} else {
+  // Row doesn't exist
+  $dataExists = false;
+}
+
+
 ?>
 
 
@@ -222,7 +237,10 @@ if ($result && mysqli_num_rows($result) > 0) {
                                     
                                 </select>
                             </div>
-                                
+                                 <!-- Display the message if data already exists -->
+                            <?php if ($dataExists) { ?>
+                                <p>Data already exists, Click delete if you want to schedule again</p>
+                            <?php } ?>
                                 <div class="form-group mb-4">
                               
                                 <button id="save_schedule_button" type="submit" name="save_select" class="btn btn-outline-secondary" disabled>Save Schedule</button>

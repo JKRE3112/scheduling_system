@@ -54,7 +54,9 @@
 session_start();
 include('includes/functions-inc.php');
 if (!isLoggedIn()) {
-	header('location: login-first.php');}
+    header('location: login-first.php');
+    exit; // Add exit to stop further execution
+}
 
 // Database connection parameters
 $servername = "localhost";
@@ -105,7 +107,7 @@ $databaseName = "insertion";
 
 $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 
-$query = "SELECT * FROM year_level";
+$query = "SELECT * FROM `year_level`";
 $result2 = mysqli_query($connect, $query);
 
 $options = "";
@@ -117,49 +119,34 @@ while ($row2 = mysqli_fetch_array($result2)) {
 // Retrieve the useruid from the session
 $usersUid = $_SESSION['usersUid'];
 
-
 // Handle the form submission
 if (isset($_POST['logBtn'])) {
-  // Retrieve the selected subjects
-  $subjects = $_POST['subjects'];
+    // Retrieve the selected subjects
+    $subjects = $_POST['subjects'];
 
-  // Prepare the query to insert the logged subjects into the "logs" table
-  $query = "INSERT INTO logs (usersUid, subject_description, subject_units) VALUES ";
+    // Prepare the query to insert the logged subjects into the "logs" table
+    $query = "INSERT INTO logs (usersUid, subject_description, subject_units) VALUES ";
 
-  foreach ($subjects as $subject_description) {
-      $subject_description = mysqli_real_escape_string($connection, $subject_description);
+    foreach ($subjects as $subject_description) {
+        $subject_description = mysqli_real_escape_string($connection, $subject_description);
+        $subject_units = mysqli_real_escape_string($connection, $subject_units);
+        $query .= "('$usersUid', '$subject_description'),";
+    }
 
-      // Retrieve the subject_units for the current subject_description
-      $unitsQuery = "SELECT subject_units FROM subject WHERE subject_description = '$subject_description'";
-      $unitsResult = mysqli_query($connection, $unitsQuery);
+    $query = rtrim($query, ','); // Remove the trailing comma
 
-      if ($unitsResult && mysqli_num_rows($unitsResult) > 0) {
-          $row = mysqli_fetch_assoc($unitsResult);
-          $subject_units = $row['subject_units'];
-
-          // Include subject_units in the query
-          $query .= "('$usersUid', '$subject_description', '$subject_units'),";
-      } else {
-          // Error occurred while retrieving subject_units
-          // Handle the error or perform any error handling actions
-      }
-  }
-
-  $query = rtrim($query, ','); // Remove the trailing comma
-
-  // Execute the query
-  if (mysqli_query($connection, $query)) {
-      // Query executed successfully, subjects logged
-      // You can perform any additional actions or redirect to another page if needed
-  } else {
-      // Error occurred while logging subjects
-      // You can log the error or perform any error handling actions
-  }
+    // Execute the query
+    if (mysqli_query($connection, $query)) {
+        // Query executed successfully, subjects logged
+        // You can perform any additional actions or redirect to another page if needed
+        echo "Subjects logged successfully.";
+    } else {
+        // Error occurred while logging subjects
+        // You can log the error or perform any error handling actions
+        echo "Error logging subjects.";
+    }
 }
-
-
 ?>
-
 
 <html>
 <head>
@@ -213,92 +200,151 @@ while ($row = mysqli_fetch_array($result1)) {
 }
 ?>
 
-<form method="POST">
-    <!-- Existing code for year level, course, and subject fields -->
-
-    <div class="form-group">
+<div class="form-group">
     <label class="col-md-4 control-label" for="subject"><h3>Preferred Subjects</h3></label>
     <div class="col-md-12" id="subjectFieldsContainer">
         <!-- Existing subject field -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="subject1">Subject 1</label>
+            <label class="col-md-4 control-label" for="subject1">Select Your Subject:</label>
             <div class="col-md-12">
-                <select id="subject1" name="subjects[]" class="form-control">
+                <select id="subject1" class="form-control">
                     <?php echo $suboptions; ?>
                 </select>
             </div>
         </div>
     </div>
 </div>
-    <div class="form-group align-right">
-    <label class="col-md-4 control-label" for="submit"></label>
-    <div class="col-md-12">
-      <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
-      <button id="logBtn" class="btn btn-outline-secondary" type="submit">Confirm Subjects</button>
-    </div>
-  </div>
-</form>
+
+        <!-- Add the table element here -->
+<div class="container mt-3">
+    
+    <table class="table table-bordered" id="selectedSubjectsTable">
+        <thead>
+            <tr>
+                <th>Selected Subject/s:</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 </div>
+
+<form method="post" action="">
+    <div class="form-group align-right">
+        <label class="col-md-4 control-label" for="submit"></label>
+        <div class="col-md-12">
+            <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
+            <button id="logBtn" class="btn btn-outline-secondary" type="submit" name="logBtn">Confirm Subjects</button>
+            <button id="undoBtn" class="btn btn-dark">Undo</button>
+        </div>
+    </div>
+</form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
- $(document).ready(function() {
-  var counter = 2; // Start from 2 to account for the existing subject field
-
-  $("#addSubjectBtn").click(function(event) {
-    event.preventDefault();
-    var newSubjectField =
-      '<div class="form-group">' +
-      '<label class="col-md-4 control-label" for="subject' +
-      counter +
-      '">Subject ' +
-      counter +
-      '</label>' +
-      '<div class="col-md-12">' +
-      '<select id="subject' +
-      counter +
-      '" name="subjects[]" class="form-control">' +
-      $("#subject1").html() +
-      "</select>" +
-      "</div>" +
-      "</div>";
-    $("#subjectFieldsContainer").append(newSubjectField);
-    counter++;
-  });
-
-  $("#logBtn").click(function(event) {
-    event.preventDefault();
-
-    // Retrieve the selected subjects
-    var subjects = $("select[name='subjects[]']").map(function() {
-      return $(this).val();
-    }).get();
-
-    if (subjects.length === 0) {
-      alert("Please select at least one subject.");
-      return;
-    }
-
-    // Use AJAX to send the form data to the server without reloading the page
-    $.ajax({
-      url: "", // Use the current URL or specify the server-side script URL
-      type: "POST",
-      data: { subjects: subjects, logBtn: 1 },
-      success: function(response) {
-        console.log(response); // Handle the response from the server
-        alert("Subjects confirmed.");
-      },
-      error: function(xhr, status, error) {
-        console.log(error); // Handle errors
-      }
+$(document).ready(function() {
+    // Event listener for year level change
+    $("#year_level").change(function() {
+        var selectedYearLevel = $(this).val();
+        var selectedCourse = $("#course_name").val();
+        fetchSubjects(1, selectedYearLevel, selectedCourse);
     });
 
-    $(this).prop("disabled", true); // Disable the button after clicking
-  });
+    // Event listener for form submission
+    $("form").submit(function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        logSubjects();
+    });
+
+    // Event listener for course change
+    $("#course_name").change(function() {
+        var selectedYearLevel = $("#year_level").val();
+        var selectedCourse = $(this).val();
+        fetchSubjects(1, selectedYearLevel, selectedCourse);
+    });
+
+    // Event listener for "Add Subject" button click
+    $("#addSubjectBtn").click(function() {
+        var selectedSubject = $("#subject1").val();
+        if (selectedSubject) {
+            addSelectedSubject(selectedSubject);
+        }
+        return false; // Prevent the default form submission
+    });
+
+
+    // Event listener for "Undo" button click
+    $("#undoBtn").click(function() {
+        undoLastSubject();
+    });
+
+    // Event listener for "Confirm Subjects" button click
+    $("#logBtn").click(function() {
+        logSubjects();
+        return false; // Prevent the default form submission
+    });
+
+    function addSelectedSubject(selectedSubject) {
+        // Append the selected subject to the table
+        $("#selectedSubjectsTable tbody").append("<tr><td>" + selectedSubject + "</td></tr>");
+    }
+
+
+    function fetchSubjects(counter, yearLevel, course) {
+        $.ajax({
+            url: "fetch_subjects.php", // Replace with the path to your server-side script
+            type: "POST",
+            data: { yearLevel: yearLevel, course: course },
+            success: function(response) {
+                $("#subject" + counter).html(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(error); // Handle errors
+            }
+        });
+    }
+
+    function addSelectedSubject(selectedSubject) {
+        // Append the selected subject to the table
+        $("#selectedSubjectsTable tbody").append("<tr><td>" + selectedSubject + "</td></tr>");
+    }
+
+    function undoLastSubject() {
+        // Find the last row in the table and remove it
+        $("#selectedSubjectsTable tbody tr:last-child").remove();
+    }
+
+    function logSubjects() {
+        var subjects = [];
+        $("#selectedSubjectsTable tbody tr").each(function() {
+            var subject = $(this).find("td:first-child").text();
+            subjects.push(subject);
+        });
+
+        if (subjects.length > 0) {
+            $.ajax({
+                url: "log_subjects.php", // Replace with the path to your server-side script for logging subjects
+                type: "POST",
+                data: { subjects: subjects },
+                success: function(response) {
+                    console.log(response); // Handle the response from the server
+                    alert("Subjects confirmed.");
+                },
+                error: function(xhr, status, error) {
+                    console.log(error); // Handle errors
+                }
+            });
+        } else {
+            console.log("No subjects selected.");
+        }
+    }
 });
-
-
 </script>
+<footer id="footer" class="py-2 my-2 container-fluid text-center">
+        <hr>
+          <small>Copyright &copy; TECHNOLOGICAL UNIVERSITY OF THE PHILIPPINES MANILA<br></small>
+          <small>ALL RIGHTS RESERVED 2023</small>
+      </footer>
+    </div>
 </body>
 </html>

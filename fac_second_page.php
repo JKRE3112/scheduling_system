@@ -36,7 +36,7 @@
               <a class="nav-link active" href="fac_second_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="faclog.php">SCHEDULE LOGS</a>
+              <a class="nav-link" href="faclog.php">SUBJECT LOGS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
@@ -92,6 +92,19 @@ if ($result && mysqli_num_rows($result) > 0) {
 } else {
     // Handle the case when the user is not found or an error occurred
     echo "Unable to retrieve user information.";
+}
+
+// Query the database to check if the row exists
+$query = "SELECT usersUid FROM demo WHERE usersUid = '$usersUid'";
+$result = mysqli_query($connection, $query);
+
+// Check if the query was successful and if the row exists
+if ($result && mysqli_num_rows($result) > 0) {
+  // Row exists, so set a flag to indicate it
+  $dataExists = true;
+} else {
+  // Row doesn't exist
+  $dataExists = false;
 }
 ?>
 
@@ -159,15 +172,15 @@ if ($result && mysqli_num_rows($result) > 0) {
                                     <option value="18 units">18 units(Regular Faculty only)</option>
                                      </select>
                             </div>
-                                <div class="form-group mb-3">
+                            <div class="form-group mb-3">
                                 <label for="">Start time</label>
                                 <select id="start_time" name="start_time" class="form-control" onchange="checkFields()">
                                     <option value="">--Select Start time--</option>
-                                    <option value="6 AM">6 AM</option>
-                                    <option value="7 AM">7 AM</option>
-                                    <option value="8 AM">8 AM</option>
-                                    <option value="9 AM">9 AM</option>
-                                    <option value="10 AM">10 AM</option>
+                                    <option value="6:00:00">6 AM</option>
+                                    <option value="7:00:00">7 AM</option>
+                                    <option value="8:00:00">8 AM</option>
+                                    <option value="9:00:00">9 AM</option>
+                                    <option value="10:00:00">10 AM</option>
                                     
                                 </select>
                             </div>
@@ -177,12 +190,12 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <select id="end_time" name="end_time" class="form-control" onchange="checkFields()">
                                     <option value="">--Select End time--</option>
                                     <option value="12 PM">12 PM</option>
-                                    <option value="2 PM">2 PM</option>
-                                    <option value="3 PM">3 PM</option>
-                                    <option value="4 PM">4 PM</option>
-                                    <option value="5 PM">5 PM</option>
-                                    <option value="6 PM">6 PM</option>
-                                    <option value="6 PM">7 PM</option>
+                                    <option value="14:00:00">2 PM</option>
+                                    <option value="15:00:00">3 PM</option>
+                                    <option value="16:00:00">4 PM</option>
+                                    <option value="17:00:00">5 PM</option>
+                                    <option value="18:00:00">6 PM</option>
+                                    <option value="19:00:00">7 PM</option>
                                     
                                 </select>
                             </div>
@@ -201,7 +214,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                                     
                                 </select>
                             </div>
-                                
+                            <?php if ($dataExists) { ?>
+                                <p>Data already exists, Click delete if you want to schedule again</p>
+                            <?php } ?>
                                 <div class="form-group mb-4">
                               
                                 <button id="save_schedule_button" type="submit" name="save_select" class="btn btn-outline-secondary" disabled>Save Schedule</button>

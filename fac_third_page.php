@@ -36,7 +36,10 @@
               <a class="nav-link active" href="fac_second_page.php">SCHEDULE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="faclog.php">SCHEDULE LOGS</a>
+              <a class="nav-link" href="faclog.php">SUBJECT LOGS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="facview.php">VIEW</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
@@ -272,23 +275,27 @@ $(document).ready(function() {
         return false; // Prevent the default form submission
     });
 
-
     // Event listener for "Undo" button click
-    $("#undoBtn").click(function() {
+    $("#undoBtn").click(function(e) {
+        e.preventDefault();
         undoLastSubject();
     });
 
+
     // Event listener for "Confirm Subjects" button click
-    $("#logBtn").click(function() {
+    $("#logBtn").click(function(e) {
+        e.preventDefault();
         logSubjects();
-        return false; // Prevent the default form submission
     });
+
 
     function addSelectedSubject(selectedSubject) {
         // Append the selected subject to the table
         $("#selectedSubjectsTable tbody").append("<tr><td>" + selectedSubject + "</td></tr>");
-    }
 
+        // Remove the selected subject from the selection options
+        $("#subject1 option[value='" + selectedSubject + "']").remove();
+    }
 
     function fetchSubjects(counter, yearLevel, course) {
         $.ajax({
@@ -304,15 +311,21 @@ $(document).ready(function() {
         });
     }
 
-    function addSelectedSubject(selectedSubject) {
-        // Append the selected subject to the table
-        $("#selectedSubjectsTable tbody").append("<tr><td>" + selectedSubject + "</td></tr>");
-    }
-
     function undoLastSubject() {
-        // Find the last row in the table and remove it
-        $("#selectedSubjectsTable tbody tr:last-child").remove();
+    var lastRow = $("#selectedSubjectsTable tbody tr:last-child");
+    if (lastRow.length > 0) {
+        // Remove the last row
+        lastRow.remove();
+
+        // Get the subject description from the removed row
+        var removedSubject = lastRow.find("td:first-child").text();
+
+        // Add the removed subject back to the selection options
+        $("#subject1").append("<option value='" + removedSubject + "'>" + removedSubject + "</option>");
     }
+}
+
+
 
     function logSubjects() {
         var subjects = [];
@@ -340,7 +353,6 @@ $(document).ready(function() {
     }
 });
 </script>
-
 
 
 

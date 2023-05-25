@@ -85,7 +85,7 @@ if (!isLoggedIn()) {
                     </div>
                 </div>
             </div>
-  <?php
+<?php
 // Database connection parameters
 $servername = "localhost";
 $username = "root";
@@ -103,30 +103,76 @@ if (!$connection) {
 // Retrieve the useruid from the session
 $usersUid = $_SESSION['usersUid'];
 
-// Query the database to retrieve the subject descriptions
-$query = "SELECT subject_description FROM logs WHERE usersUid = '$usersUid'";
-$result = mysqli_query($connection, $query);
+// Query the database to retrieve the units, overload, start_time, and end_time from the "demo" table
+$demoQuery = "SELECT units, overload, start_time, end_time FROM demo WHERE usersUid = '$usersUid'";
+$demoResult = mysqli_query($connection, $demoQuery);
 
 // Check if the query was successful and fetch the data
-if ($result && mysqli_num_rows($result) > 0) {
+if ($demoResult && mysqli_num_rows($demoResult) > 0) {
+    $demoRow = mysqli_fetch_assoc($demoResult);
+    $units = $demoRow['units'];
+    $overload = $demoRow['overload'];
+    $startTime = $demoRow['start_time'];
+    $endTime = $demoRow['end_time'];
+
     echo '<div class="container mt-3">';
     echo '<div class="row">';
     echo '<div class="col-lg-12">';
+    echo '<h4 class="text-center">Units: ' . $units . ' | Overload: ' . $overload . ' | Start Time: ' . $startTime . ' | End Time: ' . $endTime . '</h4>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+
+    // Query the database to retrieve the subject descriptions and subject code from the "logs" and "subject" tables
+    $query = "SELECT logs.subject_description, logs.subject_units
+          FROM logs
+          WHERE logs.usersUid = '$usersUid'";
+
+
     
-    while ($row = mysqli_fetch_assoc($result)) {
-        $subjectDescription = $row['subject_description'];
-        echo '<h4 class="text-center">' . $subjectDescription . '</h4>';
+
+    $result = mysqli_query($connection, $query);
+
+    // Check if the query was successful and fetch the data
+    if ($result && mysqli_num_rows($result) > 0) {
+        echo '<div class="container mt-3">';
+        echo '<div class="row">';
+        echo '<div class="col-lg-12">';
+        echo '<table class="table table-striped">';
+        echo '<thead class="thead-active">';
+        echo '<tr>';
+        echo '<th scope="col">Subject Head</th>';
+        echo '<th scope="col">Subject Units</th>';
+     
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $subjectDescription = $row['subject_description'];
+           
+            $subjectUnits = $row['subject_units'];
+
+            echo '<tr>';
+            echo '<td>' . $subjectDescription . '</td>';
+            echo '<td>' . $subjectUnits . '</td>';
+            
+            echo '</tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    } else {
+        echo '<p class="text-center">No subjects found.</p>';
     }
-    
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-} else {
-    // Handle the case when the user is not found or an error occurred
-    echo "Unable to retrieve user information.";
 }
 ?>
 
+</div>
+  </div>
 
      
    

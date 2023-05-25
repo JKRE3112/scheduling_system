@@ -46,8 +46,11 @@ if (!isLoggedIn()) {
                         <a class="nav-link" href="fac_second_page.php">SCHEDULE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="faclog.php">SUBJECT LOGS</a>
+                        <a class="nav-link" href="faclog.php">SUBJECT LOGS</a>
                     </li>
+                    <li class="nav-item">
+              <a class="nav-link active" href="facview.php">VIEW</a>
+            </li>
                     <li class="nav-item">
                         <a class="nav-link" href="includes/logout.php">LOGOUT</a>
                     </li>
@@ -60,60 +63,21 @@ if (!isLoggedIn()) {
         <div class="row">
             <div class="col-lg-12 d-flex flex-column justify-content-center">
                 <div class="greet mt-3">
-                    <h3 class="display-6 fw-bold text-center" style="color:#18211D;">FACULTY LOGS</h3>
+                    <h3 class="display-6 fw-bold text-center" style="color:#18211D;">VIEW YOUR SCHEDULE HERE:</h3>
                     <div class="desc fw-bolder" style="color:#5b202a;"> <br>
-                        <h5 class="text-center">History of your recent added subjects </h5>
+                        <h5 class="text-center">Here is your schedule: </h5>
                     </div>
                 </div>
             </div>
-            <?php
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "insertion";
-
-// Create a new database connection
-$connection = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check if the connection was successful
-if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-// Retrieve the useruid from the session
-$usersUid = $_SESSION['usersUid'];
-
-// Query the database to retrieve the subject descriptions
-$query = "SELECT subject_description FROM logs WHERE usersUid = '$usersUid'";
-$result = mysqli_query($connection, $query);
-
-// Check if the query was successful and fetch the data
-if ($result && mysqli_num_rows($result) > 0) {
-    echo '<div class="container mt-3">';
-    echo '<div class="row">';
-    echo '<div class="col-lg-12">';
-?>
+            
     
     <div class="container">
   <div class="row">
     <div class="col text-center">
-      <?php
-      while ($row = mysqli_fetch_assoc($result)) {
-        $subjectDescription = $row['subject_description'];
-        echo '<h4>' . $subjectDescription . '</h4>';
-      }
-      ?>
+      
     </div>
   </div>
 </div>
-
-<?php
-} else {
-  // Handle the case when the user is not found or an error occurred
-  echo '<div class="text-center">Unable to retrieve user information.</div>';
-}
-?>
 
 
 

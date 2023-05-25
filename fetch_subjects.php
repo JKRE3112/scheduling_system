@@ -2,6 +2,7 @@
 // Retrieve the selected year level and course from the AJAX request
 $yearLevel = $_POST['yearLevel'];
 $course = $_POST['course'];
+$courseType = $_POST['courseType'];
 
 // Database connection parameters
 $servername = "localhost";
@@ -18,7 +19,7 @@ if (!$connection) {
 }
 
 // Prepare the query to retrieve the subjects based on the selected year level and course
-$query = "SELECT * FROM `subject` WHERE year_level = '$yearLevel' AND course = '$course'";
+$query = "SELECT * FROM `subject` WHERE year_level = '$yearLevel' AND course = '$course' AND course_type='$courseType'";
 $result = mysqli_query($connection, $query);
 
 // Check if any subjects were found

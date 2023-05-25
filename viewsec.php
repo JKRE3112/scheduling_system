@@ -77,49 +77,57 @@ if (!isLoggedIn()) {
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Year Level</th>
-        <th>Course</th>
-        <th>Section Name</th>
+      <th>Section Name</th>
+        <th>Section Type</th>
         <th>Task</th>
       </tr>
     </thead>
     <tbody>
-      <?php
+    <?php
+// Database credentials
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "insertion";
 
-      $servername = "localhost";
-      $username = "root";
-      $password = "";
-      $dbname = "insertion";
-      // Connect to the database
-      $conn = mysqli_connect("localhost", "root", "", "insertion");
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-      }
+// Create a new database connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-      // Fetch data from the users table
-      $sql = "SELECT id, year_level, course_code, section_name FROM section";
-      $result = $conn->query($sql);
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-      // Display data in table rows
-      if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr>";
-          echo "<td>" . $row["year_level"] . "</td>";
-          echo "<td>" . $row["course_code"] . "</td>";
-          echo "<td>" . $row["section_name"] . "</td>";
-          echo "<td>";
-          echo '<button class="btn btn-secondary me-2">Schedule</button>';
-          echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["id"] . ')">Delete</button>';
-          echo "</td>";
-          echo "</tr>";
-        }
-      } else {
-        echo "<tr><td colspan='4'>No users found</td></tr>";
-      }
+// Query to fetch all section names and course types from the curriculum table
+$sql = "SELECT section_name, course_type AS course_types FROM curriculum GROUP BY section_name, course_type";
+$result = $conn->query($sql);
 
-      // Close the database connection
-      $conn->close();
-      ?>
+// Check if there are any sections in the database
+if ($result->num_rows > 0) {
+    // Loop through each section and display it in the table
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row['section_name'] . "</td>";
+        echo "<td>" . $row['course_types'] . "</td>";
+        echo "<td>";
+                echo '<a href="automatic_moto.php?sectionName=' . $row["section_name"] . '" class="btn btn-secondary me-2" target="_blank">Schedule</a>';
+                echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["section_name"] . ')">Delete</button>';
+                echo "</td>";
+        echo "</tr>";
+    }
+} else {
+    echo "<tr><td colspan='4'>No curriculum found, Please create a new one!</td></tr>";
+}
+
+
+
+// Close the database connection
+$conn->close();
+?>
+
+
+
+
     </tbody>
   </table>
 </div>

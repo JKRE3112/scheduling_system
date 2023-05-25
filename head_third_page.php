@@ -19,11 +19,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">   
     <title>Main</title>
   </head>
-  <body style="background-image: url(images/head2.svg);">
+  <body style="background-image: url(images/head2.svg); background-repeat: repeat;">
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
       <div class="container">
-        <a class="navbar-brand" href="main.php"><img src="images/brand2.png" width="200" height="50"></a>
+        <a class="navbar-brand" href="head.php"><img src="images/brand2.png" width="200" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -56,7 +56,6 @@
           		
           </ul>
         </div>
-                
       </li>
     </ul>
   </div>
@@ -128,7 +127,7 @@ $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 $query = "SELECT * FROM `year_level`";
 $result2 = mysqli_query($connect, $query);
 
-$options = "";
+$options = "<option value=''>Please Select A Year Level</option>";
 
 while ($row2 = mysqli_fetch_array($result2)) {
     $options .= "<option>" . $row2[1] . "</option>";
@@ -136,6 +135,7 @@ while ($row2 = mysqli_fetch_array($result2)) {
 
 // Retrieve the useruid from the session
 $usersUid = $_SESSION['usersUid'];
+
 
 // Handle the form submission
 if (isset($_POST['submitBtn'])) {
@@ -192,7 +192,7 @@ if (isset($_POST['submitBtn'])) {
     $query = "SELECT * FROM `course`";
     $result2 = mysqli_query($connect, $query);
 
-    $options = "";
+    $options = "<option value=''>Please Select A Course</option>";
 
     while ($row2 = mysqli_fetch_array($result2)) {
         $options .= "<option>" . $row2[2] . "</option>";
@@ -225,11 +225,12 @@ while ($row = mysqli_fetch_array($result1)) {
     <label class="col-md-6 control-label" for="course_type">Course Type</label>
     <div class="col-md-12">
         <select id="course_type" name="course_type" class="form-control">
-        <option value="STEM">STEM</option>
+            <option value="STEM">STEM</option>
             <option value="NON-STEM">NON-STEM</option>
         </select>
     </div>
 </div>
+<input type="hidden" id="selected_course_type" name="selected_course_type">
 
 
 <div class="form-group">
@@ -310,12 +311,13 @@ $("#year_level").change(function() {
 
     // Event listener for "Add Subject" button click
     $("#addSubjectBtn").click(function() {
-        var selectedSubject = $("#subject1").val();
-        if (selectedSubject) {
-            addSelectedSubject(selectedSubject);
-        }
-        return false; // Prevent the default form submission
-    });
+    var selectedSubject = $("#subject1").val();
+    var selectedCourseType = $("#course_type").val(); // Get the selected course type
+    if (selectedSubject) {
+        addSelectedSubject(selectedSubject, selectedCourseType); // Pass the selected course type as an argument
+    }
+    return false; // Prevent the default form submission
+});
 
     // Event listener for "Undo" button click
     $("#undoBtn").click(function(e) {
@@ -331,14 +333,16 @@ $("#year_level").change(function() {
     });
 
 
-    function addSelectedSubject(selectedSubject) {
-        // Append the selected subject to the table
-        $("#selectedSubjectsTable tbody").append("<tr><td>" + selectedSubject + "</td></tr>");
+    function addSelectedSubject(selectedSubject, selectedCourseType) {
+    // Append the selected subject to the table
+    $("#selectedSubjectsTable tbody").append("<tr><td>" + selectedSubject + "</td></tr>");
 
-        // Remove the selected subject from the selection options
-        $("#subject1 option[value='" + selectedSubject + "']").remove();
-    }
+    // Remove the selected subject from the selection options
+    $("#subject1 option[value='" + selectedSubject + "']").remove();
 
+    // Set the value of the hidden input field to the selected course type
+    $("#selected_course_type").val(selectedCourseType);
+}
     // Function to fetch subjects based on year level, course, and course type
     function fetchSubjects(counter, yearLevel, course, courseType) {
     $.ajax({

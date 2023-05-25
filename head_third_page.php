@@ -52,8 +52,7 @@
 	          </button>
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
-          			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-                <a class="dropdown-item" href="addsection.php">Add Section</a>
+                <a class="dropdown-item" href="addcurriculum.php">Add Section</a>
           		
           </ul>
         </div>
@@ -69,7 +68,7 @@
       </div>
     </nav>
 
-<?php
+    <?php
 session_start();
 include('includes/functions-inc.php');
 if (!isLoggedIn()) {
@@ -139,7 +138,7 @@ while ($row2 = mysqli_fetch_array($result2)) {
 $usersUid = $_SESSION['usersUid'];
 
 // Handle the form submission
-if (isset($_POST['logBtn'])) {
+if (isset($_POST['submitBtn'])) {
     // Retrieve the selected subjects
     $subjects = $_POST['subjects'];
 
@@ -187,6 +186,8 @@ if (isset($_POST['logBtn'])) {
         </div>
     </div>
 
+    
+
     <?php
     $query = "SELECT * FROM `course`";
     $result2 = mysqli_query($connect, $query);
@@ -219,20 +220,44 @@ while ($row = mysqli_fetch_array($result1)) {
 }
 ?>
 
+<!-- Add the new filter "Course Type" -->
+<div class="form-group">
+    <label class="col-md-6 control-label" for="course_type">Course Type</label>
+    <div class="col-md-12">
+        <select id="course_type" name="course_type" class="form-control">
+        <option value="STEM">STEM</option>
+            <option value="NON-STEM">NON-STEM</option>
+        </select>
+    </div>
+</div>
+
+
 <div class="form-group">
     <label class="col-md-4 control-label" for="subject"><h3>Preferred Subjects</h3></label>
-    <div class="col-md-12" id="subjectFieldsContainer">
+    <div class="col-md-8" id="subjectFieldsContainer">
         <!-- Existing subject field -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="subject1">Select Your Subject:</label>
-            <div class="col-md-12">
+        <div class="form-group row">
+            <label class="col-md-8 control-label" for="subject1">Select Your Subject:</label> 
+            <div class="col-md-8">
                 <select id="subject1" class="form-control">
                     <?php echo $suboptions; ?>
                 </select>
             </div>
+            <div class="col-md-4">
+                <button class="btn btn-dark" id="addSubjectBtn">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button class="btn btn-dark" id="undoBtn">
+                    <i class="fas fa-undo"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
 
         <!-- Add the table element here -->
 <div class="container mt-3">
@@ -251,9 +276,8 @@ while ($row = mysqli_fetch_array($result1)) {
     <div class="form-group align-right">
         <label class="col-md-4 control-label" for="submit"></label>
         <div class="col-md-12">
-            <button id="addSubjectBtn" class="btn btn-secondary">Add Subject</button>
-            <button id="logBtn" class="btn btn-outline-secondary" type="submit" name="logBtn">Confirm Subjects</button>
-            <button id="undoBtn" class="btn btn-dark">Undo</button>
+            <button id="submitBtn" class="btn btn-outline-secondary" type="submit" name="submitBtn">Confirm Subjects</button>
+            <button id="undoBtn" class="btn btn-dark">Finish Schedule</button>
         </div>
     </div>
 </form>
@@ -263,11 +287,12 @@ while ($row = mysqli_fetch_array($result1)) {
 <script>
 $(document).ready(function() {
     // Event listener for year level change
-    $("#year_level").change(function() {
-        var selectedYearLevel = $(this).val();
-        var selectedCourse = $("#course_name").val();
-        fetchSubjects(1, selectedYearLevel, selectedCourse);
-    });
+$("#year_level").change(function() {
+    var selectedYearLevel = $(this).val();
+    var selectedCourse = $("#course_name").val();
+    var selectedCourseType = $("#course_type").val(); // Get the selected course type
+    fetchSubjects(1, selectedYearLevel, selectedCourse, selectedCourseType);
+});
 
     // Event listener for form submission
     $("form").submit(function(e) {
@@ -279,7 +304,8 @@ $(document).ready(function() {
     $("#course_name").change(function() {
         var selectedYearLevel = $("#year_level").val();
         var selectedCourse = $(this).val();
-        fetchSubjects(1, selectedYearLevel, selectedCourse);
+        var selectedCourseType = $("#course_type").val(); // Get the selected course type
+        fetchSubjects(1, selectedYearLevel, selectedCourse, selectedCourseType);
     });
 
     // Event listener for "Add Subject" button click
@@ -291,47 +317,58 @@ $(document).ready(function() {
         return false; // Prevent the default form submission
     });
 
-
     // Event listener for "Undo" button click
-    $("#undoBtn").click(function() {
+    $("#undoBtn").click(function(e) {
+        e.preventDefault();
         undoLastSubject();
     });
 
+
     // Event listener for "Confirm Subjects" button click
-    $("#logBtn").click(function() {
+    $("#submitBtn").click(function(e) {
+        e.preventDefault();
         logSubjects();
-        return false; // Prevent the default form submission
     });
 
-    function addSelectedSubject(selectedSubject) {
-        // Append the selected subject to the table
-        $("#selectedSubjectsTable tbody").append("<tr><td>" + selectedSubject + "</td></tr>");
-    }
-
-
-    function fetchSubjects(counter, yearLevel, course) {
-        $.ajax({
-            url: "fetch_subjects.php", // Replace with the path to your server-side script
-            type: "POST",
-            data: { yearLevel: yearLevel, course: course },
-            success: function(response) {
-                $("#subject" + counter).html(response);
-            },
-            error: function(xhr, status, error) {
-                console.log(error); // Handle errors
-            }
-        });
-    }
 
     function addSelectedSubject(selectedSubject) {
         // Append the selected subject to the table
         $("#selectedSubjectsTable tbody").append("<tr><td>" + selectedSubject + "</td></tr>");
+
+        // Remove the selected subject from the selection options
+        $("#subject1 option[value='" + selectedSubject + "']").remove();
     }
+
+    // Function to fetch subjects based on year level, course, and course type
+    function fetchSubjects(counter, yearLevel, course, courseType) {
+    $.ajax({
+        url: "fetch_subjects.php",
+        type: "POST",
+        data: { yearLevel: yearLevel, course: course, courseType: courseType },
+        success: function(response) {
+            $("#subject" + counter).html(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
 
     function undoLastSubject() {
-        // Find the last row in the table and remove it
-        $("#selectedSubjectsTable tbody tr:last-child").remove();
+    var lastRow = $("#selectedSubjectsTable tbody tr:last-child");
+    if (lastRow.length > 0) {
+        // Remove the last row
+        lastRow.remove();
+
+        // Get the subject description from the removed row
+        var removedSubject = lastRow.find("td:first-child").text();
+
+        // Add the removed subject back to the selection options
+        $("#subject1").append("<option value='" + removedSubject + "'>" + removedSubject + "</option>");
     }
+}
+
+
 
     function logSubjects() {
         var subjects = [];
@@ -359,7 +396,6 @@ $(document).ready(function() {
     }
 });
 </script>
-
 
 
 

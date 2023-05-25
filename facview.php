@@ -27,12 +27,12 @@ if (!isLoggedIn()) {
     <title>Main</title>
 </head>
 
-<body style="background-image: url(images/fac1.svg);">
+<body style="background-image: url(images/fac1.svg); ">
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
         <div class="container">
-            <a class="navbar-brand" href="main.php">
-                <h2>CS Scheduling</h2>
+            <a class="navbar-brand" href="faculty.php">
+            <img src="images/brand2.png" width="200" height="50">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,14 +40,17 @@ if (!isLoggedIn()) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent" style="Font-Family: 'Arvo', Serif;">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bolder">
                     <li class="nav-item">
-                        <a class="nav-link active" href="faculty.php" style="color:#18211D">HOME</a>
+                        <a class="nav-link" href="faculty.php">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="fachome.php">ADD SCHEDULE</a>
+                        <a class="nav-link" href="fac_second_page.php">SCHEDULE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Faculty.display.php">SCHEDULE LOGS</a>
+                        <a class="nav-link" href="faclog.php">SUBJECT LOGS</a>
                     </li>
+                    <li class="nav-item">
+              <a class="nav-link active" href="facview.php">VIEW</a>
+            </li>
                     <li class="nav-item">
                         <a class="nav-link" href="includes/logout.php">LOGOUT</a>
                     </li>
@@ -56,16 +59,32 @@ if (!isLoggedIn()) {
     </nav>
 
     <!--Home-->
-    <div class="container my-3 py-1 ">
+    <div class="container my-3 py-1" style="display: flex; justify-content: center; align-items: center;">
         <div class="row">
-            <div class="col-lg-6 md-6 sm-6 d-flex flex-column justify-content-center">
+            <div class="col-lg-12 d-flex flex-column justify-content-center">
                 <div class="greet mt-3">
-                    <h3 class="display-6 fw-bold" style="color:#18211D;">FACULTY LOGS</h3>
+                    <h3 class="display-6 fw-bold text-center" style="color:#18211D;">VIEW YOUR SCHEDULE HERE:</h3>
                     <div class="desc fw-bolder" style="color:#5b202a;"> <br>
-                        <h5>History of your recent added schedule </h5>
+                        <h5 class="text-center">Here is your schedule: </h5>
                     </div>
                 </div>
             </div>
+            
+    
+    <div class="container">
+  <div class="row">
+    <div class="col text-center">
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
 
 
 
@@ -81,6 +100,8 @@ if (!isLoggedIn()) {
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+    </div>
 </body>
+
 
 </html>

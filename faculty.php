@@ -45,6 +45,9 @@ if (!isLoggedIn()) {
               <a class="nav-link" href="faclog.php">SUBJECT LOGS</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="facview.php">VIEW</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="includes/logout.php">LOGOUT</a>
             </li>
           

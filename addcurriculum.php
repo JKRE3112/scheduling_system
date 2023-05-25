@@ -5,81 +5,40 @@ if (!isLoggedIn()) {
     header('location: login-first.php');
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "insertion";
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Retrieve the selected value from the dropdown menu
+  $sectype = $_POST['sectype'];
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+  // Database connection details
+  $servername = 'localhost';
+  $username = 'root';
+  $password = '';
+  $database = 'insertion';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { // check if the form has been submitted
-    $year_level = $_POST['yearlevel']; // get the year level from the form data
-    $course_code = $_POST['coursecode']; // get the course code from the form data
-    $course_type = $_POST['sectype']; // get the course type from the form data
+  // Create a new MySQLi connection
+  $conn = new mysqli($servername, $username, $password, $database);
 
-    // Convert course code to abbreviation
-    $course_abbreviation = '';
-    switch ($course_code) {
-        case 'Information Technology':
-            $course_abbreviation = 'IT';
-            break;
-        case 'Information System':
-            $course_abbreviation = 'IS';
-            break;
-        case 'Computer Science':
-            $course_abbreviation = 'CS';
-            break;
-    }
+  // Check if the connection was successful
+  if ($conn->connect_error) {
+      die('Connection failed: ' . $conn->connect_error);
+  }
 
-    // Convert year level to number
-    $year_number = '';
-    switch ($year_level) {
-        case 'First Year':
-            $year_number = '1';
-            break;
-        case 'Second Year':
-            $year_number = '2';
-            break;
-        case 'Third Year':
-            $year_number = '3';
-            break;
-        case 'Fourth Year':
-            $year_number = '4';
-            break;
-    }
+  // Write the MySQL query to copy the columns of data
+  $query = "INSERT INTO curriculum (subject_code, subject_description, subject_units)
+            SELECT subject_code, subject_description, subject_units
+            FROM subject
+            WHERE sectype = '$sectype'";
 
-    // Get the count of existing sections for the same course, year, and type
-    $section_count_sql = "SELECT COUNT(*) AS section_count FROM section WHERE year_level = '$year_level' AND course_code = '$course_code' AND course_type = '$course_type'";
-    $section_count_result = $conn->query($section_count_sql);
-    $section_count = 0;
-    if ($section_count_result->num_rows > 0) {
-        $section_count_row = $section_count_result->fetch_assoc();
-        $section_count = $section_count_row['section_count'];
-    }
-
-    // Calculate the section suffix based on the section count
-    $section_suffix = chr(ord('A') + $section_count);
-
-    // Generate the section name
-    $section_name = 'BS' . $course_abbreviation . $year_number . $section_suffix;
-    if ($course_type == 'STEM') {
-        $section_name .= '-STEM';
-    } else {
-        $section_name .= '-NON STEM';
-    }
-
-    // SQL INSERT statement to insert data into the section table
-    $sql = "INSERT INTO section (year_level, course_code, course_type, section_name) VALUES ('$year_level', '$course_code', '$course_type', '$section_name')";
-
-    if ($conn->query($sql) === TRUE) {
-        $message = "Section inserted successfully";
-    } else {
-        $message = "Error: " . $sql . "<br>" . $conn->error;
-    }
-    $conn->close(); // close the database connection
+  // Execute the query
+  if ($conn->query($query) === TRUE) {
+      $message = 'Curriculum added successfully.';
+  } else {
+      $message = 'Error: ' . $conn->error;
+  }
+ 
+  // Close the database connection
+  $conn->close();
 }
 ?>
 
@@ -144,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // check if the form has been submi
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
           			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
          	
-                <a class="dropdown-item" href="addsection.php">Add Section</a>
+                <a class="dropdown-item" href="addsection.php">Add Curriculum</a>
           		
           </ul>
         </div>
@@ -164,12 +123,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // check if the form has been submi
   <div class="row">
     <div class="col-lg-6">
 		<div class="jumbotron">
-                Add your preferred sections here:
+                Add your preferred curriculums here:
 				<form class="form-horizontal" method= "POST">
 				<fieldset>
 
 				<!-- Form Name -->
-				<legend>Add Sections</legend>
+				<legend>Add Curriculum</legend>
 
 
 <!-- Year Level -->
@@ -197,6 +156,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // check if the form has been submi
     </div>
 </div>
 
+<!-- Term-->
+<div class="form-group">
+    <label class="col-md-4 control-label" for="subdescription">Term</label>
+    <div class="col-md-5">
+        <select id="sectype" name="sectype" class="form-control input-md" required="">
+            <option value="1">1st term</option>
+            <option value="2">2nd term</option>
+        </select>
+    </div>
+</div>
+
 <!-- Classification -->
 <div class="form-group">
     <label class="col-md-4 control-label" for="subdescription">Classification</label>
@@ -208,11 +178,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // check if the form has been submi
     </div>
 </div>
 
+<!-- Classification -->
+<div class="form-group">
+    <label class="col-md-4 control-label" for="subdescription">How many sections?</label>
+    <div class="col-md-5">
+        <select id="sectype" name="sectype" class="form-control input-md" required="">
+            <option value="1">1 section</option>
+            <option value="2">2 sections</option>
+            <option value="3">3 sections</option>
+            <option value="4">4 sections</option>
+            <option value="5">5 sections</option>
+            <option value="6">6 sections</option>
+            <option value="7">7 sections</option>
+            <option value="8">8 sections</option>
+            <option value="9">9 sections</option>
+            <option value="10">10 sections</option>
+        </select>
+    </div>
+</div>
+
+
 				<!-- Button -->
 				<div class="form-group" align="left">
   <label class="col-md-4 control-label" for="submit"></label>
   <div class="col-md-5">
-    <input type="submit" id="submit" name="submit" class="btn btn-warning" value="Add Section"></input>
+    <input type="submit" id="submit" name="submit" class="btn btn-warning" value="Add Curriculum"></input>
   </div>
 </div>
 <!-- Display the message -->
@@ -229,4 +219,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // check if the form has been submi
           <small>ALL RIGHTS RESERVED 2023</small>
       </footer>
     </div>
-

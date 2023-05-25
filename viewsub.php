@@ -59,8 +59,7 @@ if (!isLoggedIn()) {
 	          </button>
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
-          			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-                <a class="dropdown-item" href="addsection.php">Add Section</a>
+                <a class="dropdown-item" href="addcurriculum.php">Add Section</a>
         
           </ul>
         </div>

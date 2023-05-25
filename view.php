@@ -59,7 +59,6 @@ if (!isLoggedIn()) {
 	          </button>
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
-          			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
                 <a class="dropdown-item" href="addsection.php">Add Section</a>
           	
           </ul>
@@ -112,7 +111,7 @@ if (!isLoggedIn()) {
               <div class="card-body">
                 <h5 class="card-title" style="color:#C08F57 ;
                 font-family: 'Arvo', Serif;">SECTIONS</h5>
-                <p class="card-text"  style="color: #736E76;font-family:'Outfit', sans-serif;">List of Sections and its respective schedules.</p>
+                <p class="card-text"  style="color: #736E76;font-family:'Outfit', sans-serif;">List of curriculumns per section.</p>
                 <a href="viewsec.php" class="btn btn-primary" style="background-color: #AE0F36; border: none; font-family: 'Outfit', sans-serif;">View Sections</a>
               </div>
             </div>

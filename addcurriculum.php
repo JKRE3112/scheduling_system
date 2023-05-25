@@ -4,47 +4,7 @@ session_start();
 if (!isLoggedIn()) {
     header('location: login-first.php');
 }
-
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Retrieve the selected value from the dropdown menu
-  $sectype = $_POST['sectype'];
-
-  // Database connection details
-  $servername = 'localhost';
-  $username = 'root';
-  $password = '';
-  $database = 'insertion';
-
-  // Create a new MySQLi connection
-  $conn = new mysqli($servername, $username, $password, $database);
-
-  // Check if the connection was successful
-  if ($conn->connect_error) {
-      die('Connection failed: ' . $conn->connect_error);
-  }
-
-  // Write the MySQL query to copy the columns of data
-  $query = "INSERT INTO curriculum (subject_code, subject_description, subject_units)
-            SELECT subject_code, subject_description, subject_units
-            FROM subject
-            WHERE sectype = '$sectype'";
-
-  // Execute the query
-  if ($conn->query($query) === TRUE) {
-      $message = 'Curriculum added successfully.';
-  } else {
-      $message = 'Error: ' . $conn->error;
-  }
- 
-  // Close the database connection
-  $conn->close();
-}
 ?>
-
-
-
-
 <html>
 <head>
 <!doctype html>
@@ -101,9 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	          </button>
 	          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
          			 <a class="dropdown-item" href="addsubject.php">Add Subjects</a>
-          			<a class="dropdown-item" href="addcourse.php"> Add Course</a>
-         	
-                <a class="dropdown-item" href="addsection.php">Add Curriculum</a>
+                <a class="dropdown-item" href="addcurriculum.php">Add Curriculum</a>
           		
           </ul>
         </div>
@@ -124,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="col-lg-6">
 		<div class="jumbotron">
                 Add your preferred curriculums here:
-				<form class="form-horizontal" method= "POST">
+                <form class="form-horizontal" method="POST" action="curriculum.php">
+
 				<fieldset>
 
 				<!-- Form Name -->
@@ -136,10 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label class="col-md-4 control-label" for="subdescription">Year Level</label>
     <div class="col-md-5">
         <select id="yearlevel" name="yearlevel" class="form-control input-md" required="">
-            <option value="First Year">First Year</option>
-            <option value="Second Year">Second Year</option>
-            <option value="Third Year">Third Year</option>
-            <option value="Fourth Year">Fourth Year</option>
+            <option value="First year">First Year</option>
+            <option value="Second year">Second Year</option>
+            <option value="Third year">Third Year</option>
+            <option value="Fourth year">Fourth Year</option>
         </select>
     </div>
 </div>
@@ -148,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="form-group">
     <label class="col-md-4 control-label" for="subdescription">Course</label>
     <div class="col-md-5">
-        <select id="coursecode" name="coursecode" class="form-control input-md" required="">
+        <select id="course" name="course" class="form-control input-md" required="">
             <option value="Information Technology">Information Technology</option>
             <option value="Information System">Information System</option>
             <option value="Computer Science">Computer Science</option>
@@ -168,21 +127,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <!-- Classification -->
+<!-- Course Type -->
 <div class="form-group">
-    <label class="col-md-4 control-label" for="subdescription">Classification</label>
+    <label class="col-md-4 control-label" for="subdescription">Course Type</label>
     <div class="col-md-5">
-        <select id="sectype" name="sectype" class="form-control input-md" required="">
+        <select id="course_type" name="course_type" class="form-control input-md" required="">
             <option value="STEM">STEM</option>
             <option value="NON-STEM">NON-STEM</option>
         </select>
     </div>
 </div>
 
+
 <!-- Classification -->
 <div class="form-group">
-    <label class="col-md-4 control-label" for="subdescription">How many sections?</label>
+    <label class="col-md-4 control-label">How many sections?</label>
     <div class="col-md-5">
-        <select id="sectype" name="sectype" class="form-control input-md" required="">
+        <select id="numsections" name="numsections" class="form-control input-md" required="">
             <option value="1">1 section</option>
             <option value="2">2 sections</option>
             <option value="3">3 sections</option>
@@ -202,16 +163,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<div class="form-group" align="left">
   <label class="col-md-4 control-label" for="submit"></label>
   <div class="col-md-5">
-    <input type="submit" id="submit" name="submit" class="btn btn-warning" value="Add Curriculum"></input>
+    <input type="submit" id="submit" name="submit" class="btn btn-warning" value="Create Curriculum"></input>
   </div>
 </div>
-<!-- Display the message -->
-<p><?php echo isset($message) ? $message : ''; ?></p>
 
-				</fieldset>
-				</form>
-		</div>		
-    </div>
+
 
     <footer id="footer" class="py-2 my-2 container-fluid text-center">
         <hr>

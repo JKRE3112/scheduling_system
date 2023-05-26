@@ -278,7 +278,7 @@ while ($row = mysqli_fetch_array($result1)) {
         <label class="col-md-4 control-label" for="submit"></label>
         <div class="col-md-12">
             <button id="submitBtn" class="btn btn-outline-secondary" type="submit" name="submitBtn">Confirm Subjects</button>
-            <button id="undoBtn" class="btn btn-dark">Finish Schedule</button>
+            <a href= "scheduling_head.php" button id="undoBtn" class="btn btn-dark">Finish Schedule</a></button>
         </div>
     </div>
 </form>

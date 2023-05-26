@@ -24,28 +24,24 @@ if (isset($_POST['subjects'])) {
     $subjects = $_POST['subjects'];
 
     // Prepare the query to insert the logged subjects into the "logs" table
-    $query = "INSERT INTO logs (usersUid, subject_description, subject_units, subject_hours, course_type) VALUES ";
+    $query = "INSERT INTO logs (usersUid, subject_description, subject_units) VALUES ";
 
     foreach ($subjects as $subject_description) {
         $subject_description = mysqli_real_escape_string($connection, $subject_description);
-
+        
         // Fetch the subject_units from the subject db table based on the subject_description
-        $subject_units_query = "SELECT subject_units, subject_hours, course_type FROM subject WHERE subject_description = '$subject_description'";
+        $subject_units_query = "SELECT subject_units FROM subject WHERE subject_description = '$subject_description'";
         $subject_units_result = mysqli_query($connection, $subject_units_query);
-
+        
         if ($subject_units_result && mysqli_num_rows($subject_units_result) > 0) {
             $row = mysqli_fetch_assoc($subject_units_result);
             $subject_units = $row['subject_units'];
-            $subject_hours = $row['subject_hours'];
-            $course_type = $row['course_type'];
         } else {
-            // If subject_units not found, you can set default values or handle the error
+            // If subject_units not found, you can set a default value or handle the error
             $subject_units = "Unknown";
-            $subject_hours = "Unknown";
-            $course_type = "Unknown";
         }
-
-        $query .= "('$usersUid', '$subject_description', '$subject_units', '$subject_hours', '$course_type'),";
+        
+        $query .= "('$usersUid', '$subject_description', '$subject_units'),";
     }
 
     $query = rtrim($query, ','); // Remove the trailing comma

@@ -73,7 +73,7 @@ if (!isLoggedIn()) {
     </nav>
 
 <div class="container mt-3">
-  <h2>Sections Table</h2>
+  <h2>Subjects Table</h2>
   <table class="table table-striped">
     <thead>
       <tr>

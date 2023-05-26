@@ -24,7 +24,7 @@ include('includes/functions-inc.php');
 
 </head>
 
-<body style="background-image: url(images/head2.svg);">
+<body style="background-image: url(images/head4.svg);">
     <!-- Navigation Bar-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar">
         <div class="container">
@@ -71,7 +71,7 @@ include('includes/functions-inc.php');
   
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-3">
     <?php
 // Connect to the database
 $servername = "localhost";
@@ -86,51 +86,84 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if usersUid is provided via GET request
-if (isset($_GET['section_name'])) {
+// Check if section_name and course_type are provided via GET request
+if (isset($_GET['section_name']) && isset($_GET['course_type'])) {
     $section_name = $_GET['section_name'];
+    $course_type = $_GET['course_type'];
 
-    $sql = "SELECT subject_code, subject_description, subject_units, subject_hours, usersUid, duration, day FROM curriculum WHERE section_name = '$section_name'";
-    echo "SQL Query: $sql";
-$result = $conn->query($sql);
+    // Query the curriculum table
+    $sql = "SELECT subject_code, subject_description, subject_units, subject_hours, usersUid, duration, day FROM curriculum WHERE section_name = '$section_name' AND course_type = '$course_type'";
+    $result = $conn->query($sql);
 
+    if ($result->num_rows > 0) {
+        // Determine the course name based on the section name
+        $courseName = "";
+        if (strpos($section_name, "CS") !== false) {
+            $courseName = "Computer Science";
+        } elseif (strpos($section_name, "IT") !== false) {
+            $courseName = "Information Technology";
+        } elseif (strpos($section_name, "IS") !== false) {
+            $courseName = "Information System";
+        } else {
+            $courseName = "TBA";
+        }
+        // Create a section title using Bootstrap styles
+        echo "<h4>Section: $section_name - $course_type</h4>";
+        echo "<h5>Course:  - $courseName</h5>";
 
-// Check if there are any results
-if ($result->num_rows > 0) {
-    // Create a table to display the results
-    echo "<table>";
-    echo "<tr>";
-    echo "<th>Subject Code</th>";
-    echo "<th>Subject Description</th>";
-    echo "<th>Subject Units</th>";
-    echo "<th>Subject Hours</th>";
-    echo "<th>UsersUid</th>";
-    echo "<th>Duration</th>";
-    echo "<th>Day</th>";
-    echo "</tr>";
-
-    // Loop through the results and display each row in a table row
-    while ($row = $result->fetch_assoc()) {
+        // Create a table to display the results with Bootstrap styles
+        echo "<table class='table table-bordered'>";
+        echo "<thead class='thead-dark'>";
         echo "<tr>";
-        echo "<td>" . $row['subject_code'] . "</td>";
-        echo "<td>" . $row['subject_description'] . "</td>";
-        echo "<td>" . $row['subject_units'] . "</td>";
-        echo "<td>" . $row['subject_hours'] . "</td>";
-        echo "<td>" . $row['usersUid'] . "</td>";
-        echo "<td>" . $row['duration'] . "</td>";
-        echo "<td>" . $row['day'] . "</td>";
+        echo "<th>Subject Code</th>";
+        echo "<th>Subject Description</th>";
+        echo "<th>Subject Units</th>";
+        echo "<th>Subject Hours</th>";
+        echo "<th>Faculty</th>";
+        echo "<th>Duration</th>";
+        echo "<th>Day</th>";
         echo "</tr>";
-    }
+        echo "</thead>";
+        echo "<tbody>";
 
-    echo "</table>";
-} else {
-    echo "No results found.";
-}
+        // Loop through the results and display each row in a table row
+        while ($row = $result->fetch_assoc()) {
+            $usersUid = $row['usersUid'];
+
+            // Query the users table to retrieve usersFName and usersLName based on usersUid
+            $userQuery = "SELECT usersFName, usersLName FROM users WHERE usersUid = '$usersUid'";
+            $userResult = $conn->query($userQuery);
+
+            // Check if the query was successful and retrieved a row
+            if ($userResult && $userResult->num_rows > 0) {
+                $userRow = $userResult->fetch_assoc();
+                $fullName = $userRow['usersFName'] . " " . $userRow['usersLName'];
+            } else {
+                $fullName = "TBA"; // Default value if the user is not found
+            }
+
+            echo "<tr>";
+            echo "<td>" . $row['subject_code'] . "</td>";
+            echo "<td>" . $row['subject_description'] . "</td>";
+            echo "<td>" . $row['subject_units'] . "</td>";
+            echo "<td>" . $row['subject_hours'] . "</td>";
+            echo "<td>" . $fullName . "</td>";
+            echo "<td>" . $row['duration'] . "</td>";
+            echo "<td>" . $row['day'] . "</td>";
+            echo "</tr>";
+        }
+
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "No results found.";
+    }
 }
 
 // Close the connection
 $conn->close();
 ?>
+
 
 
 <footer id="footer" class="py-2 my-2 container-fluid text-center">

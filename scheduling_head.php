@@ -21,19 +21,26 @@ $query = "
     SET usersUid = (
         SELECT MIN(l.usersUid)
         FROM logs AS l
-        WHERE (l.subject_description = c.subject_description OR c.subject_description IS NULL)
+        WHERE l.subject_description = c.subject_description
           AND c.section_name = (
               SELECT MIN(section_name)
               FROM curriculum
               WHERE (subject_description = c.subject_description OR c.subject_description IS NULL)
+                AND usersUid = ''
           )
           AND l.usersUid NOT IN (
               SELECT usersUid
               FROM curriculum
           )
     )
-    WHERE c.usersUid = ''
+    WHERE c.usersUid = '' AND c.usersUid NOT IN (
+        SELECT usersUid
+        FROM curriculum
+        WHERE usersUid != ''
+    )
 ";
+
+
 
 // Execute the query
 if ($mysqli->query($query) === TRUE) {

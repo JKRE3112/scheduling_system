@@ -79,6 +79,7 @@ if (!isLoggedIn()) {
       <tr>
       <th>Section Name</th>
         <th>Section Type</th>
+        <th>Course</th>
         <th>Task</th>
       </tr>
     </thead>
@@ -106,20 +107,31 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Loop through each section and display it in the table
     while ($row = $result->fetch_assoc()) {
+        // Determine the course name based on the section name
+        $courseName = "";
+        if (strpos($row['section_name'], "CS") !== false) {
+            $courseName = "Computer Science";
+        } elseif (strpos($row['section_name'], "IT") !== false) {
+            $courseName = "Information Technology";
+        } elseif (strpos($row['section_name'], "IS") !== false) {
+            $courseName = "Information System";
+        } else {
+            $courseName = "TBA";
+        }
+
         echo "<tr>";
         echo "<td>" . $row['section_name'] . "</td>";
         echo "<td>" . $row['course_types'] . "</td>";
+        echo "<td>" . $courseName . "</td>";
         echo "<td>";
-                echo '<a href="automatic_moto.php?sectionName=' . $row["section_name"] . '" class="btn btn-secondary me-2" target="_blank">Schedule</a>';
-                echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["section_name"] . ')">Delete</button>';
-                echo "</td>";
+        echo '<a href="automatic_moto.php?section_name=' . $row["section_name"] . '&course_type=' . $row["course_types"] . '" class="btn btn-secondary me-2" target="_blank">Schedule</a>';
+        echo '<button class="btn btn-dark" onclick="deleteUser(' . $row["section_name"] . ')">Delete</button>';
+        echo "</td>";
         echo "</tr>";
     }
 } else {
     echo "<tr><td colspan='4'>No curriculum found, Please create a new one!</td></tr>";
 }
-
-
 
 // Close the database connection
 $conn->close();

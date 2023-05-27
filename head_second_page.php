@@ -210,7 +210,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <label for="">End time</label>
                                 <select id="end_time" name="end_time" class="form-control" onchange="checkFields()">
                                     <option value="">--Select End time--</option>
-                                    <option value="12 PM">12 PM</option>
+                                    <option value="12:00:00">12 PM</option>
                                     <option value="14:00:00">2 PM</option>
                                     <option value="15:00:00">3 PM</option>
                                     <option value="16:00:00">4 PM</option>

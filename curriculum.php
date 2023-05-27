@@ -50,22 +50,27 @@ if (isset($_POST['submit'])) {
         $sectionName .= '4';
     }
 
-    // Insert curriculum data into the database
-    for ($i = 1; $i <= $numSections; $i++) {
-        $section = $sectionName . chr(64 + $i);
-        $query = "INSERT INTO curriculum (section_name, subject_code, subject_description, subject_units, subject_hours, course_type)
-                  SELECT '$section', subject_code, subject_description, subject_units, subject_hours, course_type
-                  FROM subject
-                  WHERE year_level = '$yearLevel' AND course = '$course' AND subject_term = '$term' AND course_type = '$course_type'";
-        mysqli_query($conn, $query);
-    }
+    
+
+   // Insert curriculum data into the database
+for ($i = 1; $i <= $numSections; $i++) {
+    $section = $sectionName . chr(64 + $i);
+    $sectionNameWithSuffix = $course_type === 'NON-STEM' ? $section . '-NS' : $section;
+    
+    $query = "INSERT INTO curriculum (section_name, subject_code, subject_description, subject_units, subject_hours, course_type)
+              SELECT '$sectionNameWithSuffix', subject_code, subject_description, subject_units, subject_hours, course_type
+              FROM subject
+              WHERE year_level = '$yearLevel' AND course = '$course' AND subject_term = '$term' AND course_type = '$course_type'";
+    mysqli_query($conn, $query);
+}
+
 
     // Close the database connection
     mysqli_close($conn);
 
     // Display a success message
    echo '<script type="text/javascript">
-    alert("New Subject Added!");
+    alert("Curriculum Added!");
        location="addcurriculum.php";
          </script>';
 }

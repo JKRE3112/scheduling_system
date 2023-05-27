@@ -130,17 +130,21 @@ if ($demoResult && mysqli_num_rows($demoResult) > 0) {
      
         echo '</tr>';
         echo '</thead>';
-        echo '<tbody>';
-
         while ($row = mysqli_fetch_assoc($result)) {
             $subjectDescription = $row['subject_description'];
-           
             $subjectUnits = $row['subject_units'];
+
+            // Skip duplicate subject descriptions
+            if (in_array($subjectDescription, $subjectDescriptions)) {
+                continue;
+            }
+
+            // Add subject description to the array
+            $subjectDescriptions[] = $subjectDescription;
 
             echo '<tr>';
             echo '<td>' . $subjectDescription . '</td>';
             echo '<td>' . $subjectUnits . '</td>';
-            
             echo '</tr>';
         }
 
@@ -154,7 +158,6 @@ if ($demoResult && mysqli_num_rows($demoResult) > 0) {
     }
 }
 ?>
-
 
 
 

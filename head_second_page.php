@@ -189,9 +189,9 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <select id="units" name="units" class="form-control" onchange="checkFields()">
                                 <!-- Options -->
                                     <option value="">--Select Units--</option>
-                                    <option value="3 units">3 units(Head/Admin only)</option>
-                                    <option value="6 units">6 units(Head/Admin only)</option>
-                                    <option value="9 units">9 units(Head/Admin only)</option>
+                                    <option value="3">3 units(Head/Admin only)</option>
+                                    <option value="6">6 units(Head/Admin only)</option>
+                                    <option value="9">9 units(Head/Admin only)</option>
                                      </select>
                             </div>
                             <div class="form-group mb-3">
@@ -241,6 +241,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <button id="save_schedule_button" type="submit" name="save_select" class="btn btn-outline-secondary" disabled>Save Schedule</button>
                                 <a id="next_button" href="head_third_page.php" class="btn btn-secondary" button type="submit" disabled>Next</a>
                                 <button type="submit" name="delete_last" class="btn btn-dark">Delete</button>
+                            
                                 
                         </form>
 

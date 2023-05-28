@@ -8,9 +8,11 @@ if (isset($_POST['save_select'])) {
     $start_time = $_POST['start_time'];
     $end_time = $_POST['end_time'];
     $overload = $_POST['overload'];
+    $total_unit = $units + $overload;
 
-    $query = "INSERT INTO demo (UsersUid, units, start_time, end_time, overload) VALUES ('$usersUid', '$units', '$start_time', '$end_time', '$overload')";
+    $query = "INSERT INTO demo (usersUid, units, start_time, end_time, overload, total_unit) VALUES ('$usersUid', '$units', '$start_time', '$end_time', '$overload', '$total_unit')";
     $query_run = mysqli_query($con, $query);
+    
 
     if ($query_run) {
         $_SESSION['status'] = "Inserted Successfully";

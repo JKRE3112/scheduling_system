@@ -172,7 +172,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <select id="units" name="units" class="form-control" onchange="checkFields()">
                                 <!-- Options -->
                                     <option value="">--Select Units--</option>
-                                    <option value="18 units">18 units(Regular Faculty only)</option>
+                                    <option value="18">18 units(Regular Faculty only)</option>
                                      </select>
                             </div>
                             <div class="form-group mb-3">

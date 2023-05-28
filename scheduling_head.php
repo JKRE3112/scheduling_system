@@ -44,7 +44,10 @@ $query = "
 
 // Execute the query
 if ($mysqli->query($query) === TRUE) {
-    echo "Data updated successfully in curriculum table!";
+    echo '<script type="text/javascript">
+    alert("Data Added!");
+       location="addcurriculum.php";
+         </script>';
 } else {
     echo "Error updating data: " . $mysqli->error;
 }

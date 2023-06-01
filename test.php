@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
         $x = 0;
 
         // Kunin lahat ng record sa curriculum table since need to check kung existing na ba yung duration sa subject or vacant pa
-        $get_curriculum_data = "SELECT usersUid, subject_code, duration, day FROM curriculum";
+        $get_curriculum_data = "SELECT usersUid, subject_code, duration, dayOfWeek FROM curriculum";
         $curriculum_result = $conn->query($get_curriculum_data);
 
         // Kunin record ni logged in user or yung user na lalagyan ng input for duration and day
@@ -60,11 +60,11 @@ if (isset($_POST['submit'])) {
                             // Check if current $placeholder_duration is already existing in curriculum
                             while ($x < count($weekdays)) {
                                 // Loop to check for available days
-                                $day = $weekdays[$x]; // Get day from weekday array
+                                $dayOfWeek = $weekdays[$x]; // Get day from weekday array
 
                                 if ($row['subject_duration'] == $user_row['subject_duration'] &&
                                     $row['duration'] == $placeholder_duration &&
-                                    $day == $row['day']
+                                    $dayOfWeek == $row['dayOfWeek']
                                 ) {
                                     // Check if day and duration is already existing for the subject
                                     // TRUE: check next day | FALSE: insert to duration and day column
@@ -73,19 +73,10 @@ if (isset($_POST['submit'])) {
                                     // Not sure kung san niyo nakukuha yung new sections haha pero kung same subject, duration, and day
                                     // Dapat maiinsert siya as new_section :)
                                     $new_section = ""; // Provide the appropriate value for $new_section
-                                    $insert_record = "INSERT INTO curriculum (duration, day, section) VALUES ('$placeholder_duration', '$day', '$new_section')";
+                                    $insert_record = "INSERT INTO curriculum (duration, dayOfWeek, section) VALUES ('$placeholder_duration', '$day', '$new_section')";
                                     $conn->query($insert_record);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
-       
-    }
-			// Execute the query
+                                    // Execute the query
 			if ($mysqli->query($query) === TRUE) {
 				echo '<script type="text/javascript">
 				alert("Curriculum Added!");
@@ -97,6 +88,17 @@ if (isset($_POST['submit'])) {
 	
 			// Close the database connection
 			$mysqli->close();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+       
+    }
+			
 }
 
 

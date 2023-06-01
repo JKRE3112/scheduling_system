@@ -92,7 +92,7 @@ if (isset($_GET['section_name']) && isset($_GET['course_type'])) {
     $course_type = $_GET['course_type'];
 
     // Query the curriculum table
-    $sql = "SELECT subject_code, subject_description, subject_units, subject_hours, usersUid, duration, day FROM curriculum WHERE section_name = '$section_name' AND course_type = '$course_type'";
+    $sql = "SELECT subject_code, subject_description, subject_units, subject_hours, usersUid, duration, dayOfWeek FROM curriculum WHERE section_name = '$section_name' AND course_type = '$course_type'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -149,7 +149,7 @@ if (isset($_GET['section_name']) && isset($_GET['course_type'])) {
             echo "<td>" . $row['subject_hours'] . "</td>";
             echo "<td>" . $fullName . "</td>";
             echo "<td>" . $row['duration'] . "</td>";
-            echo "<td>" . $row['day'] . "</td>";
+            echo "<td>" . $row['dayOfWeek'] . "</td>";
             echo "</tr>";
         }
 

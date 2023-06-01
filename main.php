@@ -51,13 +51,12 @@
         <div class="row">
           <div class="col-lg-6 md-6 sm-6 d-flex flex-column justify-content-center">
                   <div class="greet mt-3">
-                    <h3 class="display-6 fw-bold" style="color:#AE0F36;">WELCOME</h3><br>
-					<h2 class="display-4 fw-bold" style="color:#18211D">CS</h2>
+                    <h3 class="display-6 fw-bold" style="color:#AE0F36;"></h3><br>
+					<h2 class="display-4 fw-bold" style="color:#18211D">COMPUTER STUDIES</h2>
                     <h1 class="display-4 fw-bold" style="color:#18211D">AUTOMATED SCHEDULING</h1>
                   </div>
                     <div class="desc fw-bolder" style="color:#AE0F36;"> <br>
-                      <h5>A scheduling system</h5>
-                      <h5>That utilizes beehive algorithm.</h5>
+                     
                     </div>&nbsp;
 
                      

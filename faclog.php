@@ -109,27 +109,27 @@ if ($demoResult && mysqli_num_rows($demoResult) > 0) {
 
     // Query the database to retrieve the subject descriptions and subject code from the "logs" and "subject" tables
     $query = "SELECT logs.subject_description, logs.subject_units
-          FROM logs
-          WHERE logs.usersUid = '$usersUid'";
-
-
-    
+              FROM logs
+              WHERE logs.usersUid = '$usersUid'";
 
     $result = mysqli_query($connection, $query);
 
     // Check if the query was successful and fetch the data
     if ($result && mysqli_num_rows($result) > 0) {
+        $subjectDescriptions = array(); // Array to store unique subject descriptions
+
         echo '<div class="container mt-3">';
         echo '<div class="row">';
         echo '<div class="col-lg-12">';
         echo '<table class="table table-striped">';
-        echo '<thead>';
+        echo '<thead class="thead-active">';
         echo '<tr>';
         echo '<th scope="col">Subject Head</th>';
         echo '<th scope="col">Subject Units</th>';
-     
         echo '</tr>';
         echo '</thead>';
+        echo '<tbody>';
+
         while ($row = mysqli_fetch_assoc($result)) {
             $subjectDescription = $row['subject_description'];
             $subjectUnits = $row['subject_units'];
@@ -158,6 +158,8 @@ if ($demoResult && mysqli_num_rows($demoResult) > 0) {
     }
 }
 ?>
+
+
 
 
 

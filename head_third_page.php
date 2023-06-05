@@ -279,7 +279,7 @@ while ($row = mysqli_fetch_array($result1)) {
         <div class="col-md-12">
             <button id="submitBtn" class="btn btn-outline-secondary" type="submit" name="submitBtn">Confirm Subjects</button>
             <a href= "scheduling_head.php" class="btn btn-dark">Finish Schedule</a></button>
-            <a href= "test.php" class="btn btn-dark" id="submit">Plot Schedule</a></button>
+            <a href= "test2.php" class="btn btn-dark" id="submit">Plot Schedule</a></button>
         </div>
     </div>
 </form>
